@@ -19,7 +19,7 @@ compiled
 random-work
 
 ##################################################
-
+*.iml
 # Compiled class file
 *.class
 
