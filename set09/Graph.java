@@ -1,34 +1,50 @@
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by abhishek on 3/20/17.
  */
 public class Graph {
 
-    private Map<String, ArrayList <Flight>> graph = new HashMap<String, ArrayList <Flight>>();
+    private Map<String, RacketList<Flight>> graph = new HashMap<String, RacketList<Flight>>();
 
-    public Graph createGraph(ArrayList <Flight> flights) {
-        String source ="", destination = "";
-
-        for(Flight flight : flights) {
-            source = flight.departs();
-            graph.put(source, getFlightsLeavingFromAirport(source, flights));
-        }
-
-        return this;
+    public Map<String, RacketList<Flight>> createGraph(RacketList flights){
+        return this.createGraph(flights, flights).graph;
     }
 
-    private ArrayList <Flight> getFlightsLeavingFromAirport(String airportName, ArrayList <Flight> allFlights) {
-        ArrayList <Flight>  result = null;
-        for (Flight flight : allFlights) {
-            if (flight.departs().equals(airportName)) {
-                result.add(flight);
+    private Graph createGraph(RacketList flights, RacketList allFlights) {
+//        System.out.println("[createGraph] flights" + flights);
+        if (flights.isEmpty()) {
+            System.out.println(this.graph);
+            return this;
+
+        } else {
+            Flight flight;
+            String departureAirport, arrivalAirport;
+            flight = (Flight) flights.first();
+            departureAirport = flight.departs();
+            if (!this.graph.containsKey(departureAirport)) {
+                this.graph.put(departureAirport, getFlightsLeavingFromAirport(departureAirport, flights, allFlights));
             }
+            return createGraph(flights.rest(), allFlights);
         }
-        return result;
+    }
+
+    private RacketList<Flight> getFlightsLeavingFromAirport(String airportName, RacketList flights, RacketList allFlights) {
+//        System.out.println("[getFlightsLeavingFromAirport] flights: " + flights);
+        if (flights.isEmpty()) {
+            return RacketLists.empty();
+        } else {
+            Flight flight = (Flight) flights.first();
+            if (flight.departs().equals(airportName))
+                return this.getFlightsLeavingFromAirport(airportName, flights.rest(), allFlights).cons(flight);
+            else
+                return this.getFlightsLeavingFromAirport(airportName, flights.rest(), allFlights);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Graph { \n" + this.graph.toString();
     }
 }
