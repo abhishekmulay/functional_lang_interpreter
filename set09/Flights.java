@@ -9,7 +9,7 @@ public class Flights implements Flight {
     private UTC departureTime;
     private UTC arrivalTime;
 
-    // making constructor private so that makeFlight is the only way to create a Flight instance
+    // making constructor private so that make is the only way to create a Flight instance
     private Flights(String name, String source, String destination, UTC departureTime, UTC arrivalTime) {
         this.name = name;
         this.source = source;
@@ -49,19 +49,33 @@ public class Flights implements Flight {
 
     @Override
     public boolean isEqual(Flight flight) {
-        return this.name.equals(flight.name()) &&
-                this.departs().equals(flight.departs()) &&
-                this.arrives().equals(flight.arrives()) &&
-                this.departsAt().isEqual(flight.departsAt()) &&
-                this.arrivesAt().isEqual(flight.arrivesAt());
+        return this.equals(flight);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Flights)) return false;
+
+        Flights f = (Flights) o;
+
+        return this.name.equals(f.name()) && this.departs().equals(f.departs()) && this.arrives().equals(f.arrives())
+                && this.departsAt().isEqual(f.departsAt()) && this.arrivesAt().isEqual(f.arrivesAt());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (source != null ? source.hashCode() : 0);
+        result = 31 * result + (destination != null ? destination.hashCode() : 0);
+        result = 31 * result + (departureTime != null ? departureTime.hashCode() : 0);
+        result = 31 * result + (arrivalTime != null ? arrivalTime.hashCode() : 0);
+        return result;
     }
 
     public String toString() {
-        return this.name() + " from: " + this.departs() + " to: " + this.arrives() + " departsAt: "
-                + this.departsAt() + " arrivesAt: " + this.arrivesAt();
+        return "Flight: { " + this.name() + " | " + this.departs() + " ==> " + this.arrives() + " | departsAt: "
+                + this.departsAt() + " | arrivesAt: " + this.arrivesAt() + " }";
     }
 
-    public int hashCode() {
-        return toString().hashCode();
-    }
 }

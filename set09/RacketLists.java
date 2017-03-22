@@ -1,30 +1,48 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Created by Abhishek on 3/20/17.
+ * Created by Abhishek Mulay on 3/20/17.
  */
-public class RacketLists implements RacketList{
+public class RacketLists<E> implements RacketList{
 
+    private  List<Object> dataList = new ArrayList<Object>();
+    // making constructor private so that only way to create a racket list is empty() and cons()
+    private RacketLists(){}
 
+    // empty flight list is a null object
     public static <E> RacketList<E> empty () {
-        return null;
+        return new RacketLists<E>();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return this.dataList != null && dataList.size() > 0;
     }
 
     @Override
     public Object first() {
-        return null;
+        return this.dataList.get(0);
     }
 
     @Override
     public RacketList rest() {
-        return null;
+        this.dataList.remove(0);
+        return this;
     }
 
     @Override
     public RacketList cons(Object x) {
-        return null;
+        this.dataList.add(x);
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        for(Object o : this.dataList) {
+            str += o.toString() + "\n";
+        }
+        return "RacketList: {\n" + str + "}";
     }
 }
