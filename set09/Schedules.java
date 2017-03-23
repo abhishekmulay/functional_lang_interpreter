@@ -17,7 +17,8 @@ public class Schedules {
      canGetThere ("LGA", "PDX", FlightExamples.deltaFlights)  =>  true
 */
     public static boolean canGetThere(String ap1,  String ap2,  RacketList<Flight> flights) {
-        return false;
+        Solution solution = new Solution(flights);
+        return solution.canGetThere(ap1, ap2);
     }
 
     /*
@@ -53,7 +54,8 @@ public class Schedules {
 
     */
     public static RacketList<Flight> fastestItinerary(String ap1,  String ap2,  RacketList<Flight> flights) {
-        return null;
+        Solution solution = new Solution(flights);
+        return solution.fastestItinerary(ap1, ap2);
     }
 
 /* GIVEN: the names of two airports, ap1 and ap2 (respectively),
@@ -70,10 +72,9 @@ public class Schedules {
      travelTime ("LGA", "PDX", FlightExamples.deltaFlights)  =>  482*/
 
     public static int travelTime(String ap1,  String ap2,  RacketList<Flight> flights) {
-        return 0;
+        Solution solution = new Solution(flights);
+        return solution.travelTime(ap1, ap2);
     }
-
-
 
 }
 
