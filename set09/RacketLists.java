@@ -5,8 +5,7 @@ import java.util.*;
  */
 public class RacketLists {
 
-    private RacketLists() {
-    }
+    private RacketLists() {}
 
     // empty flight list is a null object
     public static <E> RacketList<E> empty() {

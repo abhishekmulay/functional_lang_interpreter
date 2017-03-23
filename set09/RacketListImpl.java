@@ -9,7 +9,8 @@ public class RacketListImpl<E> implements RacketList {
     private List<Object> dataList = new ArrayList<Object>();
 
     // making constructor private so that only way to create a racket list is empty() and cons()
-    private RacketListImpl() {}
+    private RacketListImpl() {
+    }
 
     public static RacketList makeRacketList() {
         return new RacketListImpl();
@@ -30,7 +31,6 @@ public class RacketListImpl<E> implements RacketList {
 
     @Override
     public RacketList rest() {
-        System.out.println("Items remaining: " + this.dataList.size());
         if (this.dataList.size() == 0) {
             throw new IllegalStateException("Called rest() on an empty RacketList. " + this);
         }
@@ -63,5 +63,25 @@ public class RacketListImpl<E> implements RacketList {
             str += o.toString() + "\n";
         }
         return "RacketList: {\n" + str + "}";
+    }
+}
+
+
+class RacketListImplTest {
+
+    private static Flight flt(String s, String ap1, String ap2, int t1, int t2) {
+        UTC lv = UTCs.make(t1 / 100, t1 % 100);
+        UTC ar = UTCs.make(t2 / 100, t2 % 100);
+        return Flights.make(s, ap1, ap2, lv, ar);
+    }
+
+    public static void main(String[] args) {
+        Flight f1 = flt("Delta 0121", "LGA", "MSP", 1100, 1409);
+        Flight f2 = flt("Delta 0121", "LGA", "MSP", 1100, 1409);
+
+        assert f1.isEqual(f1) : " should be equal";
+        assert f1.isEqual(f2) : " should NOT be equal";
+
+        System.out.println("All unit tests of UTCImpl passed.");
     }
 }

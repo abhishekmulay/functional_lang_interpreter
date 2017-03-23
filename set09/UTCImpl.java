@@ -70,7 +70,7 @@ class UTCImplTest {
         assert ! (t1.isEqual (t2)) : "isEqual true but hour different";
         assert ! (t1.isEqual (t3)) : "isEqual true but minute different";
 
-        System.out.println ("All unit tests of UTCImpl passed.");
+        System.out.println ("[UTCImpl] All unit tests passed.");
     }
 }
 

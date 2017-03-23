@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Schedules {
 
     /*
@@ -70,5 +72,8 @@ public class Schedules {
     public static int travelTime(String ap1,  String ap2,  RacketList<Flight> flights) {
         return 0;
     }
+
+
+
 }
 
