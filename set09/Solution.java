@@ -21,19 +21,24 @@ public class Solution {
     //                public methods                                  //
     ///////////////////////////////////////////////////////////////////
     public boolean canGetThere(String source, String destination) {
+        if (source.equals(destination)) {return true;}
+
         Dijikstra dijikstra = new Dijikstra();
-        dijikstra.getShortestPath(this.graph, source, destination);
-        return true;
+        ArrayList<Flight> bestItinerary = dijikstra.getShortestPath(this.graph, source, destination);
+        return bestItinerary.size() > 0;
     }
 
     public RacketList<Flight> fastestItinerary(String source, String destination) {
+        if (source.equals(destination)) {return RacketLists.empty();}
+
         Dijikstra dijikstra = new Dijikstra();
         ArrayList<Flight> bestItinerary = dijikstra.getShortestPath(this.graph, source, destination);
-        System.out.println("bestItinerary" + bestItinerary);
         return ListConverter.getRacketListFromArrayList(bestItinerary);
     }
 
     public int travelTime(String source, String destination) {
+        if (source.equals(destination)) {return 0;}
+
         Dijikstra dijikstra = new Dijikstra();
         ArrayList<Flight> bestItinerary = dijikstra.getShortestPath(this.graph, source, destination);
         TravelTimeCalculator calculator = new TravelTimeCalculator();
