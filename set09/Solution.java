@@ -139,57 +139,7 @@ public class Solution {
     //                Travel Time                                     //
     ///////////////////////////////////////////////////////////////////
 
-    public int getTravelTimeForItinerary(List<Flight> flights) {
-        int airTime = 0;
-        int layoverTime = 0;
-        for (int index=0; index < flights.size(); index++) {
-            Flight f = flights.get(index);
-            airTime += getAirTime(f);
-            if (index == flights.size() - 1 ) {
-                break;
-            }
-            Flight nextFlight = flights.get(index+1);
-            layoverTime += getLayoverTime(f, nextFlight);
-        }
-        return airTime + layoverTime;
-    }
 
-    private int getLayoverTime(Flight f1, Flight f2) {
-        if (getMinutes(f1.arrivesAt()) > getMinutes(f2.departsAt())) {
-            return overnightLayoverTime(f1, f2);
-        } else {
-            return sameDayLayover(f1, f2);
-        }
-    }
-
-    private int sameDayLayover(Flight f1, Flight f2) {
-        return getMinutes(f2.departsAt()) - getMinutes(f1.arrivesAt());
-    }
-
-    private int overnightLayoverTime(Flight f1, Flight f2) {
-        return MINUTES_PER_DAY - getMinutes(f1.arrivesAt()) + getMinutes(f2.departsAt());
-    }
-
-    public int getAirTime(Flight f) {
-        // Time of arrival is > departure then we crossed 12 AM
-        if ( getMinutes(f.arrivesAt()) > getMinutes(f.departsAt())) {
-            return getSameDayFlightAirTime(f);
-        } else {
-            return overnightFlightAirTime(f);
-        }
-    }
-
-    private int overnightFlightAirTime(Flight f) {
-        return (MINUTES_PER_DAY - getMinutes(f.departsAt())) + getMinutes(f.arrivesAt());
-    }
-
-    private int getSameDayFlightAirTime(Flight f) {
-        return getMinutes(f.arrivesAt()) - getMinutes(f.departsAt());
-    }
-
-    public int getMinutes(UTC utc) {
-        return UTCImpl.MINUTES_PER_HOUR * utc.hour() + utc.minute();
-    }
 
     public static void main(String[] args) {
         Solution solution = new Solution(FlightExamples.smallDeltaFlights);
@@ -204,9 +154,6 @@ public class Solution {
         TRIP1.add(leg2);
         TRIP1.add(leg3);
 
-        System.out.println(solution.getTravelTimeForItinerary(TRIP1));
-        assert solution.getTravelTimeForItinerary(TRIP1) == 1390 : " Travel time is 1390";
-
     }
 }
 
@@ -214,40 +161,3 @@ public class Solution {
 
 
 ////////////////////////////////////////////////////
-
-class AirportNode {
-    private String name;
-    private int priority;
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    AirportNode(String name, int priority) {
-        this.name = name;
-        this.priority = priority;
-    }
-
-    @Override
-    public String toString() {
-        return "AirportNode{" +
-                "name='" + name + '\'' +
-                ", priority=" + priority +
-                '}';
-    }
-
-}
-
-
