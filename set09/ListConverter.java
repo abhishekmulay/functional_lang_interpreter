@@ -70,8 +70,9 @@ public class ListConverter {
         if (arrayList.isEmpty()) {
             return racketList;
         } else {
-            E item = arrayList.get(0);
-            arrayList.remove(0);
+            // get last element
+            E item = arrayList.get(arrayList.size() - 1);
+            arrayList.remove(item);
             return getRacketListFromArrayListHelper(arrayList, racketList.cons(item));
         }
     }
