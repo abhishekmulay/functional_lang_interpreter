@@ -29,6 +29,7 @@ public class Solution {
     public RacketList<Flight> fastestItinerary(String source, String destination) {
         Dijikstra dijikstra = new Dijikstra();
         ArrayList<Flight> bestItinerary = dijikstra.getShortestPath(this.graph, source, destination);
+        System.out.println("bestItinerary" + bestItinerary);
         return ListConverter.getRacketListFromArrayList(bestItinerary);
     }
 
