@@ -1,5 +1,7 @@
 import java.util.*;
 
+import static com.sun.tools.internal.xjc.reader.Ring.add;
+
 //https://en.wikipedia.org/wiki/Dijkstra's_algorithm
 
 /**
@@ -94,25 +96,28 @@ public class Solution {
             // u -> currentNode
             // v -> neighbour
             AirportNode currentNode = vertexQueue.dequeue();
-            System.out.println("Current: "+ currentNode.getName() +" \t | "+ vertexQueue);
+            System.out.println("\nCurrent: "+ currentNode.getName() +" \t | "+ vertexQueue);
 
             //  for each neighbor v of u: where v is still in Q.
             for( Flight flightOut : graph.get(currentNode.getName())){
                 String neighbour = flightOut.arrives();
-                System.out.println("\t\t\t==> Neighbour: " + neighbour);
+                System.out.println("\n\t\t==> Neighbour: " + neighbour);
 
                 ArrayList<Flight> previouslyTakenFlights = flightsTakenMap.get(currentNode.getName());
-                previouslyTakenFlights.add(flightOut);
+                ArrayList<Flight> FlightsToConsider = getCopy(previouslyTakenFlights);
+                FlightsToConsider.add(flightOut);
 
-                int alt = totalTravelTime(previouslyTakenFlights);
+                int alt = totalTravelTime(FlightsToConsider);
                 int previousDistance = distanceMap.get(neighbour);
-                System.out.println("\t\t\t  alt: " + alt + " previousDistance: " + previousDistance);
+                System.out.println("\t\t\talt: " + alt + " previousDistance: " + previousDistance);
                 // found shorter path
                 if (alt < previousDistance ) {
+                    System.out.println("\t\t\tFound shortest path for "+ neighbour + " previouslyTakenFlights: "+ previouslyTakenFlights + " alt: " + alt);
                     distanceMap.put(neighbour, alt);
-                    flightsTakenMap.put(neighbour, previouslyTakenFlights);
+                    flightsTakenMap.put(neighbour, FlightsToConsider);
                     vertexQueue.changePriority(neighbour, alt);
                 }
+//                FlightsToConsider.clear();
             }
         }
         System.out.println("distances: ");
@@ -124,6 +129,14 @@ public class Solution {
     private Integer totalTravelTime(List<Flight> flights) {
         TravelTimeCalculator calculator = new TravelTimeCalculator();
         return calculator.getTravelTimeForItinerary(flights);
+    }
+
+    private <T> ArrayList<T> getCopy(ArrayList<T> list){
+        ArrayList<T> result = new ArrayList<T>();
+        for (T item : list){
+            result.add(item);
+        }
+        return result;
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -143,8 +156,8 @@ public class Solution {
 
     public static void main(String[] args) {
 //        Solution solution = new Solution(FlightExamples.smallDeltaFlights);
-//        Solution solution = new Solution(FlightExamples.deltaFlights);
-        Solution solution = new Solution(FlightExamples.deltaCycle);
-        solution.dijikstraCaller("BNA");
+        Solution solution = new Solution(FlightExamples.deltaFlights);
+//        Solution solution = new Solution(FlightExamples.deltaCycle);
+        solution.dijikstraCaller("BOS");
     }
 }
