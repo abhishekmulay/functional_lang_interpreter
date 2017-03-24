@@ -43,6 +43,33 @@ public class PriorityAirportQueue {
 
     @Override
     public String toString() {
-        return "PriorityAirportQueue { " + dataList + '}';
+        return "PQ { " + dataList + '}';
+    }
+
+    public void changePriority(String neighbour, int alt) {
+        for (AirportNode item : this.dataList){
+            if (item.getName().equals(neighbour)){
+                item.setPriority(alt);
+            }
+        }
+        this.dataList.sort(comparator);
+    }
+
+    public static void main(String[] args) {
+        AirportNode ap1 = new AirportNode("LGA", 10);
+        AirportNode ap2 = new AirportNode("MSP", 4);
+        AirportNode ap3 = new AirportNode("PDX", 1);
+        AirportNode ap4 = new AirportNode("DEN", 2);
+        AirportNode ap5 = new AirportNode("LAX", 9);
+
+        PriorityAirportQueue queue = new PriorityAirportQueue();
+        queue.enqueue(ap1);
+        queue.enqueue(ap2);
+        queue.enqueue(ap3);
+        queue.enqueue(ap4);
+        queue.enqueue(ap5);
+        System.out.println(queue);
+        queue.changePriority("MSP", 0);
+        System.out.println(queue);
     }
 }

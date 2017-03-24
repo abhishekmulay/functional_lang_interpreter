@@ -184,6 +184,11 @@ public class FlightExamples {
                 = fs03.cons(flt("Delta 2077", "LAX", "PDX", 1735, 2009));
         RacketList<Flight> fs05
                 = fs04.cons(flt("Delta 2163", "MSP", "PDX", 1500, 1902));
-        return fs05;
+        RacketList<Flight> fs06
+                = fs05.cons(flt("Delta WTF", "PDX", "DEN", 0600, 1200));
+        RacketList<Flight> fs07
+                = fs06.cons(flt("Delta 1610", "MSP", "DEN", 2035, 2200));
+
+        return fs06;
     }
 }

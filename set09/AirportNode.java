@@ -29,10 +29,13 @@ public class AirportNode {
 
     @Override
     public String toString() {
-        return "AirportNode{" +
-                "name='" + name + '\'' +
-                ", priority=" + priority +
-                '}';
+//        return "AirportNode{" +
+//                "name='" + name + '\'' +
+//                ", priority=" + priority +
+//                '}';
+
+        return  " " + name + ":" + priority;
+
     }
 
 }
