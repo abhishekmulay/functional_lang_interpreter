@@ -25,7 +25,7 @@ public class Solution {
         for (String airport : allAirports) {
             table.put(airport, this.getFlightsLeavingFrom(airport));
         }
-        prettyPrintMap(this.table);
+//        prettyPrintMap(this.table);
         return this.table;
     }
 
@@ -63,15 +63,45 @@ public class Solution {
     //                Dijikstra's Algorithm                           //
     ///////////////////////////////////////////////////////////////////
 
-    public void dijikstraCaller(String source) {
-        this.dijikstra(this.table, source);
+    public void dijikstraCaller(String source, String destination) {
+        ArrayList<Flight> flightsOutFromSource = (ArrayList<Flight>) this.table.get(source);
+        ArrayList<Flight> flightsOutFromSourceCopy = getCopy(flightsOutFromSource);
+        // remove all fligths leaving from source
+        this.table.put(source, new ArrayList<Flight>());
+        ArrayList<Flight> emptyList = new ArrayList<>();
+        ArrayList<ArrayList<Flight>> bestItinerariesToDestination = new ArrayList<>();
+
+        for(Flight f : flightsOutFromSourceCopy) {
+            emptyList.add(f);
+            ArrayList<Flight> singleFlightFromSource = emptyList;
+//            System.out.println("Starting Dijikstra from: "+ source + " with flight: " + f);
+            this.table.put(source, singleFlightFromSource);
+            bestItinerariesToDestination.add(dijikstra(this.table, source, destination));
+            emptyList.clear();
+        }
+        System.out.println("\nBest itineraries from "+ source + " to "+ destination + bestItinerariesToDestination);
+
+        Collections.sort(bestItinerariesToDestination, new Comparator<ArrayList<Flight>>() {
+            TravelTimeCalculator calculator = new TravelTimeCalculator();
+            @Override
+            public int compare(ArrayList<Flight> itinerary1, ArrayList<Flight> itinerary2) {
+                if (calculator.getTravelTimeForItinerary(itinerary1) > calculator.getTravelTimeForItinerary(itinerary2)) {
+                    return 1;
+                } else if (calculator.getTravelTimeForItinerary(itinerary1) < calculator.getTravelTimeForItinerary(itinerary2)) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        System.out.println("\n\nSorted best itineraries: " + bestItinerariesToDestination);
     }
 
     Map<String, Integer> distanceMap = new HashMap<>();
     Map<String, ArrayList<Flight>> flightsTakenMap = new HashMap<>();
     PriorityAirportQueue vertexQueue = new PriorityAirportQueue();
 
-    private void dijikstra(Map<String, List<Flight>> graph, String source) {
+    private ArrayList<Flight> dijikstra(Map<String, List<Flight>> graph, String source, String destination) {
 
         // initialization
         for (String airportVertex : graph.keySet()) {
@@ -85,23 +115,23 @@ public class Solution {
             flightsTakenMap.put(airportVertex, new ArrayList<Flight>());
         }
 
-        System.out.println("Before starting Dijikstra from root=" + source);
-        System.out.println("DistanceMap:");
-        prettyPrintMap(distanceMap);
-        System.out.println("\nflightsTakenMap");
-        prettyPrintMap(flightsTakenMap);
+//        System.out.println("Before starting Dijikstra from root=" + source);
+//        System.out.println("DistanceMap:");
+//        prettyPrintMap(distanceMap);
+//        System.out.println("\nflightsTakenMap");
+//        prettyPrintMap(flightsTakenMap);
         System.out.println("______________________________");
         while (!vertexQueue.isEmpty()) {
             // Node with the least distance will be selected first
             // u -> currentNode
             // v -> neighbour
             AirportNode currentNode = vertexQueue.dequeue();
-            System.out.println("\nCurrent: "+ currentNode.getName() +" \t | "+ vertexQueue);
+//            System.out.println("\nCurrent: "+ currentNode.getName() +" \t | "+ vertexQueue);
 
             //  for each neighbor v of u: where v is still in Q.
             for( Flight flightOut : graph.get(currentNode.getName())){
                 String neighbour = flightOut.arrives();
-                System.out.println("\n\t\t==> Neighbour: " + neighbour);
+//                System.out.println("\n\t\t==> Neighbour: " + neighbour);
 
                 ArrayList<Flight> previouslyTakenFlights = flightsTakenMap.get(currentNode.getName());
                 ArrayList<Flight> FlightsToConsider = getCopy(previouslyTakenFlights);
@@ -109,10 +139,10 @@ public class Solution {
 
                 int alt = totalTravelTime(FlightsToConsider);
                 int previousDistance = distanceMap.get(neighbour);
-                System.out.println("\t\t\talt: " + alt + " previousDistance: " + previousDistance);
+//                System.out.println("\t\t\talt: " + alt + " previousDistance: " + previousDistance);
                 // found shorter path
                 if (alt < previousDistance ) {
-                    System.out.println("\t\t\tFound shortest path for "+ neighbour + " previouslyTakenFlights: "+ previouslyTakenFlights + " alt: " + alt);
+//                    System.out.println("\t\t\tFound shortest path for "+ neighbour + " previouslyTakenFlights: "+ previouslyTakenFlights + " alt: " + alt);
                     distanceMap.put(neighbour, alt);
                     flightsTakenMap.put(neighbour, FlightsToConsider);
                     vertexQueue.changePriority(neighbour, alt);
@@ -120,10 +150,12 @@ public class Solution {
 //                FlightsToConsider.clear();
             }
         }
-        System.out.println("distances: ");
-        prettyPrintMap(distanceMap);
-        System.out.println("flightsTakenMap: ");
-        prettyPrintMap(flightsTakenMap);
+//        System.out.println("distances: ");
+//        prettyPrintMap(distanceMap);
+//        System.out.println("flightsTakenMap: ");
+//        prettyPrintMap(flightsTakenMap);
+        System.out.println("Flights to destination" + flightsTakenMap.get(destination));
+        return flightsTakenMap.get(destination);
     }
 
     private Integer totalTravelTime(List<Flight> flights) {
@@ -158,6 +190,6 @@ public class Solution {
 //        Solution solution = new Solution(FlightExamples.smallDeltaFlights);
         Solution solution = new Solution(FlightExamples.deltaFlights);
 //        Solution solution = new Solution(FlightExamples.deltaCycle);
-        solution.dijikstraCaller("BOS");
+        solution.dijikstraCaller("PDX", "LHR");
     }
 }
