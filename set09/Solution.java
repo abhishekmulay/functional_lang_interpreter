@@ -12,6 +12,7 @@ public class Solution {
     private Map<String, List<Flight>> table = new HashMap<String, List<Flight>>();
     private List<Flight> flights = new ArrayList<Flight>();
     private static final int INFINITY = 9999999;
+    private final int MINUTES_PER_DAY = 1440;
 
     public Solution(RacketList<Flight> racketList) {
         this.flights = ListConverter.getArrayListFromRacketList(racketList);
@@ -75,7 +76,7 @@ public class Solution {
         // initialization
         for (String airportVertex : graph.keySet()) {
             if (airportVertex.equals(source)) {
-                distanceMap.put(airportVertex, 0);
+                distanceMap.put(airportVertex, 0); // Distance from source to source
                 vertexQueue.enqueue(new AirportNode(airportVertex, 0));
             } else {
                 distanceMap.put(airportVertex, INFINITY);
@@ -84,13 +85,39 @@ public class Solution {
             flightsTakenMap.put(airportVertex, new ArrayList<Flight>());
         }
 
-//        while (!vertexQueue.isEmpty()) {
-//
-//        }
-
         System.out.println("queue " + vertexQueue);
         System.out.println("flightsTakenMap " + flightsTakenMap);
         System.out.println("distanceMap " + distanceMap);
+
+        System.out.println("Starting dijikstras now...");
+
+        while (!vertexQueue.isEmpty()) {
+            // Node with the least distance will be selected first
+            AirportNode currentNode = vertexQueue.dequeue();
+
+            //  for each neighbor v of u: where v is still in Q.
+            for( Flight flightOut : graph.get(currentNode.getName())){
+                String neighbour = flightOut.arrives();
+
+                int alt = distanceMap.get(currentNode) + edgeLength(currentNode, neighbour);
+                alt = 0;
+                int previousDistance = distanceMap.get(neighbour);
+
+                // found shorter path
+                if (alt > previousDistance ) {
+                    distanceMap.put(neighbour, alt);
+                    ArrayList previouslyTakenFlights = flightsTakenMap.get(neighbour);
+                    previouslyTakenFlights.add(flightOut);
+                    flightsTakenMap.put(neighbour, previouslyTakenFlights);
+                }
+
+            }
+        }
+
+    }
+
+    private Integer edgeLength(AirportNode currentNode, String neighbour) {
+        return 0;
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -108,11 +135,85 @@ public class Solution {
         return -1;
     }
 
+    /////////////////////////////////////////////////////////////////////
+    //                Travel Time                                     //
+    ///////////////////////////////////////////////////////////////////
+
+    public int getTravelTimeForItinerary(List<Flight> flights) {
+        int airTime = 0;
+        int layoverTime = 0;
+        for (int index=0; index < flights.size(); index++) {
+            Flight f = flights.get(index);
+            airTime += getAirTime(f);
+            if (index == flights.size() - 1 ) {
+                break;
+            }
+            Flight nextFlight = flights.get(index+1);
+            layoverTime += getLayoverTime(f, nextFlight);
+        }
+        return airTime + layoverTime;
+    }
+
+    private int getLayoverTime(Flight f1, Flight f2) {
+        if (getMinutes(f1.arrivesAt()) > getMinutes(f2.departsAt())) {
+            return overnightLayoverTime(f1, f2);
+        } else {
+            return sameDayLayover(f1, f2);
+        }
+    }
+
+    private int sameDayLayover(Flight f1, Flight f2) {
+        return getMinutes(f2.departsAt()) - getMinutes(f1.arrivesAt());
+    }
+
+    private int overnightLayoverTime(Flight f1, Flight f2) {
+        return MINUTES_PER_DAY - getMinutes(f1.arrivesAt()) + getMinutes(f2.departsAt());
+    }
+
+    public int getAirTime(Flight f) {
+        // Time of arrival is > departure then we crossed 12 AM
+        if ( getMinutes(f.arrivesAt()) > getMinutes(f.departsAt())) {
+            return getSameDayFlightAirTime(f);
+        } else {
+            return overnightFlightAirTime(f);
+        }
+    }
+
+    private int overnightFlightAirTime(Flight f) {
+        return (MINUTES_PER_DAY - getMinutes(f.departsAt())) + getMinutes(f.arrivesAt());
+    }
+
+    private int getSameDayFlightAirTime(Flight f) {
+        return getMinutes(f.arrivesAt()) - getMinutes(f.departsAt());
+    }
+
+    public int getMinutes(UTC utc) {
+        return UTCImpl.MINUTES_PER_HOUR * utc.hour() + utc.minute();
+    }
+
     public static void main(String[] args) {
         Solution solution = new Solution(FlightExamples.smallDeltaFlights);
-        solution.dijikstraCaller("LGA");
+//        solution.dijikstraCaller("LGA");
+
+        Flight leg1 = Flights.make("Delta 2734", "BOS", "DTW", UTCImpl.makeUTC(10, 35), UTCImpl.makeUTC(12, 59));
+        Flight leg2 = Flights.make("Delta 1511", "DTW", "DEN", UTCImpl.makeUTC(13, 30), UTCImpl.makeUTC(16, 51));
+        Flight leg3 = Flights.make("Delta 0010", "DEN", "LHR", UTCImpl.makeUTC(20, 30), UTCImpl.makeUTC(9, 45));
+
+        ArrayList<Flight> TRIP1 = new ArrayList<>();
+        TRIP1.add(leg1);
+        TRIP1.add(leg2);
+        TRIP1.add(leg3);
+
+        System.out.println(solution.getTravelTimeForItinerary(TRIP1));
+        assert solution.getTravelTimeForItinerary(TRIP1) == 1390 : " Travel time is 1390";
+
     }
 }
+
+
+
+
+////////////////////////////////////////////////////
 
 class AirportNode {
     private String name;
@@ -146,6 +247,7 @@ class AirportNode {
                 ", priority=" + priority +
                 '}';
     }
+
 }
 
 

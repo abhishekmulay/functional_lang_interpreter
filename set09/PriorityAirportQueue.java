@@ -37,6 +37,10 @@ public class PriorityAirportQueue {
         return this.dataList.remove(0);
     }
 
+    public boolean isEmpty(){
+        return this.dataList.isEmpty();
+    }
+
     @Override
     public String toString() {
         return "PriorityAirportQueue { " + dataList + '}';
