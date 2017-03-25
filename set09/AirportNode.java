@@ -1,41 +1,98 @@
 /**
- * Created by Abhishek Mulay on 3/23/17.
+ * An AirportNode is a 
+ *   new AirportNode(String Int)
+ * Interpretation: An AirportNode represents an airport with
+ *   a Name representing the name of an airport with 
+ *     a 3 letter code for the city
+ *   a Priority representing the Airport priority for
+ *     use in Dijikstra's algorithm.
+ * Template: ????
  */
-
 public class AirportNode {
+	
     private String name;
     private int priority;
 
-    public String getName() {
-        return name;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     * GIVEN:
+     * 	@param name a String representing the name of the airport
+     * 	@param priority an Int representing the priority of the airport
+     * RETURNS:
+     * 	@returns implicitly returns this AirportNode with the given name and priority
+     */
     AirportNode(String name, int priority) {
         this.name = name;
         this.priority = priority;
     }
+    
+    /**
+     * RETURNS:
+     * 	@return a String representing the name of this AirportNode
+     * EXAMPLE:
+     * 	(new AirportNode("BOS", 2)).getName() => "BOS"
+     *  (new AirportNode("LAX", 20)).getName() => "LAX"
+     * STRATEGY:
+     * 	use private variables
+     */
+    public String getName() {
+        return name;
+    }
 
+    /**
+     * RETURNS:
+     * 	@return an Int representing the priority of this AirportNode
+     * EXAMPLE:
+     * 	(new AirportNode("BOS", 2)).getPriority() => 2
+     *  (new AirportNode("LAX", 20)).getPriority() => 20
+     * STRATEGY:
+     * 	use private variables
+     */
+    public int getPriority() {
+        return priority;
+    }
+
+    /**
+     * GIVEN:
+     * 	@param priority an Int representing the priority of this AirportNode
+     * RETURNS:
+     * 	@return: this AirportNode with the given priority and pre-existing name
+     * EXAMPLE:
+     *  (new AirportNode("BOS", 2)).setPriority(18).getPriority() => 18
+     *  (new AirportNode("LAX", 20)).setPriority(4).getPriority() => 4
+     * STRATEGY:
+     *  use private variables 
+     */
+    public AirportNode setPriority(int priority) {
+        this.priority = priority;
+        return this;
+    }
+
+    /**
+     * GIVEN:
+     * 	@param name a String representing the new name of this AirportNode
+     * RETURNS:
+     * 	@return: this AirportNode with the given name and pre-existing priority
+     * EXAMPLE:
+     * 	(new AirportNode("BOS", 2)).setName("DET").getName() => "DET"
+     *  (new AirportNode("LAX", 20)).setName("LGA").getName() => "LGA"
+     * STRATEGY:
+     *  use private variables
+     */
+    public AirportNode setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * RETURNS:
+     * 	@return: String representing this AirportNode
+     * EXAMPLE:
+     *  (new AirportNode("BOS", 2)).setName("DET").toString() => " BOS:2"
+     *  (new AirportNode("LAX", 20)).setName("LGA").toString() => " LAX:20"
+     */
     @Override
     public String toString() {
-//        return "AirportNode{" +
-//                "name='" + name + '\'' +
-//                ", priority=" + priority +
-//                '}';
-
         return  " " + name + ":" + priority;
-
     }
 
 }
