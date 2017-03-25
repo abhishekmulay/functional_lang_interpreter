@@ -36,8 +36,11 @@ public class RacketListImpl<E> implements RacketList {
 
     @Override
     public RacketList cons(Object x) {
-        this.dataList.add(0, x);
-        return this;
+    	ArrayList<Object> temp = new ArrayList<Object>();
+    	temp.addAll(this.dataList);
+    	temp.add(x);
+    	this.dataList = Collections.unmodifiableList(new ArrayList<Object>());
+    	return this;
     }
 
     public Object get(int index) {
