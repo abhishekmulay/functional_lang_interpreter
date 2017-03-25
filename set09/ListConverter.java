@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Abhishek Mulay on 3/23/17.
@@ -10,27 +9,33 @@ public class ListConverter {
     private ListConverter() {}
 
     /**
-     * getArrayListFromRacketList: RacketList<E> ArrayList<E> -> ArrayList<E>
-     * GIVEN: a racket list of items of type E
-     * RETURNS: an array list of same items
-     *
-     * @param racketList
-     * @param <E>
-     * @return
+     * GIVEN: 
+     *  @param a RacketList of items of type E
+     *  @param <E> type of objects in RacketList
+     * RETURNS: 
+     *  @return an ArrayList of same items
+     * STRATEGY: 
+     *   use private function
+     * EXAMPLE:
+     *   TODO
      */
     public static <E> ArrayList<E> getArrayListFromRacketList(RacketList<E> racketList) {
         return getArrayListFromRacketListHelper(racketList, new ArrayList<E>());
     }
 
     /**
-     * getArrayListFromRacketListHelper: RacketList<E> ArrayList<E> -> ArrayList<E>
-     * GIVEN: a racket list of items of type E
-     * RETURNS: an array list of same items
-     *
-     * @param racketList
-     * @param arrayList
-     * @param <E>
-     * @return ArrayList<E>
+     * GIVEN:
+     *  @param racketList of items of type E
+     *  @param arrayList to put items into
+     *  @param <E> type of objects in RacketList and ArrayList
+     * RETURNS:
+     *  @return ArrayList of same items
+     * STRATEGY:
+     *  use template of RacketList on racketList
+     * HAULTING MEASURE:
+     *  length of racketList
+     * EXAMPLE:
+     *  TODO
      */
     private static <E> ArrayList<E> getArrayListFromRacketListHelper(RacketList<E> racketList, ArrayList<E> arrayList) {
         if (racketList.isEmpty()) {
@@ -43,13 +48,15 @@ public class ListConverter {
     }
 
     /**
-     * getRacketListFromArrayList: ArrayList<E> -> RacketList<E>
-     * GIVEN: an arrayList of items of type E
-     * RETURNS: a racketList of same items
-     *
-     * @param arrayList
-     * @param <E>
-     * @return RacketList<E>
+     * GIVEN:
+     *  @param arrayList of items of type E
+     *  @param <E> Type of items in ArrayList
+     * RETURNS:
+     *  @return RacketList of same items
+     * STRATEGY:
+     *  use private function
+     * EXAMPLE:
+     *   TODO  
      */
     public static <E> RacketList<E> getRacketListFromArrayList(ArrayList<E> arrayList) {
         return getRacketListFromArrayListHelper(arrayList, RacketLists.empty());
@@ -61,10 +68,16 @@ public class ListConverter {
      * RETURNS: A RacketList with all items from arrayList copied into that RacketList
      * DESIGN STRATEGY: Use template for ArrayList on arrayList
      *
-     * @param arrayList
-     * @param racketList
-     * @param <E>
-     * @return
+     * GIVEN:
+     *  @param arrayList of data of type E
+     *  @param racketList of data of type E
+     *  @param <E> type of objects in arrayList and racketList
+     * RETURNS:
+     *  @return RacketList with all items from arrayList copied into that RacketList
+     * DESIGN STRATEGY: Use template for ArrayList on arrayList
+     * HAULTING MEASURE: length of arrayList
+     * EXAMPLE: 
+     *  TODO
      */
     private static <E> RacketList<E> getRacketListFromArrayListHelper(ArrayList<E> arrayList, RacketList<E> racketList) {
         if (arrayList.isEmpty()) {
@@ -76,23 +89,4 @@ public class ListConverter {
             return getRacketListFromArrayListHelper(arrayList, racketList.cons(item));
         }
     }
-
-
-    private static Flight flt(String s, String ap1, String ap2,  int t1, int t2) {
-        UTC lv = UTCs.make(t1 / 100, t1 % 100);
-        UTC ar = UTCs.make(t2 / 100, t2 % 100);
-        return Flights.make(s, ap1, ap2, lv, ar);
-    }
-
-    public static void main(String[] args) {
-        Flight TEST_FLIGHT = flt("Delta 0121", "LGA", "MSP", 1100, 1409);
-        ArrayList<Flight> ARRAY_LIST_OF_FLIGHT = new ArrayList<Flight>();
-        ARRAY_LIST_OF_FLIGHT.add(TEST_FLIGHT);
-        RacketList<Flight> RACKET_LIST_OF_FLIGHTS =  RacketLists.empty();
-        RACKET_LIST_OF_FLIGHTS.cons(TEST_FLIGHT);
-
-//        assert ListConverter.getArrayListFromRacketList(RACKET_LIST_OF_FLIGHTS).listEquals(ARRAY_LIST_OF_FLIGHT);
-
-    }
-
 }

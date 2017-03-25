@@ -4,11 +4,5 @@ public class DijikstraTests {
 		//test getShortestPath
 		
 		//test dijikstraCaller
-		
-		//test dijikstra
-		
-		//test totalTravelTime
-		
-		//test getCopy
 	}
 }
