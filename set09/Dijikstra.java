@@ -11,24 +11,33 @@ public class Dijikstra {
     private static final int INFINITY = 9999999;
 
     /**
-     * getShortestPath: Map<String, List<Flight>> String String -> ArrayList<Flight>
-     * GIVEN: a graph of airport and flights contained in map, name of source airport and destination airport
-     * WHERE: in graph, airport is treated as vertex and flights connecting vertex are edges
-     * RETURNS: best itinerary for reaching destination from source in least time
+     * getShortestPath: Map<String, List<Flight>> String String ->
+     *                                                      ArrayList<Flight>
+     * GIVEN:
+     * 	@param graph representing airport and flights contained in map
+     * 	@param source representing the name of the source airport
+     * 	@param destination representing the name of the destination airport
+     * WHERE:
+     * 	in graph, airport is treated as vertex and flights connecting
+     *  vertex are edges
+     * RETURNS:
+     * 	@return best itinerary for reaching destination from 
+     *          source in least time
+     * EXAMPLE:
+     *   TODO
      * DESIGN STRATEGY: Combine simpler functions
-     * @param graph
-     * @param source
-     * @param destination
-     * @return ArrayList<Flight>
      */
-    public ArrayList<Flight> getShortestPath(Map<String, List<Flight>> graph, String source, String destination) {
+    public ArrayList<Flight> getShortestPath(Map<String, 
+								    		List<Flight>> graph, 
+								    		String source, 
+								    		String destination) {
         return this.dijikstraCaller(graph, source, destination);
     }
 
     /**
      *  Problem: When Dijikstra starts from source, we can not directly choose a flight as best from list of flights leaving from
      *  source based on its flight time, because a flight which has higher flight time starting from source might be a part of path which is
-     *  shorter than path we will get with first flight as shortest traverl time among flights leaving from source.
+     *  shorter than path we will get with first flight as shortest traveler time among flights leaving from source.
      *
      *  Solution: What we do is, if there are x flights starting from source, we call dijikstra() x times
      *  with graph which has each one flight leaving from source, so that we get all possible shortest paths from source
@@ -36,14 +45,19 @@ public class Dijikstra {
      */
     /**
      * dijikstraCaller: Map<String, List<Flight>> String String -> ArrayList<Flight>
-     * GIVEN: a graph of airport and flights contained in map, name of source airport and destination airport
-     * WHERE: in graph, airport is treated as vertex and flights connecting vertex are edges
-     * RETURNS: best itinerary for reaching destination from source in least time
+     * GIVEN:
+     * 	@param graph representation of airport and flights contained in map
+     * 	@param source representation of source airport name
+     * 	@param destination representation of destination airport name
+     * WHERE:
+     * 	in graph, airport is treated as vertex and flights connecting
+     *  vertex are edges
+     * RETURNS:
+     * 	@return best itinerary for reaching destination from 
+     *          source in least time
+     * EXAMPLE:
+     *   TODO
      * DESIGN STRATEGY: Combine simpler functions
-     * @param graph
-     * @param source
-     * @param destination
-     * @return
      */
     public ArrayList<Flight> dijikstraCaller(Map<String, List<Flight>> graph, String source, String destination) {
         ArrayList<Flight> flightsOutFromSource = (ArrayList<Flight>) graph.get(source);
@@ -82,15 +96,16 @@ public class Dijikstra {
 
     /**
      * dijikstra: Map<String, List<Flight>> String String -> ArrayList<Flight>
-     * GIVEN: Graph of airport and flight, where key is name of airport and value is list of flights leaving from airport, name of
-     *        start airport and name of destination
+     * GIVEN:
+     * 	@param graph representation of airport and flights contained in map
+     * 	@param source representation of source airport name
+     * 	@param destination representation of destination airport name
+     * RETURNS:
+     * 	@return best itinerary for reaching destination from source in least time
      * WHERE: in graph, airport is treated as vertex and flights connecting vertex are edges
-     * RETURNS: best itinerary for reaching destination from source in least time
+     * EXAMPLE:
+     *   TODO
      * DESIGN STRATEGY: Use Dijikstras algorithm and combine simpler functions
-     * @param graph
-     * @param source
-     * @param destination
-     * @return ArrayList<Flight>
      */
     private ArrayList<Flight> dijikstra(Map<String, List<Flight>> graph, String source, String destination) {
         // initialization
@@ -144,11 +159,14 @@ public class Dijikstra {
 
     /**
      * totalTravelTime: List<Flight> -> Integer
-     * GIVEN: a list of flights
-     * RETURNS: total travel time taken if traveller takes flights from given list in given order
+     * GIVEN:
+     * 	@param flights representing an itinerary to find the travel time of
+     * RETURNS:
+     * 	@return total travel time taken if traveler takes flights from given
+     *          list in given order
+     * EXAMPLE:
+     *   TODO
      * DESIGN STRATEGY: combine simpler functions
-     * @param flights
-     * @return Integer
      */
     private Integer totalTravelTime(List<Flight> flights) {
         TravelTimeCalculator calculator = new TravelTimeCalculator();
@@ -157,12 +175,13 @@ public class Dijikstra {
 
     /**
      * getCopy : ArrayList<T> -> ArrayList<T>
-     * GIVEN: a list of any type of object
-     * RETURNS: a new list with same content as given list
+     * GIVEN:
+     *  @param list representing any list of objects
+     * RETURNS:
+     *  @return a new list with the same content as given list
+     * EXAMPLE:
+     *  TODO
      * DESIGN STRATEGY: combine simpler functions
-     * @param list
-     * @param <T>
-     * @return ArrayList<T>
      */
     private <T> ArrayList<T> getCopy(ArrayList<T> list) {
         ArrayList<T> result = new ArrayList<T>();

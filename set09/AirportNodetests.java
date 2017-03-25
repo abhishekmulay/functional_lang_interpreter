@@ -1,4 +1,4 @@
-class AirportNodetests {
+class AirportNodeTests {
 	public static void main (String[] args){
 		//test getName
 		assert (new AirportNode("BOS", 2)).getName() == "BOS";
