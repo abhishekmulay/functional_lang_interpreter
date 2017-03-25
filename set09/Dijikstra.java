@@ -11,8 +11,6 @@ public class Dijikstra {
     private static final int INFINITY = 9999999;
 
     /**
-     * getShortestPath: Map<String, List<Flight>> String String ->
-     *                                                      ArrayList<Flight>
      * GIVEN:
      * 	@param graph representing airport and flights contained in map
      * 	@param source representing the name of the source airport
@@ -44,7 +42,6 @@ public class Dijikstra {
      *  then finally we choose the shortest among those itineraries returned.
      */
     /**
-     * dijikstraCaller: Map<String, List<Flight>> String String -> ArrayList<Flight>
      * GIVEN:
      * 	@param graph representation of airport and flights contained in map
      * 	@param source representation of source airport name
@@ -95,7 +92,6 @@ public class Dijikstra {
     }
 
     /**
-     * dijikstra: Map<String, List<Flight>> String String -> ArrayList<Flight>
      * GIVEN:
      * 	@param graph representation of airport and flights contained in map
      * 	@param source representation of source airport name
@@ -158,7 +154,6 @@ public class Dijikstra {
     }
 
     /**
-     * totalTravelTime: List<Flight> -> Integer
      * GIVEN:
      * 	@param flights representing an itinerary to find the travel time of
      * RETURNS:
@@ -174,7 +169,6 @@ public class Dijikstra {
     }
 
     /**
-     * getCopy : ArrayList<T> -> ArrayList<T>
      * GIVEN:
      *  @param list representing any list of objects
      * RETURNS:
