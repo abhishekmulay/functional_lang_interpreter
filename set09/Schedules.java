@@ -10,13 +10,19 @@ public class Schedules {
      first airport (ap1) to the second airport (ap2) using
      only the given flights
  EXAMPLES:
-     canGetThere ("06N", "JFK", FlightExamples.panAmFlights)  =>  false
-     canGetThere ("JFK", "JFK", FlightExamples.panAmFlights)  =>  true
-     canGetThere ("06N", "LAX", FlightExamples.deltaFlights)  =>  false
-     canGetThere ("LAX", "06N", FlightExamples.deltaFlights)  =>  false
-     canGetThere ("LGA", "PDX", FlightExamples.deltaFlights)  =>  true
+     Schedules.canGetThere("06N", "JFK", FlightExamples.panAmFlights)  
+     =>  false
+     Schedules.canGetThere("JFK", "JFK", FlightExamples.panAmFlights)  
+     =>  true
+     Schedules.canGetThere("06N", "LAX", FlightExamples.deltaFlights) 
+     =>  false
+     Schedules.canGetThere("LAX", "06N", FlightExamples.deltaFlights)  
+     =>  false
+     Schedules.canGetThere("LGA", "PDX", FlightExamples.deltaFlights)  
+     =>  true
 */
-    public static boolean canGetThere(String ap1,  String ap2,  RacketList<Flight> flights) {
+    public static boolean canGetThere(String ap1,  String ap2,  
+    		RacketList<Flight> flights) {
         Solution solution = new Solution(flights);
         return solution.canGetThere(ap1, ap2);
     }
@@ -37,23 +43,23 @@ public class Schedules {
          at 1500
      EXAMPLES:
          fastestItinerary ("JFK", "JFK", FlightExamples.panAmFlights)
-             =>  RacketLists.empty()
+             =>  RacketListImpl.makeRacketList()
 
-         fastestItinerary ("LGA", "PDX", FlightExamples.deltaFlights)
-     =>  RacketLists.empty().cons
-             (Flights.make ("Delta 2163",
-                            "MSP", "PDX",
-                            UTCs.make (15, 0), UTCs.make (19, 2))).cons
-                 (Flights.make ("Delta 0121",
-                                "LGA", "MSP",
-                                UTCs.make (11, 0),
-                                UTCs.make (14, 9)))
+         Schedules.fastestItinerary("LGA", "PDX", FlightExamples.deltaFlights)
+         =>
+		RacketListImpl
+			.makeRacketList()
+			.cons(FlightImpl.makeFlight("Delta 2163", "MSP", "PDX", 
+								UTCs.make (15, 0), UTCs.make (19, 2)))
+			.cons(FlightImpl.makeFlight("Delta 0121", "LGA", "MSP",
+			                   UTCs.make (11, 0), UTCs.make (14, 9)))
 
      (Note: The Java syntax for a method call makes those calls
      to cons look backwards from what you're used to in Racket.)
 
     */
-    public static RacketList<Flight> fastestItinerary(String ap1,  String ap2,  RacketList<Flight> flights) {
+    public static RacketList<Flight> fastestItinerary(String ap1,  String ap2,
+    		RacketList<Flight> flights) {
         Solution solution = new Solution(flights);
         return solution.fastestItinerary(ap1, ap2);
     }
@@ -68,9 +74,8 @@ public class Schedules {
      layovers, by the fastest possible route that uses only
      the given flights
  EXAMPLES:
-     travelTime ("JFK", "JFK", FlightExamples.panAmFlights)  =>  0
-     travelTime ("LGA", "PDX", FlightExamples.deltaFlights)  =>  482*/
-
+     Schedules.travelTime("JFK", "JFK", FlightExamples.panAmFlights)  =>  0
+     Schedules.travelTime("LGA", "PDX", FlightExamples.deltaFlights)  =>  482*/
     public static int travelTime(String ap1,  String ap2,  RacketList<Flight> flights) {
         Solution solution = new Solution(flights);
         return solution.travelTime(ap1, ap2);
