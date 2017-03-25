@@ -33,6 +33,7 @@ public class PriorityAirportQueueTests {
 	    queue.enqueue(new AirportNode("MSP", 4));
 	    queue.changePriority("LGA", 2);
 	    assert queue.toString() == "PQ { [ LGA:2,   MSP:4]}";
-		
+	    
+	    System.out.println("All unit tests of PriorityAirportQueueTests passed");
 	}
 }
