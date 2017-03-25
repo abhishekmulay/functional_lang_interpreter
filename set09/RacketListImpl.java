@@ -39,7 +39,7 @@ public class RacketListImpl<E> implements RacketList {
     	ArrayList<Object> temp = new ArrayList<Object>();
     	temp.addAll(this.dataList);
     	temp.add(x);
-    	this.dataList = Collections.unmodifiableList(new ArrayList<Object>());
+    	this.dataList = temp;
     	return this;
     }
 
@@ -78,9 +78,16 @@ class RacketListImplTest {
         Flight f1 = flt("Delta 0121", "LGA", "MSP", 1100, 1409);
         Flight f2 = flt("Delta 0121", "LGA", "MSP", 1100, 1409);
 
+        RacketList<Flight> racketList = RacketLists.empty();
+        racketList.cons(f1).cons(f2);
+
+        System.out.printf("\nbefore rest racketList : " + racketList);
+        System.out.printf("\nrest racketList : " + racketList.rest());
+        System.out.printf("\nafter rest racketList : " + racketList);
+
         assert f1.isEqual(f1) : " should be equal";
         assert f1.isEqual(f2) : " should NOT be equal";
 
-        System.out.println("All unit tests of UTCImpl passed.");
+        System.out.println("\nAll unit tests of UTCImpl passed.");
     }
 }

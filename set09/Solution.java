@@ -127,5 +127,7 @@ public class Solution {
 //        Solution solution = new Solution(FlightExamples.smallDeltaFlights);
         Solution solution = new Solution(FlightExamples.deltaFlights);
         System.out.printf(" " + solution.fastestItinerary("PDX", "LHR"));
+
+
     }
 }
