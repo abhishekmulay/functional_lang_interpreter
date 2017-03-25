@@ -5,11 +5,22 @@ import java.util.*;
  */
 public class Dijikstra {
 
-    Map<String, Integer> distanceMap = new HashMap<>();
+    Map<String, Integer> timeTakenMap = new HashMap<>();
     Map<String, ArrayList<Flight>> flightsTakenMap = new HashMap<>();
     PriorityAirportQueue vertexQueue = new PriorityAirportQueue();
     private static final int INFINITY = 9999999;
 
+    /**
+     * getShortestPath: Map<String, List<Flight>> String String -> ArrayList<Flight>
+     * GIVEN: a graph of airport and flights contained in map, name of source airport and destination airport
+     * WHERE: in graph, airport is treated as vertex and flights connecting vertex are edges
+     * RETURNS: best itinerary for reaching destination from source in least time
+     * DESIGN STRATEGY: Combine simpler functions
+     * @param graph
+     * @param source
+     * @param destination
+     * @return ArrayList<Flight>
+     */
     public ArrayList<Flight> getShortestPath(Map<String, List<Flight>> graph, String source, String destination) {
         return this.dijikstraCaller(graph, source, destination);
     }
@@ -22,6 +33,17 @@ public class Dijikstra {
      *  Solution: What we do is, if there are x flights starting from source, we call dijikstra() x times
      *  with graph which has each one flight leaving from source, so that we get all possible shortest paths from source
      *  then finally we choose the shortest among those itineraries returned.
+     */
+    /**
+     * dijikstraCaller: Map<String, List<Flight>> String String -> ArrayList<Flight>
+     * GIVEN: a graph of airport and flights contained in map, name of source airport and destination airport
+     * WHERE: in graph, airport is treated as vertex and flights connecting vertex are edges
+     * RETURNS: best itinerary for reaching destination from source in least time
+     * DESIGN STRATEGY: Combine simpler functions
+     * @param graph
+     * @param source
+     * @param destination
+     * @return
      */
     public ArrayList<Flight> dijikstraCaller(Map<String, List<Flight>> graph, String source, String destination) {
         ArrayList<Flight> flightsOutFromSource = (ArrayList<Flight>) graph.get(source);
@@ -39,6 +61,7 @@ public class Dijikstra {
             emptyList.clear();
         }
 
+        // sort all itineraries on travel time, the one with least travel time comes first.
         Collections.sort(bestItinerariesToDestination, new Comparator<ArrayList<Flight>>() {
             TravelTimeCalculator calculator = new TravelTimeCalculator();
 
@@ -57,15 +80,26 @@ public class Dijikstra {
         return bestItinerariesToDestination.get(0);
     }
 
-
+    /**
+     * dijikstra: Map<String, List<Flight>> String String -> ArrayList<Flight>
+     * GIVEN: Graph of airport and flight, where key is name of airport and value is list of flights leaving from airport, name of
+     *        start airport and name of destination
+     * WHERE: in graph, airport is treated as vertex and flights connecting vertex are edges
+     * RETURNS: best itinerary for reaching destination from source in least time
+     * DESIGN STRATEGY: Use Dijikstras algorithm and combine simpler functions
+     * @param graph
+     * @param source
+     * @param destination
+     * @return ArrayList<Flight>
+     */
     private ArrayList<Flight> dijikstra(Map<String, List<Flight>> graph, String source, String destination) {
         // initialization
         for (String airportVertex : graph.keySet()) {
             if (airportVertex.equals(source)) {
-                distanceMap.put(airportVertex, 0); // Distance from source to source is 0, because we are already here.
+                timeTakenMap.put(airportVertex, 0); // Distance from source to source is 0, because we are already here.
                 vertexQueue.enqueue(new AirportNode(airportVertex, 0)); // source should be first in queue.
             } else {
-                distanceMap.put(airportVertex, INFINITY);
+                timeTakenMap.put(airportVertex, INFINITY);
                 vertexQueue.enqueue(new AirportNode(airportVertex, INFINITY));
             }
             // initialize with empty list of flights to get to corresponding airport from source
@@ -90,12 +124,12 @@ public class Dijikstra {
                 int alt = totalTravelTime(FlightsToConsider);
 
                 // previous shortest path to this neighbour from start
-                int previousDistance = distanceMap.get(neighbour);
+                int previousShortestTime = timeTakenMap.get(neighbour);
 
                 // found shorter path
-                if (alt < previousDistance) {
+                if (alt < previousShortestTime) {
                     // update shortest path to newly found shortest path
-                    distanceMap.put(neighbour, alt);
+                    timeTakenMap.put(neighbour, alt);
                     // add the this flight to flights taken to reach this neighbour
                     flightsTakenMap.put(neighbour, FlightsToConsider);
                     // change priority of this node so that vertex queue is ordered with shortest path node first
@@ -108,11 +142,28 @@ public class Dijikstra {
         return flightsTakenMap.get(destination);
     }
 
+    /**
+     * totalTravelTime: List<Flight> -> Integer
+     * GIVEN: a list of flights
+     * RETURNS: total travel time taken if traveller takes flights from given list in given order
+     * DESIGN STRATEGY: combine simpler functions
+     * @param flights
+     * @return Integer
+     */
     private Integer totalTravelTime(List<Flight> flights) {
         TravelTimeCalculator calculator = new TravelTimeCalculator();
         return calculator.getTravelTimeForItinerary(flights);
     }
 
+    /**
+     * getCopy : ArrayList<T> -> ArrayList<T>
+     * GIVEN: a list of any type of object
+     * RETURNS: a new list with same content as given list
+     * DESIGN STRATEGY: combine simpler functions
+     * @param list
+     * @param <T>
+     * @return ArrayList<T>
+     */
     private <T> ArrayList<T> getCopy(ArrayList<T> list) {
         ArrayList<T> result = new ArrayList<T>();
         for (T item : list) {

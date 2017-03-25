@@ -55,7 +55,7 @@ public class TravelTimeCalculator {
     private int getSameDayFlightAirTime(Flight f) {
         return getMinutes(f.arrivesAt()) - getMinutes(f.departsAt());
     }
-
+    
     public int getMinutes(UTC utc) {
         return UTCImpl.MINUTES_PER_HOUR * utc.hour() + utc.minute();
     }
