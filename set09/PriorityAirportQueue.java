@@ -1,17 +1,11 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
+import java.util.*;
 /**
  * Created by Abhishek Mulay on 3/23/17.
  */
 
 public class PriorityAirportQueue {
+	
     List<AirportNode> dataList = new ArrayList<>();
-
-    PriorityAirportQueue() {
-    }
-
     /**
      * Sort the list of airport nodes so that the node with least priority comes first
      */
@@ -28,48 +22,107 @@ public class PriorityAirportQueue {
         }
     };
 
-    public void enqueue(AirportNode ap) {
+    /**
+     * RETURNS:
+     *  @returns implicitly returns this PriorityAirportQueue
+     * STRATEGY:
+     *  default constructor
+     * EXAMPLE:
+     *  new PriorityAirportQueue() => new PriorityAirportQueue()
+     */
+    public PriorityAirportQueue() {}
+
+    /**
+     * GIVEN:
+     *  @param ap an AirportNode representing an element to add to the dataList
+     * RETURNS:
+     *  @return this PriorityAirportQueue
+     * STRATEGY:
+     *  use simpler functions
+     * EXAMPLE:
+     *  PriorityAirportQueue queue = new PriorityAirportQueue();
+     *  queue.enqueue(new AirportNode("LGA", 10));
+     *  queue.enqueue(new AirportNode("MSP", 4));
+     *  queue.toString() => "PQ { [ MSP:4,   LGA:10]}"
+     */ 
+    public PriorityAirportQueue enqueue(AirportNode ap) {
         this.dataList.add(ap);
         this.dataList.sort(comparator);
+        return this;
     }
 
+    /** 
+     * RETURNS:
+     *  @return next element of this PriorityAirportQueue and removes it
+     * STRATEGY:
+     *  use simpler functions
+     * WHERE:
+     *  Queue is not empty
+     * EXAMPLE:
+     *  PriorityAirportQueue queue = new PriorityAirportQueue();
+     *  queue.enqueue(new AirportNode("LGA", 10));
+     *  queue.enqueue(new AirportNode("MSP", 4));
+     *  queue.dequeue() => new AirportNode("MSP", 4)
+     */
     public AirportNode dequeue() {
         return this.dataList.remove(0);
     }
 
+    /**
+     * RETURNS:
+     *  @return Boolean indicating if this PriorityAirportQueue is empty
+     * STRATEGY:
+     *  use simpler functions
+     * EXAMPLE:
+     *  (new PriorityAirportQueue()).isEmpty() => true
+     *  
+     *  PriorityAirportQueue queue = new PriorityAirportQueue();
+     *  queue.enqueue(new AirportNode("LGA", 10));
+     *  queue.isEmpty() => false
+     */
     public boolean isEmpty(){
         return this.dataList.isEmpty();
     }
 
+    /**
+     * RETURNS:
+     *  @return String representation of this PriorityAirportQueue
+     * STRATEGY:
+     *  use simpler functions
+     * EXAMPLE:
+     *  (new PriorityAirportQueue()).toString() => "PQ { []}"
+     *  
+     *  PriorityAirportQueue queue = new PriorityAirportQueue();
+     *  queue.enqueue(new AirportNode("LGA", 10));
+     *  queue.toString() => "PQ { [ LGA:10]}"
+     */
     @Override
     public String toString() {
         return "PQ { " + dataList + '}';
     }
 
-    public void changePriority(String neighbour, int alt) {
+    /**
+     * GIVEN:
+     *  @param neighbour representing the element to change the priority of
+     *  @param alt representing the new priority of the element in the queue
+     * RETURNS:
+     *  @return this PriorityAirportQueue
+     * STRATEGY:
+     *  use simpler functions
+     * EXAMPLE:
+     *  PriorityAirportQueue queue = new PriorityAirportQueue();
+     *  queue.enqueue(new AirportNode("LGA", 10));
+     *  queue.enqueue(new AirportNode("MSP", 4));
+     *  queue.changePriority("LGA", 2);
+     *  queue.toString() => "PQ { [ LGA:2,   MSP:4]}"
+     */
+    public PriorityAirportQueue changePriority(String neighbour, int alt) {
         for (AirportNode item : this.dataList){
             if (item.getName().equals(neighbour)){
                 item.setPriority(alt);
             }
         }
         this.dataList.sort(comparator);
-    }
-
-    public static void main(String[] args) {
-        AirportNode ap1 = new AirportNode("LGA", 10);
-        AirportNode ap2 = new AirportNode("MSP", 4);
-        AirportNode ap3 = new AirportNode("PDX", 1);
-        AirportNode ap4 = new AirportNode("DEN", 2);
-        AirportNode ap5 = new AirportNode("LAX", 9);
-
-        PriorityAirportQueue queue = new PriorityAirportQueue();
-        queue.enqueue(ap1);
-        queue.enqueue(ap2);
-        queue.enqueue(ap3);
-        queue.enqueue(ap4);
-        queue.enqueue(ap5);
-        System.out.println(queue);
-        queue.changePriority("MSP", 0);
-        System.out.println(queue);
+        return this;
     }
 }
