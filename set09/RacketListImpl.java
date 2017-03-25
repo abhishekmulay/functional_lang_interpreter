@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -6,7 +7,8 @@ import java.util.List;
  */
 public class RacketListImpl<E> implements RacketList {
 
-    private List<Object> dataList = new ArrayList<Object>();
+//    private List<Object> dataList = new ArrayList<Object>();
+    private List<Object> dataList = Collections.unmodifiableList(new ArrayList<Object>());
 
     // making constructor private so that only way to create a racket list is empty() and cons()
     private RacketListImpl() {
@@ -23,17 +25,11 @@ public class RacketListImpl<E> implements RacketList {
 
     @Override
     public Object first() {
-        if (this.dataList.size() == 0) {
-            throw new IllegalStateException("Called first() on an empty RacketList. " + this);
-        }
         return this.dataList.get(0);
     }
 
     @Override
     public RacketList rest() {
-        if (this.dataList.size() == 0) {
-            throw new IllegalStateException("Called rest() on an empty RacketList. " + this);
-        }
         this.dataList.remove(0);
         return this;
     }

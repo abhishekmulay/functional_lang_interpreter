@@ -49,6 +49,16 @@ public class Solution {
     /////////////////////////////////////////////////////////////////////
     //                helper methods                                  //
     ///////////////////////////////////////////////////////////////////
+
+    /**
+     * createAirportGraph: List<Flight> List<String> -> Map<String, List<Flight>>
+     * GIVEN: a list of flights and a list of airport names
+     * RETURNS: a map where keys are names of string and its corresponding value is list of flights leaving that airport
+     * DESIGN STRATEGY: Combine simpler functions
+     * @param flights
+     * @param allAirports
+     * @return
+     */
     private Map<String, List<Flight>> createAirportGraph(List<Flight> flights, List<String> allAirports) {
         for (String airport : allAirports) {
             graph.put(airport, this.getFlightsLeavingFrom(airport));
@@ -56,6 +66,14 @@ public class Solution {
         return this.graph;
     }
 
+    /**
+     * getAllAirports: List<Flight> -> ArrayList<String>
+     * GIVEN: a list of flights
+     * RETURNS: a list of unique airport names
+     * DESIGN STRATEGY: Combine simpler functions
+     * @param flights
+     * @return
+     */
     private ArrayList<String> getAllAirports(List<Flight> flights) {
         Set<String> airportSet = new TreeSet();
         int totalFlights = flights.size();
@@ -68,6 +86,14 @@ public class Solution {
         return new ArrayList<String>(airportSet);
     }
 
+    /**
+     * getFlightsLeavingFrom: String -> List<Flight>
+     * GIVEN: name of airport
+     * RETURNS: a list of flights leaving from that airport
+     * DESIGN STRATEGY: Combine simpler functions
+     * @param airportName
+     * @return
+     */
     private List<Flight> getFlightsLeavingFrom(String airportName) {
         List<Flight> flightsLeavingFromAirport = new ArrayList<Flight>();
         for (Flight f : this.flights) {
@@ -78,6 +104,14 @@ public class Solution {
         return flightsLeavingFromAirport;
     }
 
+    /**
+     * prettyPrintMap : Map -> Void
+     * GIVEN: a Map which contains <K, V> pairs
+     * RETURNS: no return value
+     * EFFECT: Prints the contents of map to stdout in a readable format
+     * DESIGN STRATEGY: Combine simpler functions
+     * @param map
+     */
     private void prettyPrintMap(Map map) {
         String str = "================== \t\t\n";
         for (Object key : map.keySet()) {
