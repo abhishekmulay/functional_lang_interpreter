@@ -16,7 +16,8 @@ public class RacketListsImplTests {
 	           == new AirportNode("BOS", 8);
 		
 		//test rest
-		assert RacketListImpl.makeRacketList().cons(new AirportNode("BOS", 8))
+        RacketList<AirportNode> emtpyList = RacketLists.empty();
+        assert emtpyList.cons(new AirportNode("BOS", 8))
 	       						   .cons(new AirportNode("LAX", 5))
 	      						   .cons(new AirportNode("MSP", 10))
 	      						   .rest()
