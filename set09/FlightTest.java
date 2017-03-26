@@ -1,5 +1,5 @@
 
-public class FlightImplTest {
+public class FlightTest {
 	public static void main (String[] args){
 		
 		//test name
@@ -72,6 +72,6 @@ public class FlightImplTest {
 	    	    UTCs.make(15, 35)).toString()
 	    		== "Flight: { Delta 0689 | LAX ==> PDX | departsAt: 13:00 | arrivesAt: 16:35 }";
 		
-		System.out.println("All unit tests of FlightImplTest passed");
+		System.out.println("All unit tests of FlightTest passed");
 	}
 }

@@ -26,7 +26,6 @@ public class FlightImpl implements Flight {
 
   // making constructor private so that make is the only way to
   //create a Flight instance
-
   /**
    * GIVEN:
    *

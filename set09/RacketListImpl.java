@@ -4,8 +4,17 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by Abhishek Mulay on 3/22/17.
+ * An FlightImpl is a
+ *    makeRacketList()
+ * Interpretation:
+ *   A makeRacketList represents a list of objects
+ * Template: 
+ *  public ?? RacketListImpl-fn() {
+ *    (...(first())
+ *    	  (rest()))
+ *  }
  */
+
 public class RacketListImpl<E> implements RacketList {
 
 //    private List<Object> dataList = new ArrayList<Object>();
@@ -114,63 +123,7 @@ public class RacketListImpl<E> implements RacketList {
     	return this;
     }
 
-    /**
-     * GIVEN:
-     *  @param index represents the location in the list to return
-     * RETURN:
-     *  @return the element at location defined by index
-     * STRATEGY:
-     *  use simpler function
-     * EXAMPLE:
-     *  ((RacketListImpl) RacketListImpl.makeRacketList()
-     *  	.cons(new AirportNode("BOS", 8))
-     *  	.cons(new AirportNode("LAX", 5))
-     *  	.cons(new AirportNode("MSP", 10)))
-     *      .get(2)
-     *  =>
-     *  new AirportNode("LAX", 5)
-     */
-    public Object get(int index) {
-        return this.dataList.get(index);
-    }
-
-    /**
-     * RETURN:
-     *  @return a list of all elements in the RacketList
-     * STRATEGY:
-     *  use private variable
-     * EXAMPLE:
-     *  ((RacketListImpl) RacketListImpl.makeRacketList()
-     *   	       	.cons(new AirportNode("BOS", 8))
-     *   	         	.cons(new AirportNode("LAX", 5)))
-     *   	         	.getDataList();
-     *   =>
-     *   Arrays.asList(new AirportNode("BOS", 8),
-     *   			  new AirportNode("LAX", 5));
-     */
-    public List<Object> getDataList() {
-        return this.dataList;
-    }
-
-    /**
-     * RETURN:
-     *  @return number of elements in list
-     * STRATEGY:
-     *  use simpler function
-     * EXAMPLE:
-     *  ((RacketListImpl) RacketListImpl.makeRacketList()).size()
-     *  => 0
-     *  
-     *   ((RacketListImpl) RacketListImpl.makeRacketList()
-     *  	.cons(new AirportNode("BOS", 8))
-     *  	.cons(new AirportNode("LAX", 5)))
-     *  	.size()
-     *  => 2
-     */
-    public int size() {
-        return this.dataList.size();
-    }
-
+    
     /**
      * RETURN:
      *  @return string representation of RacketListImpl

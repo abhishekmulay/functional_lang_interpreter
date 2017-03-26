@@ -17,7 +17,6 @@ public class FlightExamples {
     //     arrival, and the departure and arrival times represented
     //     as integers using the encoding of Problem Set 00,
     // RETURNS: a flight with the given name, airports, and times
-
     private static Flight flt(String s, String ap1, String ap2,
                               int t1, int t2) {
         UTC lv = UTCs.make(t1 / 100, t1 % 100);
@@ -27,7 +26,6 @@ public class FlightExamples {
 
     // Returns a list of flights extracted from schedules published
     // by Delta Airlines.
-
     private static RacketList<Flight> initDeltaFlights() {
         RacketList<Flight> fs00 = RacketLists.empty();
         RacketList<Flight> fs01
@@ -134,7 +132,6 @@ public class FlightExamples {
 
     // Returns another list of flights extracted from schedules published
     // by Delta Airlines.
-
     private static RacketList<Flight> initDeltaCycle() {
         RacketList<Flight> fs00 = RacketLists.empty();
         RacketList<Flight> fs01

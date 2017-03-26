@@ -7,23 +7,18 @@
 interface Flight {
 
     // Returns the name of this flight.
-
     String name();
 
     // Returns the name of the airport from which this flight departs.
-
     String departs();
 
     // Returns the name of the airport at which this flight arrives.
-
     String arrives();
-
     // Returns the time at which this flight departs.
 
     UTC departsAt();
 
     // Returns the time at which this flight arrives.
-
     UTC arrivesAt();
 
     // Returns true iff this flight and the given flight
@@ -32,6 +27,5 @@ interface Flight {
     //     arrive at the same airport
     //     depart at the same time
     // and arrive at the same time
-
     boolean isEqual(Flight f2);
 }

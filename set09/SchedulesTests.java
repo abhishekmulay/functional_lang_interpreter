@@ -16,9 +16,9 @@ public class SchedulesTests {
 		RacketList<Flight> racketList = RacketLists.empty();
 		assert Schedules.fastestItinerary("LGA", "PDX", FlightExamples.deltaFlights) ==
 					racketList
-					.cons(FlightImpl.makeFlight("Delta 2163", "MSP", "PDX", 
+					.cons(Flights.make("Delta 2163", "MSP", "PDX", 
 										UTCs.make (15, 0), UTCs.make (19, 2)))
-					.cons(FlightImpl.makeFlight("Delta 0121", "LGA", "MSP",
+					.cons(Flights.make("Delta 0121", "LGA", "MSP",
 			                           UTCs.make (11, 0), UTCs.make (14, 9)));
 		
 		//test travelTime

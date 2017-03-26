@@ -8,8 +8,8 @@
  *     use in Dijikstra's algorithm.
  * Template:
  *  public ?? AirportNode-fn() {
- *    (...(name())
- *    	  (priority()))
+ *    (...(getName())
+ *    	  (getPriority()))
  *  }
  */
 public class AirportNode {
@@ -23,6 +23,10 @@ public class AirportNode {
      * 	@param priority an Int representing the priority of the airport
      * RETURNS:
      * 	@returns implicitly returns this AirportNode with the given name and priority
+     * EXAMPLE:
+     *  AirportNode test = new AirportNode("BOS", 2);
+     * STRATEGY:
+     *  use simpler functions (constructor)
      */
     AirportNode(String name, int priority) {
         this.name = name;

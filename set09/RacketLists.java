@@ -1,7 +1,6 @@
 import java.util.*;
-
 /**
- * Created by Abhishek Mulay on 3/20/17.
+ * A Flights is a Factory for making Flights, it has no public constructor
  */
 public class RacketLists {
 
@@ -9,7 +8,6 @@ public class RacketLists {
 
     // empty flight list is a null object
     public static <E> RacketList<E> empty() {
-        return RacketListImpl.makeRacketList();
+    	return RacketListImpl.makeRacketList();
     }
-
 }
