@@ -1,6 +1,7 @@
 
 public class FlightImplTest {
 	public static void main (String[] args){
+		
 		//test name
 		assert Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24), 
 				UTCs.make(6, 58)).name() == "Delta 1234";

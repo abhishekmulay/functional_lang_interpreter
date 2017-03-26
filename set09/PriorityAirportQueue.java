@@ -1,7 +1,4 @@
 import java.util.*;
-/**
- * Created by Abhishek Mulay on 3/23/17.
- */
 
 public class PriorityAirportQueue {
 	

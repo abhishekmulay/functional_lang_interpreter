@@ -1,8 +1,5 @@
 import java.util.*;
 
-/**
- * Created by Abhishek Mulay on 3/23/17.
- */
 public class ListConverter {
 
     //making constructor private so that we do not make un-necessary instances of this class.

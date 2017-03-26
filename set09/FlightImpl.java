@@ -8,7 +8,14 @@
  *    a destination representing the arrival city of the flight
  *    a departureTime representing the departure time of the flight
  *    a arrivalTime representing the arrival time of the flight
- * Template: ????
+ * Template: 
+ *  public ?? FlightImpl-fn() {
+ *    (...(name())
+ *    	  (departs())
+ *    	  (arrives())
+ *    	  (departsAt())
+ *    	  (arrivesAt())
+ *  }
  */
 public class FlightImpl implements Flight {
   private String name;

@@ -1,5 +1,6 @@
 class AirportNodeTests {
 	public static void main (String[] args){
+		
 		//test getName
 		assert (new AirportNode("BOS", 2)).getName() == "BOS";
 		assert (new AirportNode("LAX", 20)).getName() == "LAX";

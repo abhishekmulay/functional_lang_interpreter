@@ -1,6 +1,7 @@
 
 public class PriorityAirportQueueTests {
 	public static void main (String[] args) {
+		
 		//test enqueue
 	    PriorityAirportQueue queue = new PriorityAirportQueue();
 	    queue.enqueue(new AirportNode("LGA", 10));

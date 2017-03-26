@@ -6,7 +6,11 @@
  *     a 3 letter code for the city
  *   a Priority representing the Airport priority for
  *     use in Dijikstra's algorithm.
- * Template: ????
+ * Template:
+ *  public ?? AirportNode-fn() {
+ *    (...(name())
+ *    	  (priority()))
+ *  }
  */
 public class AirportNode {
 	
@@ -32,11 +36,12 @@ public class AirportNode {
      * 	(new AirportNode("BOS", 2)).getName() => "BOS"
      *  (new AirportNode("LAX", 20)).getName() => "LAX"
      * STRATEGY:
-     * 	use private variables
+     * 	use simpler functions (on private variables)
      */
     public String getName() {
         return name;
     }
+    
 
     /**
      * RETURNS:
@@ -45,7 +50,7 @@ public class AirportNode {
      * 	(new AirportNode("BOS", 2)).getPriority() => 2
      *  (new AirportNode("LAX", 20)).getPriority() => 20
      * STRATEGY:
-     * 	use private variables
+     * 	use simpler functions (on private variables)
      */
     public int getPriority() {
         return priority;
@@ -60,7 +65,7 @@ public class AirportNode {
      *  (new AirportNode("BOS", 2)).setPriority(18).getPriority() => 18
      *  (new AirportNode("LAX", 20)).setPriority(4).getPriority() => 4
      * STRATEGY:
-     *  use private variables 
+     *  use simpler functions (on private variables)
      */
     public AirportNode setPriority(int priority) {
         this.priority = priority;
@@ -76,7 +81,7 @@ public class AirportNode {
      * 	(new AirportNode("BOS", 2)).setName("DET").getName() => "DET"
      *  (new AirportNode("LAX", 20)).setName("LGA").getName() => "LGA"
      * STRATEGY:
-     *  use private variables
+     *  use simpler functions (on private variables)
      */
     public AirportNode setName(String name) {
         this.name = name;
@@ -89,6 +94,8 @@ public class AirportNode {
      * EXAMPLE:
      *  (new AirportNode("BOS", 2)).setName("DET").toString() => " BOS:2"
      *  (new AirportNode("LAX", 20)).setName("LGA").toString() => " LAX:20"
+     * STRATEGY:
+     *  use simpler functions (on private variables)
      */
     @Override
     public String toString() {

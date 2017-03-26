@@ -3,13 +3,15 @@ import java.util.Arrays;
 public class RacketListsImplTests {
 	public static void main (String[] args) {
 		//test isEmpty
+
+		
 		assert RacketListImpl.makeRacketList().isEmpty() == true;
 
-		assert RacketListImpl.makeRacketList().cons(
+		assert RacketLists.empty().cons(
 				new AirportNode("BOS", 8)).isEmpty() == false;
 		
 		//test first
-		assert RacketListImpl.makeRacketList().cons(new AirportNode("BOS", 8))
+		assert RacketLists.empty().cons(new AirportNode("BOS", 8))
 	       						   .cons(new AirportNode("LAX", 5))
 	      						   .cons(new AirportNode("MSP", 10))
 	       						   .first()
@@ -17,23 +19,24 @@ public class RacketListsImplTests {
 		
 		//test rest
         RacketList<AirportNode> emtpyList = RacketLists.empty();
-        assert emtpyList.cons(new AirportNode("BOS", 8))
+        assert RacketLists.empty().cons(new AirportNode("BOS", 8))
 	       						   .cons(new AirportNode("LAX", 5))
 	      						   .cons(new AirportNode("MSP", 10))
 	      						   .rest()
                ==
-	    	   RacketListImpl.makeRacketList().cons(new AirportNode("LAX", 5))
+            		   RacketLists.empty().cons(new AirportNode("LAX", 5))
 	       						   			  .cons(new AirportNode("MSP", 10));
 		
 		//test cons and toString
-		assert RacketListImpl.makeRacketList().cons(new AirportNode("BOS", 8))
+		assert RacketLists.empty().cons(new AirportNode("BOS", 8))
 	      						   	   .cons(new AirportNode("LAX", 5))
 	                                   .toString()
 	           == "RacketList: {\n BOS:8\n LAX:5\n}";
 		
+		//TODO: potentially delete these implementation specific tests:
+		
 		//test get
-		assert ((RacketListImpl) RacketListImpl
-				    .makeRacketList()
+		assert ((RacketListImpl) RacketLists.empty()
 					.cons(new AirportNode("BOS", 8))
 	       			.cons(new AirportNode("LAX", 5))
 	       			.cons(new AirportNode("MSP", 10)))
@@ -41,7 +44,7 @@ public class RacketListsImplTests {
                == new AirportNode("LAX", 5);
 		
 		//test getDataList
-		assert ((RacketListImpl) RacketListImpl.makeRacketList()
+		assert ((RacketListImpl) RacketLists.empty()
     	       	.cons(new AirportNode("BOS", 8))
     	         	.cons(new AirportNode("LAX", 5)))
     	         	.getDataList()
@@ -50,9 +53,9 @@ public class RacketListsImplTests {
     			  	  		  new AirportNode("LAX", 5));
 		
 		//test size
-		assert ((RacketListImpl) RacketListImpl.makeRacketList()).size() == 0;
+		assert ((RacketListImpl) RacketLists.empty()).size() == 0;
 	      
-	    assert ((RacketListImpl) RacketListImpl.makeRacketList()
+	    assert ((RacketListImpl) RacketLists.empty()
 	    		.cons(new AirportNode("BOS", 8))
 	     		.cons(new AirportNode("LAX", 5)))
 	     		.size() 
