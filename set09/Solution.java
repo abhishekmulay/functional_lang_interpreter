@@ -125,8 +125,8 @@ public class Solution {
     ///////////////////////////////////////////////////////////////////
     public static void main(String[] args) {
 //        Solution solution = new Solution(FlightExamples.smallDeltaFlights);
-        Solution solution = new Solution(FlightExamples.deltaFlights);
-        System.out.printf(" " + solution.fastestItinerary("PDX", "LHR"));
+        Solution solution = new Solution(FlightExamples.deltaCycle);
+        System.out.printf(" " + solution.fastestItinerary("ATL", "CVG"));
 
 
     }

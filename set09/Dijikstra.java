@@ -148,6 +148,8 @@ public class Dijikstra {
                 }
             }
         }
+//        System.out.println("timeTakenMap: \n");
+//        prettyPrintMap(timeTakenMap);
 
         // return shortest path to get to destination from source
         return flightsTakenMap.get(destination);
@@ -183,6 +185,14 @@ public class Dijikstra {
             result.add(item);
         }
         return result;
+    }
+
+    private void prettyPrintMap(Map map) {
+        String str = "================== \t\t\n";
+        for (Object key : map.keySet()) {
+            str += key + " : " + map.get(key).toString() + "\n";
+        }
+        System.out.printf(str);
     }
 
 }
