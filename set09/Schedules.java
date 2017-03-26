@@ -3,11 +3,11 @@ import java.util.ArrayList;
 public class Schedules {
 
     /*
- GIVEN: the names of two airports, ap1 and ap2 (respectively),
+ GIVEN: the names of two airports, source and ap2 (respectively),
      and a RacketList<Flight%gt; that describes all of the flights a
      traveller is willing to consider taking
  RETURNS: true if and only if it is possible to fly from the
-     first airport (ap1) to the second airport (ap2) using
+     first airport (source) to the second airport (ap2) using
      only the given flights
  EXAMPLES:
      Schedules.canGetThere("06N", "JFK", FlightExamples.panAmFlights)  
@@ -21,10 +21,13 @@ public class Schedules {
      Schedules.canGetThere("LGA", "PDX", FlightExamples.deltaFlights)  
      =>  true
 */
-    public static boolean canGetThere(String ap1,  String ap2,  
-    		RacketList<Flight> flights) {
-        Solution solution = new Solution(flights);
-        return solution.canGetThere(ap1, ap2);
+    public static boolean canGetThere(String source, String destination,
+                                      RacketList<Flight> flights) {
+      if (source.equals(destination)) { return true;}
+      if (flights.isEmpty()) { return false;}
+
+      Solution solution = new Solution(flights);
+      return solution.canGetThere(source, destination);
     }
 
     /*
