@@ -204,6 +204,7 @@ public class Solution {
     	PriorityAirportQueueTests.main(args);
     	RacketListsTests.main(args);
     	SchedulesTests.main(args);
-
+    	TravelTimeCalculatorTests.main(args);
+    	UTCTests.main(args);
     }
 }

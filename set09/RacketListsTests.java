@@ -3,8 +3,6 @@ import java.util.Arrays;
 public class RacketListsTests {
 	public static void main (String[] args) {
 		//test isEmpty
-
-		
 		assert RacketListImpl.makeRacketList().isEmpty() == true;
 
 		assert RacketLists.empty().cons(

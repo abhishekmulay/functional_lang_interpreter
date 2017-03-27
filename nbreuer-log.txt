@@ -1,5 +1,5 @@
-1 hours 45 minutes spent this session
-2017-03-26
+4 hours 0 minutes spent this session
+2017-03-27
 
 After each work session, please update and commit this file with the amount of
 time you spent working, the date when you stopped, and any notes you wish to

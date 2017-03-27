@@ -176,7 +176,7 @@ public class Dijikstra {
      *   TODO
      * DESIGN STRATEGY: combine simpler functions
      */
-    private Integer totalTravelTime(List<Flight> flights) {
+    private Integer totalTravelTime(ArrayList<Flight> flights) {
         TravelTimeCalculator calculator = new TravelTimeCalculator();
         return calculator.getTravelTimeForItinerary(flights);
     }
