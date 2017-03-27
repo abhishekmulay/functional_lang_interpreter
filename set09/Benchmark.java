@@ -7,13 +7,9 @@ public class Benchmark {
 		ArrayList<String> airports = ListConverter.getArrayListFromRacketList(allAirports(flights));
 		airports.forEach((ap1) -> {
 			airports.forEach((ap2) ->{
-				System.out.print("canGetThere("+ap1+", "+ap2+", "+flights+")");
 				Boolean reachable = Schedules.canGetThere(ap1, ap2, flights);
-				System.out.println(" = "+reachable);
 				if(reachable){
-					System.out.print("travelTime("+ap1+", "+ap2+", "+flights+")");
 					int travelTime = Schedules.travelTime(ap1, ap2, flights);
-					System.out.println(" = "+travelTime);
 				}
 			});
 		});
@@ -62,11 +58,9 @@ public class Benchmark {
 	}
 	
 	 public static void main(String[] args) {
-		 //equivalent to (make-stress-test0 3)
-		 //System.out.println(stressTest(3)); 
-		 //equivalent to (all-airports (make-stress-test0 3))...just a different order
-		 //System.out.println(allAirports(stressTest(3)));
-		 //equivalent to benchmark0, it calls canGetThere, and travelTime (when valid) on every airport combination
-		 System.out.println(benchmark0(3));
-   } 
+		 //run all benchmarks in a loop
+		 for(int i=8; i<101; i=i+2){
+			 System.out.println(i+","+benchmark0(i));
+	 	} 
+	 }
 }
