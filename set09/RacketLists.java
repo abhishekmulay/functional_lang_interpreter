@@ -34,19 +34,19 @@ public class RacketLists {
    * RETURNS: true if both lists are equal, i.e. they have same objects and in
    * same order
    * EXAMPLE:
-   *
+   * <p>
    * RacketList<Flight> empty = RacketLists.empty();
    * RacketList<Flight> racketList = empty.cons(
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24), UTCs.make(6,
    * 58)));
-   *
+   * <p>
    * RacketList<Flight> empty1 = RacketLists.empty();
    * RacketList<Flight> EQUAL_LIST = empty1.cons(Flights.make("Delta 1234",
    * "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)));
-   *
+   * <p>
    * RacketLists.isFlightRacketListEqual(racketList, EQUAL_LIST) => true
-   *
+   * <p>
    * HALTING MEASURE: length of list1 or list2
    * DESIGN STRATEGY: Recurse over both lists and check corresponding items
    *

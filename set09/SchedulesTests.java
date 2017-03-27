@@ -37,6 +37,8 @@ public class SchedulesTests {
         FlightExamples.panAmFlights) == 0;
     assert Schedules.travelTime("LGA", "PDX",
         FlightExamples.deltaFlights) == 482;
+    assert Schedules.travelTime("PDX", "LHR",
+        FlightExamples.deltaFlights) == 1167 : "Travel time is 1167";
 
     System.out.println("[SchedulesTests] All unit tests passed.");
   }
