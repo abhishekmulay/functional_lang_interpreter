@@ -15,22 +15,24 @@ public class RacketListsTests {
 	       						   .cons(new AirportNode("LAX", 5))
 	      						   .cons(new AirportNode("MSP", 10))
 	       						   .first()
-	           == new AirportNode("BOS", 8);
+	       						   .toString()
+	       	   .equals(" BOS:8");
 		
 		//test rest
-        assert RacketLists.empty().cons(new AirportNode("BOS", 8))
-	       						   .cons(new AirportNode("LAX", 5))
-	      						   .cons(new AirportNode("MSP", 10))
-	      						   .rest()
-               ==
-            		   RacketLists.empty().cons(new AirportNode("LAX", 5))
-	       						   			  .cons(new AirportNode("MSP", 10));
+        assert RacketLists.empty()
+        				  .cons(new AirportNode("BOS", 8))
+        				  .cons(new AirportNode("LAX", 5))
+        				  .cons(new AirportNode("MSP", 10))
+        				  .rest()
+        				  .toString()
+        				  .equals
+        	  ( "RacketList: {\n LAX:5\n MSP:10\n}");
 		
 		//test cons and toString
 		assert RacketLists.empty().cons(new AirportNode("BOS", 8))
 	      						   	   .cons(new AirportNode("LAX", 5))
-	                                   .toString()
-	           == "RacketList: {\n BOS:8\n LAX:5\n}";
+	                                   .toString().equals(
+	           "RacketList: {\n BOS:8\n LAX:5\n}");
 		
 	    System.out.println("All unit tests of RacketListsTests passed");
 	}

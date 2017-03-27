@@ -190,9 +190,16 @@ public class Solution {
     ///////////////////////////////////////////////////////////////////
     public static void main(String[] args) {
 //        Solution solution = new Solution(FlightExamples.smallDeltaFlights);
-        Solution solution = new Solution(FlightExamples.deltaCycle);
-        System.out.printf(" " + solution.fastestItinerary("ATL", "CVG"));
+//        Solution solution = new Solution(FlightExamples.deltaCycle);
+//        System.out.printf(" " + solution.fastestItinerary("ATL", "CVG"));
 
 
+    	AirportNodeTests.main(args);
+    	DijikstraTests.main(args);
+    	FlightTest.main(args);
+    	ListConverterTest.main(args);
+    	PriorityAirportQueueTests.main(args);
+    	RacketListsTests.main(args);
+    	SchedulesTests.main(args);
     }
 }

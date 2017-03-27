@@ -11,16 +11,14 @@ public class SchedulesTests {
 		
 		
 		//test fastestItinerary
-		assert Schedules.fastestItinerary("JFK", "JFK", FlightExamples.panAmFlights) ==  
-				RacketListImpl.makeRacketList();
+		assert Schedules.fastestItinerary("JFK", "JFK", FlightExamples.panAmFlights).toString().equals(  
+				"RacketList: {\n}");
 		
 		RacketList<Flight> racketList = RacketLists.empty();
-		assert Schedules.fastestItinerary("LGA", "PDX", FlightExamples.deltaFlights) ==
-					racketList
-					.cons(Flights.make("Delta 2163", "MSP", "PDX", 
-										UTCs.make (15, 0), UTCs.make (19, 2)))
-					.cons(Flights.make("Delta 0121", "LGA", "MSP",
-			                           UTCs.make (11, 0), UTCs.make (14, 9)));
+		assert Schedules.fastestItinerary("LGA", "PDX", FlightExamples.deltaFlights).toString().equals(
+					"RacketList: {\n"+
+					"Flight: { Delta 2163 | MSP ==> PDX | departsAt: 15:00 | arrivesAt: 19:02 }\n"+
+					"Flight: { Delta 0121 | LGA ==> MSP | departsAt: 11:00 | arrivesAt: 14:09 }\n}");
 		
 		//test travelTime
 	    assert Schedules.travelTime("JFK", "JFK", FlightExamples.panAmFlights)  ==  0;
