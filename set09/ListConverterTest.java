@@ -22,5 +22,7 @@ public class ListConverterTest {
 	            			.cons(new AirportNode("BOS", 2))
 	            			.cons(new AirportNode("DET", 10))
 	            			.toString());
+	    
+	    System.out.println("All unit tests of ListConverterTest passed");
 	}
 }

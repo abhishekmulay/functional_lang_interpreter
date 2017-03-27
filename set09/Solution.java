@@ -205,13 +205,6 @@ public class Solution {
     	RacketListsTests.main(args);
     	SchedulesTests.main(args);
     	TravelTimeCalculatorTests.main(args);
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-
+    	UTCTests.main(args);
     }
 }
