@@ -192,7 +192,5 @@ public class Solution {
 //        Solution solution = new Solution(FlightExamples.smallDeltaFlights);
         Solution solution = new Solution(FlightExamples.deltaCycle);
         System.out.printf(" " + solution.fastestItinerary("ATL", "CVG"));
-
-
     }
 }

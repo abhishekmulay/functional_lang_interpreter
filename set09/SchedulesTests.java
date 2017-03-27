@@ -11,7 +11,7 @@ public class SchedulesTests {
 		
 		
 		//test fastestItinerary
-		assert Schedules.fastestItinerary("JFK", "JFK", FlightExamples.panAmFlights) ==  
+		assert Schedules.fastestItinerary("JFK", "JFK", FlightExamples.panAmFlights) ==
 				RacketListImpl.makeRacketList();
 		
 		RacketList<Flight> racketList = RacketLists.empty();
