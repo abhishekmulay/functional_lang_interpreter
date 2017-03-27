@@ -2,9 +2,6 @@ import java.util.*;
 
 public class ListConverter {
 
-    //making constructor private so that we do not make un-necessary instances of this class.
-    private ListConverter() {}
-
     /**
      * GIVEN: 
      *  @param a RacketList of items of type E
@@ -14,7 +11,12 @@ public class ListConverter {
      * STRATEGY: 
      *   use private function
      * EXAMPLE:
-     *   TODO
+     *   ListConverter.getArrayListFromRacketList(RacketLists.empty()
+     *   													 .cons(new AirportNode("BOS", 2))
+     *   													 .cons(new AirportNode("DET", 10)))
+     *   =>
+     *   new ArrayList<AirportNode>(){{ add(new AirportNode("BOS", 2))
+     *   							   add(new AirportNode("DET", 10))}}
      */
     public static <E> ArrayList<E> getArrayListFromRacketList(RacketList<E> racketList) {
         return getArrayListFromRacketListHelper(racketList, new ArrayList<E>());
@@ -32,7 +34,14 @@ public class ListConverter {
      * HAULTING MEASURE:
      *  length of racketList
      * EXAMPLE:
-     *  TODO
+     *   EXAMPLE:
+     *   ListConverter.getArrayListFromRacketList(RacketLists.empty()
+     *   													 .cons(new AirportNode("BOS", 2))
+     *   													 .cons(new AirportNode("DET", 10)),
+     *   										  new ArrayList<AirportNode>)
+     *   =>
+     *   new ArrayList<AirportNode>(){{ add(new AirportNode("BOS", 2))
+     *   							   add(new AirportNode("DET", 10))}}
      */
     private static <E> ArrayList<E> getArrayListFromRacketListHelper(RacketList<E> racketList, ArrayList<E> arrayList) {
         if (racketList.isEmpty()) {
@@ -53,10 +62,18 @@ public class ListConverter {
      * STRATEGY:
      *  use private function
      * EXAMPLE:
-     *   TODO  
+     *   ListConverter.getRacketListFromArrayList(new ArrayList<AirportNode>(){{ 
+     *   							   add(new AirportNode("BOS", 2))
+     *   							   add(new AirportNode("DET", 10))}})
+     *   =>
+     *   RacketLists.empty()
+     *   			.cons(new AirportNode("BOS", 2))
+     *   			.cons(new AirportNode("DET", 10))
      */
     public static <E> RacketList<E> getRacketListFromArrayList(ArrayList<E> arrayList) {
-        return getRacketListFromArrayListHelper(new ArrayList<E>(arrayList), RacketLists.empty());
+    	ArrayList<E> reversed = new ArrayList<E>( arrayList);
+    	Collections.reverse(reversed);
+        return getRacketListFromArrayListHelper(reversed, RacketLists.empty());
     }
 
     /**
@@ -74,7 +91,14 @@ public class ListConverter {
      * DESIGN STRATEGY: Use template for ArrayList on arrayList
      * HAULTING MEASURE: length of arrayList
      * EXAMPLE: 
-     *  TODO
+     *   ListConverter.getRacketListFromArrayList(new ArrayList<AirportNode>(){{ 
+     *   											add(new AirportNode("BOS", 2))
+     *   							   				add(new AirportNode("DET", 10))}},
+     *   										empty)
+     *   =>
+     *   RacketLists.empty()
+     *   			.cons(new AirportNode("BOS", 2))
+     *   			.cons(new AirportNode("DET", 10))
      */
     private static <E> RacketList<E> getRacketListFromArrayListHelper(ArrayList<E> arrayList, RacketList<E> racketList) {
         if (arrayList.isEmpty()) {

@@ -1,22 +1,23 @@
 /**
- * A Flights is a Factory for making Flights, it has no public constructor
+ * A Flights is a Factory for making Flights, it has no public constructor, 
+ * only a make method
  */
 public class Flights {
-    private String name;
-    private String source;
-    private String destination;
-    private UTC departureTime;
-    private UTC arrivalTime;
-
-    // making constructor private so that make is the only way to create a Flight instance
-    private Flights(String name, String source, String destination, UTC departureTime, UTC arrivalTime) {
-        this.name = name;
-        this.source = source;
-        this.destination = destination;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-    }
-
+	/**
+	 * GIVEN:
+	 *  @param name represents the name of the flight
+	 *  @param source represents the city the flight departs from
+	 *  @param destination represents the city the flight arrives in
+	 *  @param departureTime represents the time of departure
+	 *  @param arrivalTime represents the time of arrival
+	 * RETURNS:
+	 *  @return returns a Flight with given properties
+	 * STRATEGY:
+	 *  use simpler functions
+	 * EXAMPLE:
+	 *  Flight.make("Delta 1234", "BOS", "DET", 
+	 *  	UTCs.make(5, 23), UTCs.make(10, 0));
+	 */
     public static Flight make(String name, String source, String destination, UTC departureTime, UTC arrivalTime) {
         return FlightImpl.makeFlight(name, source, destination, departureTime, arrivalTime);
     }

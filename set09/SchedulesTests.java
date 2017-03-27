@@ -17,8 +17,9 @@ public class SchedulesTests {
 		RacketList<Flight> racketList = RacketLists.empty();
 		assert Schedules.fastestItinerary("LGA", "PDX", FlightExamples.deltaFlights).toString().equals(
 					"RacketList: {\n"+
-					"Flight: { Delta 2163 | MSP ==> PDX | departsAt: 15:00 | arrivesAt: 19:02 }\n"+
-					"Flight: { Delta 0121 | LGA ==> MSP | departsAt: 11:00 | arrivesAt: 14:09 }\n}");
+					"Flight: { Delta 0121 | LGA ==> MSP | departsAt: 11:00 | arrivesAt: 14:09 }\n"+
+					"Flight: { Delta 2163 | MSP ==> PDX | departsAt: 15:00 | arrivesAt: 19:02 }\n}"
+					);
 		
 		//test travelTime
 	    assert Schedules.travelTime("JFK", "JFK", FlightExamples.panAmFlights)  ==  0;

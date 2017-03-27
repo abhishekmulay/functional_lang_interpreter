@@ -44,12 +44,13 @@ public class FlightTest {
 	    
 	    //test equals
 	    assert Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24), 
-	    	    UTCs.make(6, 58)).equals(null)
-	    	     == false;
-
-	    assert Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24), 
-	    	    UTCs.make(6, 58)).equals(UTCs.make(13, 16))
-	    	     == false;
+	    		   UTCs.make(6, 58)).equals(Flights.make("Delta 0689", "LAX", "PDX", 
+	    	         							  UTCs.make(13, 0), UTCs.make(15, 35)))
+	    	   == false;
+	    
+	    assert Flights.make("Delta 0689", "LAX", "PDX", UTCs.make( 13, 0), 
+   	         UTCs.make(15, 35)).equals(Flights.make("Delta 0689", "LAX", "PDX", 
+   	         							  UTCs.make(13, 0), UTCs.make(15, 35)));
 	    	     
 	    	     
 		assert Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24), 
