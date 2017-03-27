@@ -13,6 +13,9 @@ public class FlightExamples {
 
     public static RacketList<Flight> smallDeltaFlights = getSmallDeltaFlights();
 
+    public static RacketList<Flight> fastestItineraryfromLHRtoPDXviaDeltaFlights
+        = getFastestItineraryfromLHRtoPDXviaDeltaFlights();
+
     // GIVEN: the name of a flight, the airports of departure and
     //     arrival, and the departure and arrival times represented
     //     as integers using the encoding of Problem Set 00,
@@ -181,5 +184,17 @@ public class FlightExamples {
         RacketList<Flight> fs05
                 = fs04.cons(flt("Delta 2163", "MSP", "PDX", 1500, 1902));
         return fs05;
+    }
+
+    private static RacketList<Flight>
+    getFastestItineraryfromLHRtoPDXviaDeltaFlights(){
+      RacketList<Flight> empty = RacketLists.empty();
+      RacketList<Flight> f1 = empty.cons(
+          flt("Delta 0010", "DEN", "LHR", 2030, 945));
+      RacketList<Flight> f2 = f1.cons(
+          flt("Delta 4574", "LAX", "DEN", 1735, 2007));
+      RacketList<Flight> f3 = f2.cons(
+          flt("Delta 0950", "PDX", "LAX", 1418, 1655));
+      return f3;
     }
 }

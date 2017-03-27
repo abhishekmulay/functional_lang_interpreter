@@ -4,7 +4,7 @@ public class ListConverter {
 
     /**
      * GIVEN: 
-     *  @param a RacketList of items of type E
+     *  @param racketList of items of type E
      *  @param <E> type of objects in RacketList
      * RETURNS: 
      *  @return an ArrayList of same items
@@ -71,9 +71,7 @@ public class ListConverter {
      *   			.cons(new AirportNode("DET", 10))
      */
     public static <E> RacketList<E> getRacketListFromArrayList(ArrayList<E> arrayList) {
-    	ArrayList<E> reversed = new ArrayList<E>( arrayList);
-    	Collections.reverse(reversed);
-        return getRacketListFromArrayListHelper(reversed, RacketLists.empty());
+        return getRacketListFromArrayListHelper(arrayList, RacketLists.empty());
     }
 
     /**

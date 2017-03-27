@@ -106,7 +106,7 @@ public class Solution {
     /**
      * GIVEN: 
      *  @param flights a list of flights 
-	 *  @param allAirportsa list of airport names
+	 *  @param allAirports list of airport names
      * RETURNS: 
      *  @return a map where keys are names of string and its corresponding 
      *  value is list of flights leaving that airport
@@ -182,29 +182,5 @@ public class Solution {
             str += key + " : " + map.get(key).toString() + "\n";
         }
         System.out.printf(str);
-    }
-
-
-    /////////////////////////////////////////////////////////////////////
-    //                For testing, remove before submission           //
-    ///////////////////////////////////////////////////////////////////
-    public static void main(String[] args) {
-/**        Solution solution = new Solution(FlightExamples.smallDeltaFlights);
-        Solution solution = new Solution(FlightExamples.deltaCycle);
-        System.out.printf(" " + solution.fastestItinerary("ATL", "CVG"));
-
-		Solution solution = new Solution(FlightExamples.deltaCycle);
-        System.out.printf(" " + solution.fastestItinerary("ATL", "CVG"));
-*/
-
-    	AirportNodeTests.main(args);
-    	DijikstraTests.main(args);
-    	FlightTest.main(args);
-    	ListConverterTest.main(args);
-    	PriorityAirportQueueTests.main(args);
-    	RacketListsTests.main(args);
-    	SchedulesTests.main(args);
-    	TravelTimeCalculatorTests.main(args);
-    	UTCTests.main(args);
     }
 }
