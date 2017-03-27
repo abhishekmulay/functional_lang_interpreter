@@ -1,4 +1,3 @@
-
 public class SchedulesTests {
   public static void main(String[] args) {
     //test canGetThere
