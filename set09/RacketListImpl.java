@@ -110,7 +110,7 @@ public class RacketListImpl<E> implements RacketList {
     public RacketList rest() {
     	ArrayList<Object> temp = new ArrayList<Object>(this.dataList);
     	temp.remove(0);
-        return new RacketListImpl(temp);
+      return new RacketListImpl(temp);
     }
 
     /**
@@ -130,7 +130,7 @@ public class RacketListImpl<E> implements RacketList {
     @Override
     public RacketList cons(Object x) {
     	ArrayList<Object> temp = new ArrayList<Object>(this.dataList);
-    	temp.add(x);
+    	temp.add(0, x);
     	return new RacketListImpl(temp);
     }
 
@@ -157,4 +157,12 @@ public class RacketListImpl<E> implements RacketList {
     }
 
 
+  public static void main(String[] args) {
+    RacketList<String> strList = RacketLists.empty();
+    RacketList<String> a = strList.cons("A");
+    a.cons("B");
+    System.out.println("strList: "+ strList);
+    System.out.println("a : " + a);
+
+  }
 }

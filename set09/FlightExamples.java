@@ -164,7 +164,6 @@ public class FlightExamples {
                 = fs13.cons(flt("Delta 7199", "MIA", "YTO", 2055, 6));
         RacketList<Flight> fs15
                 = fs14.cons(flt("Delta 7037", "YTO", "BOS", 2215, 5));
-
         return fs15;
     }
 

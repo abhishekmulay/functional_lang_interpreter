@@ -64,7 +64,8 @@ public class FlightImpl implements Flight {
    * FlightImpl("Delta 0689", "LAX", "PDX", makeUTC(13, 0), makeUTC(15, 35))
    */
   public static Flight makeFlight(String name, String source,
-                                  String destination, UTC departureTime, UTC arrivalTime) {
+                                  String destination, UTC departureTime,
+                                  UTC arrivalTime) {
     return new FlightImpl(name, source, destination,
         departureTime, arrivalTime);
   }
@@ -213,8 +214,11 @@ public class FlightImpl implements Flight {
     if (this == o) return true;
 
     FlightImpl f = (FlightImpl) o;
-    return this.name.equals(f.name()) && this.departs().equals(f.departs()) && this.arrives().equals(f.arrives())
-        && this.departsAt().isEqual(f.departsAt()) && this.arrivesAt().isEqual(f.arrivesAt());
+    return this.name.equals(f.name())
+        && this.departs().equals(f.departs())
+        && this.arrives().equals(f.arrives())
+        && this.departsAt().isEqual(f.departsAt())
+        && this.arrivesAt().isEqual(f.arrivesAt());
   }
 
   /**
@@ -254,10 +258,13 @@ public class FlightImpl implements Flight {
    * <p>
    * Flights.make("Delta 0689", "LAX", "PDX", UTCs.make( 13, 0),
    * UTCs.make(15, 35)).toString()
-   * => "Flight: { Delta 0689 | LAX ==> PDX | departsAt: 13:00 | arrivesAt: 16:35 }"
+   * =>
+   * "Flight: { Delta 0689 | LAX ==> PDX | departsAt: 13:00 | arrivesAt: 16:35 }"
    */
   public String toString() {
-    return "Flight: { " + this.name() + " | " + this.departs() + " ==> " + this.arrives() + " | departsAt: "
-        + this.departsAt().toString() + " | arrivesAt: " + this.arrivesAt().toString() + " }";
+    return "Flight: { " + this.name() + " | " + this.departs() + " ==> " +
+        this.arrives() + " | departsAt: "
+        + this.departsAt().toString() + " | arrivesAt: " +
+        this.arrivesAt().toString() + " }";
   }
 }
