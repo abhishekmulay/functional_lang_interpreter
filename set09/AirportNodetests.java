@@ -21,6 +21,6 @@ class AirportNodeTests {
 		assert (new AirportNode("BOS", 2)).toString().equals(" BOS:2");
 	    assert (new AirportNode("LAX", 20)).toString().equals(" LAX:20");
 	    
-	    System.out.println("All unit tests of AirportNode passed");
+	    System.out.println("[AirportNode] All unit tests passed.");
 	}
 }

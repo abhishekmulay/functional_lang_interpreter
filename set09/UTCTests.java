@@ -22,6 +22,6 @@ public class UTCTests {
 		//test hashCode
 		assert UTCs.make(15, 4).hashCode() == 469;
 		
-		System.out.println("All unit tests of UTCTests passed");
+		System.out.println("[UTCTests] All unit tests passed.");
 	}
 }

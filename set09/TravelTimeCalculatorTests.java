@@ -19,6 +19,6 @@ public class TravelTimeCalculatorTests {
 		//test getMinutes
 		assert calc.getMinutes(UTCs.make(5, 20)) == 320;
 		
-		System.out.println("All unit tests of TravelTimeCalculatorTests passed");
+		System.out.println("[TravelTimeCalculatorTests] All unit tests passed.");
 	}
 }

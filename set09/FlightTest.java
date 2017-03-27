@@ -73,6 +73,6 @@ public class FlightTest {
 	    	    UTCs.make(15, 35)).toString().equals(
 	    		"Flight: { Delta 0689 | LAX ==> PDX | departsAt: 13:00 | arrivesAt: 15:35 }");
 		
-		System.out.println("All unit tests of FlightTest passed");
+		System.out.println("[FlightTest] All unit tests passed.");
 	}
 }

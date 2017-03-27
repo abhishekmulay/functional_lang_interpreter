@@ -5,6 +5,6 @@ public class DijikstraTests {
 		
 		//test dijikstraCaller
 		
-		System.out.println("All unit tests of DijikstraTests passed");
+		System.out.println("[DijikstraTests] All unit tests passed.");
 	}
 }

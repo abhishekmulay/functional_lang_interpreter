@@ -35,6 +35,6 @@ public class PriorityAirportQueueTests {
 	    queue.changePriority("LGA", 2);
 	    assert queue.toString().equals("PQ { [ LGA:2,  MSP:4]}");
 	    
-	    System.out.println("All unit tests of PriorityAirportQueueTests passed");
+	    System.out.println("[PriorityAirportQueueTests] All unit tests passed.");
 	}
 }
