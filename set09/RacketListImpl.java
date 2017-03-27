@@ -155,14 +155,4 @@ public class RacketListImpl<E> implements RacketList {
         }
         return "RacketList: {\n" + str + "}";
     }
-
-
-  public static void main(String[] args) {
-    RacketList<String> strList = RacketLists.empty();
-    RacketList<String> a = strList.cons("A");
-    a.cons("B");
-    System.out.println("strList: "+ strList);
-    System.out.println("a : " + a);
-
-  }
 }
