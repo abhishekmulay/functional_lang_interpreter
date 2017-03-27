@@ -1,21 +1,26 @@
+///////////////////////////////////////////////////////////////////////////////
+//                      DATA DEFINITION                                      //
+//////////////////////////////////////////////////////////////////////////////
+
 /**
- * An FlightImpl is a
+ * A FlightImpl is an object of any class that implements Flight
+ *
+ * A FlightImpl is a:
  *    new FlightImpl(String String String UTC UTC)
+ *
+ *    OR
+ *
+ *    makeFlight(String, String, String, UTC, UTC)
+ *
  * Interpretation:
- *   A FlightImpl represents an flight with:
+ *   A FlightImpl represents a Flight instance which has following public
+ *   members:
+ *
  *    a name representing the name of the flight
  *    a source representing the departure city of the flight
  *    a destination representing the arrival city of the flight
  *    a departureTime representing the departure time of the flight
  *    a arrivalTime representing the arrival time of the flight
- * Template: 
- *  public ?? FlightImpl-fn() {
- *    (...(name())
- *    	  (departs())
- *    	  (arrives())
- *    	  (departsAt())
- *    	  (arrivesAt())
- *  }
  */
 public class FlightImpl implements Flight {
   private String name;
@@ -24,18 +29,17 @@ public class FlightImpl implements Flight {
   private UTC departureTime;
   private UTC arrivalTime;
 
-  // making constructor private so that make is the only way to
-  //create a Flight instance
+  //___________________________________________________________________________
+  // making constructor private so that using new FlightImpl is discouraged.
   /**
    * GIVEN:
-   *
    * @param name          representing the name of the flight
    * @param source        representing the departure city of the flight
    * @param destination   representing the arrival city of the flight
    * @param departureTime representing the departure time of the flight
    * @param arrivalTime   representing the arrival time of the flight
    *                      RETURNS:
-   * @returns implicitly returns this Flight with given properties
+   * @returns Instance of FlightImpl which represnts a Flight with given data
    */
   private FlightImpl(String name, String source, String destination,
                      UTC departureTime, UTC arrivalTime) {
@@ -46,9 +50,9 @@ public class FlightImpl implements Flight {
     this.arrivalTime = arrivalTime;
   }
 
+  //___________________________________________________________________________
   /**
    * GIVEN
-   *
    * @param name          representing the name of the flight
    * @param source        representing the departure city of the flight
    * @param destination   representing the arrival city of the flight
@@ -60,8 +64,11 @@ public class FlightImpl implements Flight {
    * EXAMPLE:
    * makeFlight("Delta 1234", "BOS", "LGA", makeUTC( 5, 24), makeUTC(6, 58)) =>
    * FlightImpl("Delta 1234", "BOS", "LGA", makeUTC( 5, 24), makeUTC(6, 58))
+   *
    * makeFlight("Delta 0689", "LAX", "PDX", makeUTC(13, 0), makeUTC(15, 35)) =>
    * FlightImpl("Delta 0689", "LAX", "PDX", makeUTC(13, 0), makeUTC(15, 35))
+   *
+   * PATTERN: Static factory method pattern
    */
   public static Flight makeFlight(String name, String source,
                                   String destination, UTC departureTime,
@@ -70,12 +77,14 @@ public class FlightImpl implements Flight {
         departureTime, arrivalTime);
   }
 
+  //___________________________________________________________________________
   /**
-   * RETURNS:
+   * GIVEN:
+   * No implicit parameter, the method can access the object as "this"
    *
+   * RETURNS:
    * @returns the name of this flight
-   * STRATEGY:
-   * use private variable
+   *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)).name()
@@ -89,12 +98,14 @@ public class FlightImpl implements Flight {
     return this.name;
   }
 
+  //___________________________________________________________________________
   /**
-   * RETURNS:
+   * GIVEN:
+   * No implicit parameter, the method can access the object as "this"
    *
+   * RETURNS:
    * @returns the departure location of this flight
-   * STRATEGY:
-   * use private variable
+   *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)).departs()
@@ -108,12 +119,15 @@ public class FlightImpl implements Flight {
     return this.source;
   }
 
+  //___________________________________________________________________________
   /**
-   * RETURNS:
    *
+   * GIVEN:
+   * No implicit parameter, the method can access the object as "this"
+   *
+   * RETURNS:
    * @returns the arrival location of this flight
-   * STRATEGY:
-   * use private variable
+   *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)).arrives()
@@ -127,12 +141,14 @@ public class FlightImpl implements Flight {
     return this.destination;
   }
 
+  //___________________________________________________________________________
   /**
-   * RETURNS:
+   * GIVEN:
+   * No implicit parameter, the method can access the object as "this"
    *
+   * RETURNS:
    * @returns the departure time of this flight
-   * STRATEGY:
-   * use private variable
+   *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)).departsAt()
@@ -146,12 +162,14 @@ public class FlightImpl implements Flight {
     return this.departureTime;
   }
 
+  //___________________________________________________________________________
   /**
-   * RETURNS:
+   * GIVEN:
+   * No implicit parameter, the method can access the object as "this"
    *
+   * RETURNS:
    * @returns the arrival time of this flight
-   * STRATEGY:
-   * use private variable
+   *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)).arrivesAt()
@@ -165,49 +183,55 @@ public class FlightImpl implements Flight {
     return this.arrivalTime;
   }
 
+  //___________________________________________________________________________
   /**
    * GIVEN
-   *
    * @flight the flight to compare this flight to
+   *
    * RETURNS:
-   * @returns true if the flights are equal, false otherwise
-   * STRATEGY:
-   * use simpler functions
+   * @returns true iff all fields in flight are equal
    * EXAMPLE:
+   *
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)).isEqual(Flights.make("Delta 0689", "LAX", "PDX",
    * UTCs.make(13, 0), UTCs.make(15, 35)))
    * => false
-   * <p>
+   *
    * Flights.make("Delta 0689", "LAX", "PDX", UTCs.make( 13, 0),
    * UTCs.make(15, 35)).isEqual(Flights.make("Delta 0689", "LAX", "PDX",
    * UTCs.make(13, 0), UTCs.make(15, 35)))
    * => true
+   *
+   * DESIGN STRATEGY: Combine simpler functions
    */
   @Override
   public boolean isEqual(Flight flight) {
     return this.equals(flight);
   }
 
+  //___________________________________________________________________________
+
   /**
-   * RETURNS: the object to compare this flight to
+   * GIVEN: the object to compare this flight to
    *
+   * RETURNS:
    * @returns true if the flights are equal, false otherwise
-   * STRATEGY:
-   * use simpler functions
+   *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)).equals(null)
    * => false
-   * <p>
+   *
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)).equals(UTCs.make(13, 16))
    * => false
-   * <p>
+   *
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)).equals(Flights.make("Delta 1234", "BOS", "LGA",
    * UTCs.make( 5, 24), UTCs.make(6, 58)))
    * => true
+   *
+   * DESIGN STRATEGY: Combine simpler functions
    */
   @Override
   public boolean equals(Object o) {
@@ -221,12 +245,13 @@ public class FlightImpl implements Flight {
         && this.arrivesAt().isEqual(f.arrivesAt());
   }
 
+  //___________________________________________________________________________
   /**
-   * RETURNS:
+   * GIVEN: none
    *
+   * RETURNS:
    * @returns an Integer HashCode representation of this Flight
-   * STRATEGY:
-   * use simpler functions
+   *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)).hashCode()
@@ -234,6 +259,8 @@ public class FlightImpl implements Flight {
    * Flights.make("Delta 0689", "LAX", "PDX", UTCs.make( 13, 0),
    * UTCs.make(15, 35)).hashCode()
    * => 1996434897;
+   *
+   * DESIGN STRATEGY: Combine simpler functions
    */
   @Override
   public int hashCode() {
@@ -245,21 +272,24 @@ public class FlightImpl implements Flight {
     return result;
   }
 
+  //___________________________________________________________________________
   /**
+   * GIVEN:
+   * No implicit parameter, the method can access the object as "this"
    * RETURNS:
-   *
    * @returns a String representation of this flight
-   * STRATEGY:
-   * use simpler functions
+   *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)).toString()
    * => "Flight: { Delta 1234 | BOS ==> LGA | departsAt: 5:24 | arrivesAt: 06:58 }"
-   * <p>
+   *
    * Flights.make("Delta 0689", "LAX", "PDX", UTCs.make( 13, 0),
    * UTCs.make(15, 35)).toString()
    * =>
    * "Flight: { Delta 0689 | LAX ==> PDX | departsAt: 13:00 | arrivesAt: 16:35 }"
+   *
+   * DESIGN STRATEGY: Combine simpler functions
    */
   public String toString() {
     return "Flight: { " + this.name() + " | " + this.departs() + " ==> " +
@@ -267,4 +297,6 @@ public class FlightImpl implements Flight {
         + this.departsAt().toString() + " | arrivesAt: " +
         this.arrivesAt().toString() + " }";
   }
+
+  //___________________________________________________________________________
 }
