@@ -95,12 +95,7 @@ public class Dijikstra {
             }
         });
         // best itinerary is at start
-//      System.out.println("bestItinerariesToDestination: "+ bestItinerariesToDestination);
-      if (bestItinerariesToDestination.isEmpty()) {
-        System.out.println("No best path found for "+ source + " ==> "+ destination);
-        return new ArrayList<Flight>(0);
-      }
-      return bestItinerariesToDestination.get(0);
+        return bestItinerariesToDestination.get(0);
     }
 
     /**
