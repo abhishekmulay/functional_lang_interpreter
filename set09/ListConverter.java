@@ -56,7 +56,7 @@ public class ListConverter {
      *   TODO  
      */
     public static <E> RacketList<E> getRacketListFromArrayList(ArrayList<E> arrayList) {
-        return getRacketListFromArrayListHelper(arrayList, RacketLists.empty());
+        return getRacketListFromArrayListHelper(new ArrayList<E>(arrayList), RacketLists.empty());
     }
 
     /**

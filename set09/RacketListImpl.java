@@ -31,6 +31,18 @@ public class RacketListImpl<E> implements RacketList {
      */
     private RacketListImpl() {
     }
+    
+    /**
+     * RETURNS:
+     *  @return implicit empty RacketListImpl
+     * STRATEGY:
+     *  none
+     * EXAMPLE:
+     *  RacketListImpl test = new RacketListImpl(this.dataList);
+     */
+    private RacketListImpl(List<Object> dataList ) {
+    	this.dataList = dataList;
+    }
 
     /**
      * RETURNS:
@@ -96,8 +108,9 @@ public class RacketListImpl<E> implements RacketList {
      */
     @Override
     public RacketList rest() {
-        this.dataList.remove(0);
-        return this;
+    	ArrayList<Object> temp = new ArrayList<Object>(this.dataList);
+    	temp.remove(0);
+        return new RacketListImpl(temp);
     }
 
     /**
@@ -116,11 +129,9 @@ public class RacketListImpl<E> implements RacketList {
      */
     @Override
     public RacketList cons(Object x) {
-    	ArrayList<Object> temp = new ArrayList<Object>();
-    	temp.addAll(this.dataList);
+    	ArrayList<Object> temp = new ArrayList<Object>(this.dataList);
     	temp.add(x);
-    	this.dataList = temp;
-    	return this;
+    	return new RacketListImpl(temp);
     }
 
     
