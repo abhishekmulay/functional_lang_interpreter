@@ -189,10 +189,13 @@ public class Solution {
     //                For testing, remove before submission           //
     ///////////////////////////////////////////////////////////////////
     public static void main(String[] args) {
-//        Solution solution = new Solution(FlightExamples.smallDeltaFlights);
-//        Solution solution = new Solution(FlightExamples.deltaCycle);
-//        System.out.printf(" " + solution.fastestItinerary("ATL", "CVG"));
+/**        Solution solution = new Solution(FlightExamples.smallDeltaFlights);
+        Solution solution = new Solution(FlightExamples.deltaCycle);
+        System.out.printf(" " + solution.fastestItinerary("ATL", "CVG"));
 
+		Solution solution = new Solution(FlightExamples.deltaCycle);
+        System.out.printf(" " + solution.fastestItinerary("ATL", "CVG"));
+*/
 
     	AirportNodeTests.main(args);
     	DijikstraTests.main(args);
@@ -201,5 +204,6 @@ public class Solution {
     	PriorityAirportQueueTests.main(args);
     	RacketListsTests.main(args);
     	SchedulesTests.main(args);
+
     }
 }

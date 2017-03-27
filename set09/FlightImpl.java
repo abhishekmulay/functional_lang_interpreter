@@ -211,7 +211,6 @@ public class FlightImpl implements Flight {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof FlightImpl)) return false;
 
     FlightImpl f = (FlightImpl) o;
     return this.name.equals(f.name()) && this.departs().equals(f.departs()) && this.arrives().equals(f.arrives())
