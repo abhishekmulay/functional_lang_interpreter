@@ -57,6 +57,13 @@ public class Dijikstra {
      * DESIGN STRATEGY: Combine simpler functions
      */
     public ArrayList<Flight> dijikstraCaller(Map<String, List<Flight>> graph, String source, String destination) {
+
+        // Source and Destination airports can not be reached by given flights
+        if (!graph.containsKey(source) || !graph.containsKey(destination)) {
+          // return empty itinerary.
+          return new ArrayList<Flight>(0);
+        }
+
         ArrayList<Flight> flightsOutFromSource = (ArrayList<Flight>) graph.get(source);
         ArrayList<Flight> flightsOutFromSourceCopy = getCopy(flightsOutFromSource);
         // remove all fligths leaving from source

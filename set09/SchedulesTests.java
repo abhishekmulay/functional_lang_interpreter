@@ -2,7 +2,8 @@
 public class SchedulesTests {
 	public static void main (String[] args) {
 		//test canGetThere
-		assert Schedules.canGetThere("06N", "JFK", FlightExamples.panAmFlights)  ==  false;
+		assert Schedules.canGetThere("abhishek", "JFK", FlightExamples
+				.panAmFlights)  ==  false;
 		assert Schedules.canGetThere("JFK", "JFK", FlightExamples.panAmFlights)  ==  true;
 		assert Schedules.canGetThere("06N", "LAX", FlightExamples.deltaFlights)  ==  false;
 		assert Schedules.canGetThere("LAX", "06N", FlightExamples.deltaFlights)  ==  false;
