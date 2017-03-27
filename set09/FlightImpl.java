@@ -65,9 +65,10 @@ public class FlightImpl implements Flight {
    * @param destination   representing the arrival city of the flight
    * @param departureTime representing the departure time of the flight
    * @param arrivalTime   representing the arrival time of the flight
-   *                      RETURNS:
+   *
+   * RETURNS:
    * @returns a Flight with given properties
-   * STRATEGY: Combine simpler functions
+   *
    * EXAMPLE:
    * makeFlight("Delta 1234", "BOS", "LGA", makeUTC( 5, 24), makeUTC(6, 58)) =>
    * FlightImpl("Delta 1234", "BOS", "LGA", makeUTC( 5, 24), makeUTC(6, 58))
@@ -94,11 +95,10 @@ public class FlightImpl implements Flight {
    *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
-   * UTCs.make(6, 58)).name()
-   * => "Delta 1234"
+   * UTCs.make(6, 58)).name() => "Delta 1234"
+   *
    * Flights.make("Delta 0689", "LAX", "PDX", UTCs.make(13, 0),
-   * UTCs.make(15, 35)).name()
-   * => "Delta 0689"
+   * UTCs.make(15, 35)).name() => "Delta 0689"
    */
   @Override
   public String name() {
@@ -115,11 +115,10 @@ public class FlightImpl implements Flight {
    *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
-   * UTCs.make(6, 58)).departs()
-   * => "BOS"
+   * UTCs.make(6, 58)).departs() => "BOS"
+   *
    * Flights.make("Delta 0689", "LAX", "PDX", UTCs.make(13, 0),
-   * UTCs.make(15, 35)).departs()
-   * => "LAX"
+   * UTCs.make(15, 35)).departs() => "LAX"
    */
   @Override
   public String departs() {
@@ -137,11 +136,10 @@ public class FlightImpl implements Flight {
    *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
-   * UTCs.make(6, 58)).arrives()
-   * => "LGA"
+   * UTCs.make(6, 58)).arrives() => "LGA"
+   *
    * Flights.make("Delta 0689", "LAX", "PDX", UTCs.make(13, 0),
-   * UTCs.make(15, 35)).arrives()
-   * => "LGA"
+   * UTCs.make(15, 35)).arrives() => "LGA"
    */
   @Override
   public String arrives() {
@@ -158,11 +156,10 @@ public class FlightImpl implements Flight {
    *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
-   * UTCs.make(6, 58)).departsAt()
-   * => UTCs.make( 5, 24)
+   * UTCs.make(6, 58)).departsAt() => UTCs.make( 5, 24)
+   *
    * Flights.make("Delta 0689", "LAX", "PDX", UTCs.make(13, 0),
-   * UTCs.make(15, 35)).departsAt()
-   * => UTCs.make( 5, 24)
+   * UTCs.make(15, 35)).departsAt() => UTCs.make( 5, 24)
    */
   @Override
   public UTC departsAt() {
@@ -179,11 +176,10 @@ public class FlightImpl implements Flight {
    *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
-   * UTCs.make(6, 58)).arrivesAt()
-   * => UTCs.make(6, 58))
+   * UTCs.make(6, 58)).arrivesAt() => UTCs.make(6, 58))
+   *
    * Flights.make("Delta 0689", "LAX", "PDX", UTCs.make(13, 0),
-   * UTCs.make(15, 35)).arrivesAt()
-   * => UTCs.make(6, 58))
+   * UTCs.make(15, 35)).arrivesAt() => UTCs.make(6, 58))
    */
   @Override
   public UTC arrivesAt() {
@@ -263,6 +259,7 @@ public class FlightImpl implements Flight {
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
    * UTCs.make(6, 58)).hashCode()
    * => -235678037;
+   *
    * Flights.make("Delta 0689", "LAX", "PDX", UTCs.make( 13, 0),
    * UTCs.make(15, 35)).hashCode()
    * => 1996434897;
@@ -289,8 +286,8 @@ public class FlightImpl implements Flight {
    *
    * EXAMPLE:
    * Flights.make("Delta 1234", "BOS", "LGA", UTCs.make( 5, 24),
-   * UTCs.make(6, 58)).toString()
-   * => "Flight: { Delta 1234 | BOS ==> LGA | departsAt: 5:24 | arrivesAt: 06:58 }"
+   * UTCs.make(6, 58)).toString() =>
+   * "Flight: { Delta 1234 | BOS ==> LGA | departsAt: 5:24 | arrivesAt: 06:58 }"
    *
    * Flights.make("Delta 0689", "LAX", "PDX", UTCs.make( 13, 0),
    * UTCs.make(15, 35)).toString()

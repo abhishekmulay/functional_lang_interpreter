@@ -43,9 +43,9 @@ public class RacketListImpl<E> implements RacketList<E> {
      *  @return true iff the list is empty, false otherwise
      *
      * EXAMPLE: 
-     *  RacketList.makeRacketList().isEmpty() => True
+     *  RacketLists.empty().isEmpty() => True
      *  
-     *  RacketList.makeRacketList().cons(new AirportNode("BOS", 8)).isEmpty()
+     *  RacketLists.empty().cons(new AirportNode("BOS", 8)).isEmpty()
      *  => false
      */
     @Override

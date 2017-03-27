@@ -16,7 +16,6 @@ public class TestLauncher {
     //   TESTS FOR LAUNCHER CLASSES
     /////////////////////////////////////
     SchedulesTests.main(args);
-    DijikstraTests.main(args);
 
     ////////////////////////////////////
     //   TESTS FOR HELPER CLASSES
