@@ -36,7 +36,7 @@ public class RacketListImpl<E> implements RacketList<E> {
      *  RacketListImpl test = new RacketListImpl();
      */
     public RacketListImpl() {}
-  
+
     //__________________________________________________________________________
     /**
      * RETURNS:
