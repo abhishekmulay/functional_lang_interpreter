@@ -25,7 +25,7 @@ public class RacketLists {
    * @return RacketList<E>
    */
   public static <E> RacketList<E> empty() {
-    return RacketListImpl.makeRacketList();
+    return new RacketListImpl<E>();
   }
 
 

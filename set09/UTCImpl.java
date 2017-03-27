@@ -6,7 +6,6 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /**
- * A UTCImpl is an object of any class that implements UTC.
  *
  * A UTCImpl is a:
  * CONSTRUCTOR TEMPLATE:

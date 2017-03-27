@@ -3,7 +3,6 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /**
- * A FlightImpl is an object of any class that implements Flight.
  *
  * A FlightImpl is a:
  * CONSTRUCTOR TEMPLATE:
@@ -26,10 +25,15 @@
  *    a arrivalTime representing the arrival time of the flight
  */
 public class FlightImpl implements Flight {
+  // name of flight
   private String name;
+  // flight leaves from this airport
   private String source;
+  // flight reaches this airport
   private String destination;
+  // time of departure in UTC format
   private UTC departureTime;
+  // time of arrival in UTC format
   private UTC arrivalTime;
 
   //___________________________________________________________________________
