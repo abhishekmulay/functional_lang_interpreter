@@ -3,9 +3,11 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /**
- * A FlightImpl is an object of any class that implements Flight
+ * A FlightImpl is an object of any class that implements Flight.
  *
  * A FlightImpl is a:
+ * CONSTRUCTOR TEMPLATE:
+ * =====================
  *    new FlightImpl(String String String UTC UTC)
  *
  *    OR
@@ -13,6 +15,7 @@
  *    makeFlight(String, String, String, UTC, UTC)
  *
  * Interpretation:
+ * ===============
  *   A FlightImpl represents a Flight instance which has following public
  *   members:
  *
@@ -276,6 +279,7 @@ public class FlightImpl implements Flight {
   /**
    * GIVEN:
    * No implicit parameter, the method can access the object as "this"
+   *
    * RETURNS:
    * @returns a String representation of this flight
    *
