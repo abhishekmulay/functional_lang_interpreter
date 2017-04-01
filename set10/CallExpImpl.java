@@ -56,36 +56,37 @@ public class CallExpImpl implements CallExp {
 
     @Override
     public ConstantExp asConstant() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public IdentifierExp asIdentifier() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public LambdaExp asLambda() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public ArithmeticExp asArithmetic() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public CallExp asCall() {
-        return null;
+        return this;
     }
 
     @Override
     public IfExp asIf() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
+    	//TODO
         return null;
     }
 
@@ -101,22 +102,22 @@ public class CallExpImpl implements CallExp {
 
     @Override
     public boolean isExp() {
-        return false;
+        return true;
     }
 
     @Override
     public List<Def> asPgm() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public Def asDef() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public Exp asExp() {
-        return null;
+        return this;
     }
 
     @Override

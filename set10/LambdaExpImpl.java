@@ -56,37 +56,42 @@ public class LambdaExpImpl implements LambdaExp {
 
     @Override
     public ConstantExp asConstant() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public IdentifierExp asIdentifier() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public LambdaExp asLambda() {
-        return null;
+        return this;
     }
 
     @Override
     public ArithmeticExp asArithmetic() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public CallExp asCall() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public IfExp asIf() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-        return null;
+    	//lambda does not depend on current environment, it depends on
+    	//compile time environment calculated initially.
+    	//So I think we dont support this method, but we may have to
+    	//implement it for the compile time env update...
+    	//TODO
+    	throw new UnsupportedOperationException();
     }
 
     @Override
@@ -101,22 +106,22 @@ public class LambdaExpImpl implements LambdaExp {
 
     @Override
     public boolean isExp() {
-        return false;
+        return true;
     }
 
     @Override
     public List<Def> asPgm() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public Def asDef() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public Exp asExp() {
-        return null;
+        return this;
     }
 
     @Override

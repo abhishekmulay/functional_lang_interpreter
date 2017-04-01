@@ -13,7 +13,7 @@ public class IdentifierExpImpl implements IdentifierExp {
 
     @Override
     public String name() {
-        return null;
+        return this.identifier;
     }
 
     @Override
@@ -48,32 +48,32 @@ public class IdentifierExpImpl implements IdentifierExp {
 
     @Override
     public ConstantExp asConstant() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public IdentifierExp asIdentifier() {
-        return null;
+        return this;
     }
 
     @Override
     public LambdaExp asLambda() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public ArithmeticExp asArithmetic() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public CallExp asCall() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public IfExp asIf() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
@@ -82,7 +82,7 @@ public class IdentifierExpImpl implements IdentifierExp {
             return env.get(this.identifier);
         } else{
             System.out.println("Identifier not found in environment. "+ this.identifier + " environment: "+ env);
-            return null;
+            throw new IllegalStateException();
         }
     }
 
@@ -98,22 +98,22 @@ public class IdentifierExpImpl implements IdentifierExp {
 
     @Override
     public boolean isExp() {
-        return false;
+        return true;
     }
 
     @Override
     public List<Def> asPgm() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public Def asDef() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public Exp asExp() {
-        return null;
+        return this;
     }
 
 

@@ -48,32 +48,32 @@ public class ArithmeticExpImpl implements ArithmeticExp {
 
     @Override
     public ConstantExp asConstant() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public IdentifierExp asIdentifier() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public LambdaExp asLambda() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public ArithmeticExp asArithmetic() {
-        return null;
+        return this;
     }
 
     @Override
     public CallExp asCall() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public IfExp asIf() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
@@ -104,7 +104,7 @@ public class ArithmeticExpImpl implements ArithmeticExp {
             return Asts.expVal(result);
         }
 
-        System.out.println("Something bad happened. " + this.toString());
+        System.out.println("Something bad happened. " + this.toString()); //TODO:remove this before we turn it in
         return null;
     }
 
@@ -140,17 +140,17 @@ public class ArithmeticExpImpl implements ArithmeticExp {
 
     @Override
     public List<Def> asPgm() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public Def asDef() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public Exp asExp() {
-        return null;
+        return this;
     }
 
     @Override
