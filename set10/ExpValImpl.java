@@ -12,7 +12,7 @@ public class ExpValImpl implements ExpVal {
   }
 
   ExpValImpl(Long integerVal) {
-    this.value = (Long) integerVal;
+    this.value = integerVal;
   }
 
   @Override
@@ -22,7 +22,7 @@ public class ExpValImpl implements ExpVal {
 
   @Override
   public boolean isInteger() {
-    return this.value instanceof Integer;
+    return (this.value instanceof Integer || this.value instanceof Long);
   }
 
   @Override
@@ -43,7 +43,7 @@ public class ExpValImpl implements ExpVal {
 
   @Override
   public long asInteger() {
-    if (this.isBoolean()) {
+    if (this.isInteger()) {
       return (long) this.value;
     } else {
       System.out.println("[ExpValImpl] asInteger: not a long value: value= " + this.value);

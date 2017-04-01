@@ -2,19 +2,26 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Abhishek Mulay on 3/30/17.
+ * Created by Abhishek Mulay on 3/31/17.
  */
-public class ConstantExpImpl implements ConstantExp {
+public class CallExpImpl implements CallExp {
 
-    private ExpVal value;
+    private Exp operator;
+    private List<Exp> arguments;
 
-    ConstantExpImpl(ExpVal val) {
-        this.value = val;
+    public CallExpImpl(Exp operator, List<Exp> arguments) {
+        this.operator = operator;
+        this.arguments = arguments;
     }
 
     @Override
-    public ExpVal value() {
-        return this.value;
+    public Exp operator() {
+        return this.operator;
+    }
+
+    @Override
+    public List<Exp> arguments() {
+        return this.arguments;
     }
 
     @Override
@@ -39,7 +46,7 @@ public class ConstantExpImpl implements ConstantExp {
 
     @Override
     public boolean isCall() {
-        return false;
+        return true;
     }
 
     @Override
@@ -79,7 +86,7 @@ public class ConstantExpImpl implements ConstantExp {
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-        return this.value;
+        return null;
     }
 
     @Override
@@ -114,7 +121,9 @@ public class ConstantExpImpl implements ConstantExp {
 
     @Override
     public String toString() {
-        return "ConstantExpImpl: {value=" + value + '}';
+        return "CallExpImpl: {" +
+                "operator=" + operator +
+                ", arguments=" + arguments +
+                '}';
     }
-
 }

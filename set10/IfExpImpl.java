@@ -2,19 +2,32 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Abhishek Mulay on 3/30/17.
+ * Created by Abhishek Mulay on 3/31/17.
  */
-public class ConstantExpImpl implements ConstantExp {
+public class IfExpImpl implements IfExp {
+    private Exp testPart;
+    private Exp thenPart;
+    private Exp elsePart;
 
-    private ExpVal value;
-
-    ConstantExpImpl(ExpVal val) {
-        this.value = val;
+    public IfExpImpl(Exp testPart, Exp thenPart, Exp elsePart) {
+        this.testPart = testPart;
+        this.thenPart = thenPart;
+        this.elsePart = elsePart;
     }
 
     @Override
-    public ExpVal value() {
-        return this.value;
+    public Exp testPart() {
+        return this.testPart;
+    }
+
+    @Override
+    public Exp thenPart() {
+        return this.thenPart;
+    }
+
+    @Override
+    public Exp elsePart() {
+        return this.elsePart;
     }
 
     @Override
@@ -44,7 +57,7 @@ public class ConstantExpImpl implements ConstantExp {
 
     @Override
     public boolean isIf() {
-        return false;
+        return true;
     }
 
     @Override
@@ -74,12 +87,12 @@ public class ConstantExpImpl implements ConstantExp {
 
     @Override
     public IfExp asIf() {
-        return null;
+        return this;
     }
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-        return this.value;
+        return null;
     }
 
     @Override
@@ -114,7 +127,10 @@ public class ConstantExpImpl implements ConstantExp {
 
     @Override
     public String toString() {
-        return "ConstantExpImpl: {value=" + value + '}';
+        return "IfExpImpl{" +
+                "testPart=" + testPart +
+                ", thenPart=" + thenPart +
+                ", elsePart=" + elsePart +
+                '}';
     }
-
 }

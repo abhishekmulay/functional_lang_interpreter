@@ -2,19 +2,26 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Abhishek Mulay on 3/30/17.
+ * Created by Abhishek Mulay on 3/31/17.
  */
-public class ConstantExpImpl implements ConstantExp {
+public class LambdaExpImpl implements LambdaExp {
 
-    private ExpVal value;
+    private List<String> formals;
+    private Exp body;
 
-    ConstantExpImpl(ExpVal val) {
-        this.value = val;
+    public LambdaExpImpl(List<String> formals, Exp body) {
+        this.formals = formals;
+        this.body = body;
     }
 
     @Override
-    public ExpVal value() {
-        return this.value;
+    public List<String> formals() {
+        return this.formals;
+    }
+
+    @Override
+    public Exp body() {
+        return this.body;
     }
 
     @Override
@@ -29,7 +36,7 @@ public class ConstantExpImpl implements ConstantExp {
 
     @Override
     public boolean isLambda() {
-        return false;
+        return true;
     }
 
     @Override
@@ -79,7 +86,7 @@ public class ConstantExpImpl implements ConstantExp {
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-        return this.value;
+        return null;
     }
 
     @Override
@@ -114,7 +121,9 @@ public class ConstantExpImpl implements ConstantExp {
 
     @Override
     public String toString() {
-        return "ConstantExpImpl: {value=" + value + '}';
+        return "LambdaExpImpl{" +
+                "formals=" + formals +
+                ", body=" + body +
+                '}';
     }
-
 }

@@ -4,7 +4,7 @@
 
 import java.util.Map;
 
-interface FunVal extends ExpVal {
+interface  FunVal extends ExpVal {
 
     // Returns the lambda expression from which this function was created.
 

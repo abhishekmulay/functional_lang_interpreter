@@ -2,20 +2,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Abhishek Mulay on 3/30/17.
+ * Created by Abhishek Mulay on 3/31/17.
  */
-public class ConstantExpImpl implements ConstantExp {
-
-    private ExpVal value;
-
-    ConstantExpImpl(ExpVal val) {
-        this.value = val;
-    }
-
-    @Override
-    public ExpVal value() {
-        return this.value;
-    }
+public class ExpImpl implements Exp {
 
     @Override
     public boolean isConstant() {
@@ -79,7 +68,7 @@ public class ConstantExpImpl implements ConstantExp {
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-        return this.value;
+        return null;
     }
 
     @Override
@@ -111,10 +100,4 @@ public class ConstantExpImpl implements ConstantExp {
     public Exp asExp() {
         return null;
     }
-
-    @Override
-    public String toString() {
-        return "ConstantExpImpl: {value=" + value + '}';
-    }
-
 }
