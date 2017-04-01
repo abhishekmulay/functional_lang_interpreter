@@ -14,10 +14,28 @@ public class Programs {
         return null;
     }
 
-
     public static void main(String[] args) {
-
         Programs.testArithmeticOperations();
+        Programs.testIfOperations();
+    }
+
+    public static void testIfOperations() {
+        Exp two = Asts.constantExp(Asts.expVal(2));
+        Exp three = Asts.constantExp(Asts.expVal(3));
+        Exp testPart1 = Asts.arithmeticExp (two, "EQ", three);
+        Exp thenPart1 = Asts.constantExp (Asts.expVal (false));
+        Exp elsePart1 = Asts.constantExp (Asts.expVal (true));
+        IfExp result1 = Asts.ifExp(testPart1, thenPart1, elsePart1);
+        assert result1.isIf() == true : "result should be an IF expression.";
+        assert result1.thenPart().value(null).asBoolean() == false : " then part should be false, because 2 != 3";
+
+        Exp testPart2 = Asts.arithmeticExp (two, "LT", three);
+        Exp thenPart2 = Asts.constantExp (Asts.expVal (true));
+        Exp elsePart2 = Asts.constantExp (Asts.expVal (false));
+        IfExp result2 = Asts.ifExp(testPart2, thenPart2, elsePart2);
+
+        assert result2.isIf() == true : "result should be an IF expression.";
+        System.out.println("All IF operation tests passed.");
     }
 
     public static void testArithmeticOperations() {
