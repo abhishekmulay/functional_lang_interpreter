@@ -92,7 +92,11 @@ public class IfExpImpl implements IfExp {
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-        return null;
+        if (testPart.value(env).asBoolean()) {
+            return thenPart.value(env);
+        } else {
+            return elsePart.value(env);
+        }
     }
 
     @Override

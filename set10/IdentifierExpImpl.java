@@ -78,7 +78,12 @@ public class IdentifierExpImpl implements IdentifierExp {
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-        return null;
+        if (env.containsKey(this.identifier)) {
+            return env.get(this.identifier);
+        } else{
+            System.out.println("Identifier not found in environment. "+ this.identifier + " environment: "+ env);
+            return null;
+        }
     }
 
     @Override

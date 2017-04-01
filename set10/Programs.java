@@ -16,36 +16,6 @@ public class Programs {
 
 
     public static void main(String[] args) {
-//        System.out.println("Asts.expVal(1): " + Asts.expVal(1));
-//        ConstantExp constantExp = Asts.constantExp(Asts.expVal(1));
-//        System.out.println("constantExp: " + constantExp);
-//        Exp exp1 = Asts.arithmeticExp(Asts.identifierExp("n"), "MINUS", Asts.constantExp(Asts.expVal(1)));
-//        System.out.println("exp1: " + exp1);
-//
-//        Exp call1 = Asts.callExp (Asts.identifierExp ("fact"), Asts.list (exp1));
-//        System.out.println("call1: "+ call1);
-//
-//        Exp testPart = Asts.arithmeticExp (Asts.identifierExp ("n"),  "EQ", Asts.constantExp (Asts.expVal (0)));
-//        Exp thenPart = Asts.constantExp (Asts.expVal (1));
-//        Exp elsePart  = Asts.arithmeticExp (Asts.identifierExp ("n"),  "TIMES", call1);
-//
-//        Def def1  = Asts.def ("fact",
-//                            Asts.lambdaExp (Asts.list ("n"),
-//                                            Asts.ifExp (testPart, thenPart, elsePart)));
-//        System.out.println("Def1: " + def1);
-//
-//        ExpVal result = Programs.run (Asts.list (def1), Asts.list (Asts.expVal (5)));
-
-
-//        Def def2 = Asts.def("mult", twoTimesThree);
-//        List<Def> defList = new ArrayList<Def>();
-//        defList.add(def2);
-//        List<ExpVal> inputs = new ArrayList<>();
-//        inputs.add(new ExpValImpl(new Long(2)));
-//        inputs.add(new ExpValImpl( new Long(3)));
-//        ExpVal result = Programs.run(defList, inputs);
-//
-//        System.out.println("result: " + result.asInteger());
 
         Programs.testArithmeticOperations();
     }
@@ -71,5 +41,6 @@ public class Programs {
         assert twoLesserThanThree.value(DEFAULT_ENV).asBoolean() == true : " LT does not work.";
         assert twoEqualsTwo.value(DEFAULT_ENV).asBoolean() == true : " EQ does not work.";
         assert twoEqualsThree.value(DEFAULT_ENV).asBoolean() == false : " EQ does not work.";
+        System.out.println("All arithmetic operations tests passed.");
     }
 }
