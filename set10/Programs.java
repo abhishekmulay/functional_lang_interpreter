@@ -102,5 +102,4 @@ public class Programs {
         System.out.println ("result: " + result.asInteger() + " should be 120");
     }
 
-
 }

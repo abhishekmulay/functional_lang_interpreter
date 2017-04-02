@@ -57,22 +57,22 @@ import java.util.Map;
 
     @Override
     public ConstantExp asConstant() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public IdentifierExp asIdentifier() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public LambdaExp asLambda() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public ArithmeticExp asArithmetic() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
@@ -82,7 +82,7 @@ import java.util.Map;
 
     @Override
     public IfExp asIf() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
@@ -123,22 +123,22 @@ import java.util.Map;
 
     @Override
     public boolean isExp() {
-        return false;
+        return true;
     }
 
     @Override
     public List<Def> asPgm() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public Def asDef() {
-        return null;
+    	throw new UnsupportedOperationException();
     }
 
     @Override
     public Exp asExp() {
-        return null;
+        return this;
     }
 
     @Override

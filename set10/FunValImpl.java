@@ -52,4 +52,5 @@ public class FunValImpl implements FunVal {
     public Map<String, ExpVal> environment() {
         return this.env;
     }
+
 }
