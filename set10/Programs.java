@@ -12,12 +12,15 @@ public class Programs {
     public static ExpVal run(List<Def> pgm, List<ExpVal> inputs) {
         System.out.println("[Programs] run \npgm: "+ pgm + " \ninputs: "+ inputs);
         Map<String, ExpVal> env = new HashMap<>();
-        List<String> formals = pgm.get(0).rhs().asLambda().formals();
-
-        // add all input variables to environment.
-        for (int index=0; index < inputs.size(); index++) {
-            String key = formals.get(index);
-            env.put(key, inputs.get(index));
+        
+        if(pgm.get(0).rhs().isLambda()){
+	        List<String> formals = pgm.get(0).rhs().asLambda().formals();
+	
+	        // add all input variables to environment.
+	        for (int index=0; index < inputs.size(); index++) {
+	            String key = formals.get(index);
+	            env.put(key, inputs.get(index));
+	        }
         }
 
         for (int index=0; index < pgm.size(); index++) {
@@ -85,21 +88,30 @@ public class Programs {
         assert trueEqualsFalse.value(DEFAULT_ENV).asBoolean() == false : "EQ does not work for boolean";
         System.out.println("All arithmetic operations tests passed.");
     }
+    
+    public static void testDef(){
+    	Def main = Asts.def("main", Asts.arithmeticExp(Asts.identifierExp("a"), "PLUS", Asts.identifierExp("b")));
+    	Def defa = Asts.def("a", Asts.constantExp(Asts.expVal(1)));
+    	Def defb = Asts.def("b", Asts.constantExp(Asts.expVal(2)));
+    	ExpVal result = Programs.run(Asts.list(main, defa, defb), Asts.list(Asts.expVal(2)));
+    	System.out.println(result.asInteger());
+    }
 
 
     public static void main(String[] args) {
 //        Programs.testArithmeticOperations();
 //        Programs.testIfOperations();
-
-        Exp exp1  = Asts.arithmeticExp (Asts.identifierExp ("n"), "MINUS",  Asts.constantExp (Asts.expVal (1)));
-        System.out.println("exp1: " + exp1);
-        Exp call1 = Asts.callExp (Asts.identifierExp ("fact"), Asts.list (exp1));
-        Exp testPart  = Asts.arithmeticExp (Asts.identifierExp ("n"), "EQ", Asts.constantExp (Asts.expVal (0)));
-        Exp thenPart = Asts.constantExp (Asts.expVal (1));
-        Exp elsePart = Asts.arithmeticExp (Asts.identifierExp ("n"), "TIMES", call1);
-        Def def1 = Asts.def ("fact", Asts.lambdaExp (Asts.list ("n"), Asts.ifExp (testPart, thenPart, elsePart)));
-        ExpVal result = Programs.run (Asts.list (def1), Asts.list (Asts.expVal (5)));
-        System.out.println ("result: " + result.asInteger() + " should be 120");
+        Programs.testDef();
+        
+//        Exp exp1  = Asts.arithmeticExp (Asts.identifierExp ("n"), "MINUS",  Asts.constantExp (Asts.expVal (1)));
+//        System.out.println("exp1: " + exp1);
+//        Exp call1 = Asts.callExp (Asts.identifierExp ("fact"), Asts.list (exp1));
+//        Exp testPart  = Asts.arithmeticExp (Asts.identifierExp ("n"), "EQ", Asts.constantExp (Asts.expVal (0)));
+//        Exp thenPart = Asts.constantExp (Asts.expVal (1));
+//        Exp elsePart = Asts.arithmeticExp (Asts.identifierExp ("n"), "TIMES", call1);
+//        Def def1 = Asts.def ("fact", Asts.lambdaExp (Asts.list ("n"), Asts.ifExp (testPart, thenPart, elsePart)));
+//        ExpVal result = Programs.run (Asts.list (def1), Asts.list (Asts.expVal (5)));
+//        System.out.println ("result: " + result.asInteger() + " should be 120");
     }
 
 }
