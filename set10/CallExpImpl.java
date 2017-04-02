@@ -15,29 +15,35 @@ import java.util.Map;
         this.arguments = arguments;
     }
 
+    // Returns: the Expression operator of this Call
     @Override
     public Exp operator() {
         return this.operator;
     }
 
+    // Returns: the list of Expressions representing the arguments
+    //   of this call
     @Override
     public List<Exp> arguments() {
         return this.arguments;
     }
 
+    // Returns: true because this is a CallExp
     @Override
     public boolean isCall() {
         return true;
     }
 
+    // Returns: this as this is a already a CallExp
     @Override
     public CallExp asCall() {
         return this;
     }
 
+    // Given: env representing the current environment of this call
+    // Returns: the result of this call as an ExpVal within the provided environment
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-//        System.out.println("[CallExpImpl] value" + prettyPrintMap(env));
         if (env == null) {
             System.out.println("[CallExpImpl] .value() Environment is null." + this.toString());
             return null;
@@ -61,34 +67,9 @@ import java.util.Map;
         }
     }
 
+    // Returns: the representation of this object as a string
     @Override
     public String toString() {
         return "CallExpImpl: {operator=" + operator +  ", arguments=" + arguments + '}';
-    }
-
-    public static void main(String[] args) {
-
-        ArithmeticExp nTimesTen = Asts.arithmeticExp(Asts.identifierExp("n"), "TIMES", Asts.constantExp(Asts.expVal(10)));
-        System.out.println("result: "+ nTimesTen);
-
-        Map<String, ExpVal> testEnv = new HashMap<>();
-        testEnv.put("n", new ExpValImpl( new Long(10)));
-
-        System.out.println("testEnv" + testEnv);
-
-        System.out.println("result value : " +  nTimesTen.value(testEnv).asInteger());
-
-    }
-
-    private String prettyPrintMap(Map map) {
-        if (map == null) {
-            System.out.println(this.getClass().getSimpleName() + " Env is null ");
-        }
-        String str = "\n========ENV========== \t\t\n";
-        for (Object key : map.keySet()) {
-            str += key + " : " + map.get(key) + "\n";
-        }
-//        System.out.printf(str);
-        return str;
     }
 }

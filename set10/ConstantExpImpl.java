@@ -4,7 +4,7 @@ import java.util.Map;
 /**
  * Created by Abhishek Mulay on 3/30/17.
  */
-public class ConstantExpImpl implements ConstantExp {
+public class ConstantExpImpl extends BaseExp implements ConstantExp {
 
     private ExpVal value;
 
@@ -12,107 +12,33 @@ public class ConstantExpImpl implements ConstantExp {
         this.value = val;
     }
 
+    // Returns: the value of this constant
     @Override
     public ExpVal value() {
         return this.value;
     }
 
+    // Returns: true because this is a ConstantExp
     @Override
     public boolean isConstant() {
         return true;
     }
-
-    @Override
-    public boolean isIdentifier() {
-        return false;
-    }
-
-    @Override
-    public boolean isLambda() {
-        return false;
-    }
-
-    @Override
-    public boolean isArithmetic() {
-        return false;
-    }
-
-    @Override
-    public boolean isCall() {
-        return false;
-    }
-
-    @Override
-    public boolean isIf() {
-        return false;
-    }
-
+    
+    // Returns: this because this is a ConstantExp
     @Override
     public ConstantExp asConstant() {
         return this;
     }
 
-
-    @Override
-    public IdentifierExp asIdentifier() {
-    	throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public LambdaExp asLambda() {
-    	throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public ArithmeticExp asArithmetic() {
-    	throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public CallExp asCall() {
-    	throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public IfExp asIf() {
-    	throw new UnsupportedOperationException();
-    }
-
+    // Given: env representing the current environment of this call
+    // Returns: the result of this call (environment does not 
+    // effect value of a constant)
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
         return this.value;
     }
 
-    @Override
-    public boolean isPgm() {
-        return false;
-    }
-
-    @Override
-    public boolean isDef() {
-        return false;
-    }
-
-    @Override
-    public boolean isExp() {
-        return true;
-    }
-
-    @Override
-    public List<Def> asPgm() {
-    	throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Def asDef() {
-    	throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Exp asExp() {
-        return this;
-    }
-
+    // Returns: the representation of this object as a string
     @Override
     public String toString() {
         return "ConstantExpImpl: {value=" + value + '}';

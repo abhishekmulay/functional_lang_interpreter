@@ -1,9 +1,10 @@
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Abhishek Mulay on 3/31/17.
  */
-public class DefImpl implements Def {
+public class DefImpl extends BaseExp implements Def {
 
     private String lhs;
     private Exp rhs;
@@ -13,46 +14,37 @@ public class DefImpl implements Def {
         this.rhs = rhs;
     }
 
+    // Returns: the left hand side of this definition
     @Override
     public String lhs() {
         return this.lhs;
     }
 
+    // Returns: the right hand side of this definition
     @Override
     public Exp rhs() {
         return this.rhs;
     }
 
-    @Override
-    public boolean isPgm() {
-        return false;
-    }
-
+    // Returns: true because this is a Def
     @Override
     public boolean isDef() {
         return true;
     }
 
-    @Override
-    public boolean isExp() {
-        return false;
-    }
-
-    @Override
-    public List<Def> asPgm() {
-        return null;
-    }
-
+    // Returns: this as this is a already a Def
     @Override
     public Def asDef() {
         return this;
     }
 
+    // Returns runtime exception as def evaluation is handled outside of object
     @Override
-    public Exp asExp() {
-        return null;
-    }
-
+	public ExpVal value(Map<String, ExpVal> env) {
+    	throw new UnsupportedOperationException();
+	}
+    
+    // Returns: the representation of this object as a string
     @Override
     public String toString() {
         return "DefImpl: {" +
