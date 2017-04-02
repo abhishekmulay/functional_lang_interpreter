@@ -1,4 +1,7 @@
+import com.sun.xml.internal.bind.v2.TODO;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,16 +11,30 @@ import java.util.Map;
 public class Programs {
     public static ExpVal run(List<Def> pgm, List<ExpVal> inputs) {
         System.out.println("[Programs] run \npgm: "+ pgm + " \ninputs: "+ inputs);
+        Map<String, ExpVal> env = new HashMap<>();
+        List<String> formals = pgm.get(0).rhs().asLambda().formals();
 
-        Def definition  = pgm.get(0);
-        System.out.println("definition: "+ definition);
-        return null;
+        // add all input variables to environment.
+        for (int index=0; index < inputs.size(); index++) {
+            String key = formals.get(index);
+            env.put(key, inputs.get(index));
+        }
+
+        for (int index=0; index < pgm.size(); index++) {
+            Def definition = pgm.get(index);
+
+            // rhs expression is a lambda expression
+            if (definition.rhs().isLambda()) {
+                FunVal funVal = Asts.expVal(definition.rhs().asLambda(), env);
+                env.put(definition.lhs(), funVal);
+
+            } else {
+                env.put(definition.lhs(), definition.rhs().value(env));
+            }
+        }
+        return pgm.get(0).rhs().value(env);
     }
 
-    public static void main(String[] args) {
-        Programs.testArithmeticOperations();
-        Programs.testIfOperations();
-    }
 
     public static void testIfOperations() {
         Exp two = Asts.constantExp(Asts.expVal(2));
@@ -41,6 +58,9 @@ public class Programs {
     public static void testArithmeticOperations() {
         Exp two = Asts.constantExp(Asts.expVal(2));
         Exp three = Asts.constantExp(Asts.expVal(3));
+        Exp trueExp = Asts.constantExp(Asts.expVal(true));
+        Exp falseExp = Asts.constantExp(Asts.expVal(false));
+
         Exp twoTimesThree = Asts.arithmeticExp(two, "TIMES", three);
         Exp twoPlusThree = Asts.arithmeticExp(two, "PLUS", three);
         Exp twoMinusThree = Asts.arithmeticExp(two, "MINUS", three);
@@ -49,6 +69,8 @@ public class Programs {
         Exp twoLesserThanThree = Asts.arithmeticExp(two, "LT", three);
         Exp twoEqualsTwo = Asts.arithmeticExp(two, "EQ", two);
         Exp twoEqualsThree = Asts.arithmeticExp(two, "EQ", three);
+        Exp trueEqualsTrue = Asts.arithmeticExp(trueExp, "EQ", trueExp);
+        Exp trueEqualsFalse = Asts.arithmeticExp(trueExp, "EQ", falseExp);
         Map<String, ExpVal> DEFAULT_ENV = null;
 
         assert twoTimesThree.value(DEFAULT_ENV).asInteger() == 6 : " TIMES does not work.";
@@ -59,6 +81,26 @@ public class Programs {
         assert twoLesserThanThree.value(DEFAULT_ENV).asBoolean() == true : " LT does not work.";
         assert twoEqualsTwo.value(DEFAULT_ENV).asBoolean() == true : " EQ does not work.";
         assert twoEqualsThree.value(DEFAULT_ENV).asBoolean() == false : " EQ does not work.";
+        assert trueEqualsTrue.value(DEFAULT_ENV).asBoolean() == true : "EQ does not work for boolean";
+        assert trueEqualsFalse.value(DEFAULT_ENV).asBoolean() == false : "EQ does not work for boolean";
         System.out.println("All arithmetic operations tests passed.");
     }
+
+
+    public static void main(String[] args) {
+//        Programs.testArithmeticOperations();
+//        Programs.testIfOperations();
+
+        Exp exp1  = Asts.arithmeticExp (Asts.identifierExp ("n"), "MINUS",  Asts.constantExp (Asts.expVal (1)));
+        System.out.println("exp1: " + exp1);
+        Exp call1 = Asts.callExp (Asts.identifierExp ("fact"), Asts.list (exp1));
+        Exp testPart  = Asts.arithmeticExp (Asts.identifierExp ("n"), "EQ", Asts.constantExp (Asts.expVal (0)));
+        Exp thenPart = Asts.constantExp (Asts.expVal (1));
+        Exp elsePart = Asts.arithmeticExp (Asts.identifierExp ("n"), "TIMES", call1);
+        Def def1 = Asts.def ("fact", Asts.lambdaExp (Asts.list ("n"), Asts.ifExp (testPart, thenPart, elsePart)));
+        ExpVal result = Programs.run (Asts.list (def1), Asts.list (Asts.expVal (5)));
+        System.out.println ("result: " + result.asInteger() + " should be 120");
+    }
+
+
 }

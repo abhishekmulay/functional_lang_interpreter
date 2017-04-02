@@ -66,7 +66,7 @@ public class LambdaExpImpl implements LambdaExp {
 
     @Override
     public LambdaExp asLambda() {
-        return null;
+        return this;
     }
 
     @Override
@@ -86,7 +86,8 @@ public class LambdaExpImpl implements LambdaExp {
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-        return null;
+        System.out.println("[LambdaExpImpl] value " + prettyPrintMap(env));
+        return body.value(env);
     }
 
     @Override
@@ -125,5 +126,17 @@ public class LambdaExpImpl implements LambdaExp {
                 "formals=" + formals +
                 ", body=" + body +
                 '}';
+    }
+
+    private String prettyPrintMap(Map map) {
+        if (map == null) {
+            System.out.println(this.getClass().getSimpleName() + " Env is null " + map);
+        }
+        String str = "\n========ENV========== \t\t\n";
+        for (Object key : map.keySet()) {
+            str += key + " : " + map.get(key) + "\n";
+        }
+//        System.out.printf(str);
+        return str;
     }
 }

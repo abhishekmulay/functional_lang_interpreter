@@ -70,7 +70,8 @@ public class Asts {
     // and environment.
 
     public static FunVal expVal(LambdaExp exp, Map<String, ExpVal> env) {
-        return null;
+//        return exp.value(env).asFunction();
+        return new FunValImpl(exp, env);
     }
 
     // Static methods for creating short lists

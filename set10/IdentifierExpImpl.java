@@ -13,7 +13,7 @@ public class IdentifierExpImpl implements IdentifierExp {
 
     @Override
     public String name() {
-        return null;
+        return this.identifier;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class IdentifierExpImpl implements IdentifierExp {
 
     @Override
     public IdentifierExp asIdentifier() {
-        return null;
+        return this;
     }
 
     @Override
@@ -78,10 +78,12 @@ public class IdentifierExpImpl implements IdentifierExp {
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-        if (env.containsKey(this.identifier)) {
+        System.out.println("[IdentifierExpImpl] value " + prettyPrintMap(env));
+        if (env!=null && env.containsKey(this.identifier)) {
             return env.get(this.identifier);
         } else{
-            System.out.println("Identifier not found in environment. "+ this.identifier + " environment: "+ env);
+            System.out.println("Identifier not found in environment. identifier: "
+                    + this.identifier + " environment: "+ env);
             return null;
         }
     }
@@ -122,5 +124,18 @@ public class IdentifierExpImpl implements IdentifierExp {
         return "IdentifierExpImpl{" +
                 "identifier='" + identifier + '\'' +
                 '}';
+    }
+
+
+    private String prettyPrintMap(Map map) {
+        if (map == null) {
+            System.out.println(this.getClass().getSimpleName() + " Env is null ");
+        }
+        String str = "\n========ENV========== \t\t\n";
+        for (Object key : map.keySet()) {
+            str += key + " : " + map.get(key) + "\n";
+        }
+//        System.out.printf(str);
+        return str;
     }
 }

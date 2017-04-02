@@ -63,7 +63,7 @@ public class ArithmeticExpImpl implements ArithmeticExp {
 
     @Override
     public ArithmeticExp asArithmetic() {
-        return null;
+        return this;
     }
 
     @Override
@@ -78,6 +78,7 @@ public class ArithmeticExpImpl implements ArithmeticExp {
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
+        System.out.println("[ArithmeticExpImpl] value " + prettyPrintMap(env));
         // multiplication
         if (operator.equals("TIMES")) {
             long result  = this.lhs.value(env).asInteger() * this.rhs.value(env).asInteger();
@@ -160,5 +161,16 @@ public class ArithmeticExpImpl implements ArithmeticExp {
                 ", operator='" + operator + '\'' +
                 ", rhs=" + rhs +
                 '}';
+    }
+    private String prettyPrintMap(Map map) {
+        if (map == null) {
+            System.out.println(this.getClass().getSimpleName() + " Env is null ");
+        }
+        String str = "\n========ENV========== \t\t\n";
+        for (Object key : map.keySet()) {
+            str += key + " : " + map.get(key) + "\n";
+        }
+//        System.out.printf(str);
+        return str;
     }
 }

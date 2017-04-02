@@ -19,7 +19,7 @@ public class ConstantExpImpl implements ConstantExp {
 
     @Override
     public boolean isConstant() {
-        return false;
+        return true;
     }
 
     @Override
@@ -48,9 +48,7 @@ public class ConstantExpImpl implements ConstantExp {
     }
 
     @Override
-    public ConstantExp asConstant() {
-        return null;
-    }
+    public ConstantExp asConstant() { return this;}
 
     @Override
     public IdentifierExp asIdentifier() {

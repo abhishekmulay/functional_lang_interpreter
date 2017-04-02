@@ -1,10 +1,11 @@
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Abhishek Mulay on 3/31/17.
  */
-public class CallExpImpl implements CallExp {
+    public class CallExpImpl implements CallExp {
 
     private Exp operator;
     private List<Exp> arguments;
@@ -76,7 +77,7 @@ public class CallExpImpl implements CallExp {
 
     @Override
     public CallExp asCall() {
-        return null;
+        return this;
     }
 
     @Override
@@ -86,7 +87,28 @@ public class CallExpImpl implements CallExp {
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-        return null;
+        System.out.println("[CallExpImpl] value" + prettyPrintMap(env));
+        if (env == null) {
+            System.out.println("[CallExpImpl] .value() Environment is null." + this.toString());
+            return null;
+        } else{
+
+            // arguments of lambda function
+            List<String> formals = this.operator.value(env).asFunction().code().formals();
+
+            Map<String, ExpVal> envCopy = new HashMap<>();
+            envCopy.putAll(env);
+
+            // map parameters of lambda functions to arguments received in this callExp
+            for (int index=0; index< formals.size(); index++) {
+                String param = formals.get(index);
+                Exp argument = this.arguments.get(index);
+                envCopy.put(param, argument.value(envCopy));
+            }
+
+            // return value of this lambda expression.
+            return this.operator.value(envCopy).asFunction().code().value(envCopy);
+        }
     }
 
     @Override
@@ -121,9 +143,33 @@ public class CallExpImpl implements CallExp {
 
     @Override
     public String toString() {
-        return "CallExpImpl: {" +
-                "operator=" + operator +
-                ", arguments=" + arguments +
-                '}';
+        return "CallExpImpl: {operator=" + operator +  ", arguments=" + arguments + '}';
+    }
+
+
+    public static void main(String[] args) {
+
+        ArithmeticExp nTimesTen = Asts.arithmeticExp(Asts.identifierExp("n"), "TIMES", Asts.constantExp(Asts.expVal(10)));
+        System.out.println("result: "+ nTimesTen);
+
+        Map<String, ExpVal> testEnv = new HashMap<>();
+        testEnv.put("n", new ExpValImpl( new Long(10)));
+
+        System.out.println("testEnv" + testEnv);
+
+        System.out.println("result value : " +  nTimesTen.value(testEnv).asInteger());
+
+    }
+
+    private String prettyPrintMap(Map map) {
+        if (map == null) {
+            System.out.println(this.getClass().getSimpleName() + " Env is null ");
+        }
+        String str = "\n========ENV========== \t\t\n";
+        for (Object key : map.keySet()) {
+            str += key + " : " + map.get(key) + "\n";
+        }
+//        System.out.printf(str);
+        return str;
     }
 }

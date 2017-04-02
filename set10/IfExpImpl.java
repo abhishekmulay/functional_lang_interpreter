@@ -92,6 +92,7 @@ public class IfExpImpl implements IfExp {
 
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
+        System.out.println("[IfExpImpl] value " + prettyPrintMap(env));
         if (testPart.value(env).asBoolean()) {
             return thenPart.value(env);
         } else {
@@ -136,5 +137,18 @@ public class IfExpImpl implements IfExp {
                 ", thenPart=" + thenPart +
                 ", elsePart=" + elsePart +
                 '}';
+    }
+
+
+    private String prettyPrintMap(Map map) {
+        if (map == null) {
+            System.out.println(this.getClass().getSimpleName() + " Env is null ");
+        }
+        String str = "\n========ENV========== \t\t\n";
+        for (Object key : map.keySet()) {
+            str += key + " : " + map.get(key) + "\n";
+        }
+//        System.out.printf(str);
+        return str;
     }
 }
