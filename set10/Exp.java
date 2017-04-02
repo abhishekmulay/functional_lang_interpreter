@@ -35,4 +35,5 @@ interface Exp extends Ast {
     //     error is encountered during computation of the value.
 
     ExpVal value (Map<String,ExpVal> env);
+	String toString();
 }

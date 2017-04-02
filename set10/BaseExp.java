@@ -11,32 +11,32 @@ abstract public class BaseExp implements Exp {
 
     @Override
     public boolean isConstant() {
-        throw new UnsupportedOperationException();
+        return false;
     }
 
     @Override
     public boolean isIdentifier() {
-        throw new UnsupportedOperationException();
+    	return false;
     }
 
     @Override
     public boolean isLambda() {
-        throw new UnsupportedOperationException();
+    	return false;
     }
 
     @Override
     public boolean isArithmetic() {
-        throw new UnsupportedOperationException();
+    	return false;
     }
 
     @Override
     public boolean isCall() {
-        throw new UnsupportedOperationException();
+    	return false;
     }
 
     @Override
     public boolean isIf() {
-        throw new UnsupportedOperationException();
+    	return false;
     }
 
     @Override

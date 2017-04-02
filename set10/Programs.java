@@ -117,7 +117,7 @@ public class Programs {
         Programs.testArithmeticOperations();
         Programs.testIfOperations();
         Programs.testFactorial();
-//        Programs.testDef();
+        Programs.testDef();
     }
 
 }
