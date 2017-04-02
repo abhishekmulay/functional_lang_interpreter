@@ -316,12 +316,14 @@ public class ArithmeticExpImpl implements ArithmeticExp {
                 '}';
     }
     private String prettyPrintMap(Map map) {
+    	String str = "\n========ENV========== \t\t\n";
         if (map == null) {
             System.out.println(this.getClass().getSimpleName() + " Env is null ");
         }
-        String str = "\n========ENV========== \t\t\n";
-        for (Object key : map.keySet()) {
-            str += key + " : " + map.get(key) + "\n";
+        else{
+	        for (Object key : map.keySet()) {
+	            str += key + " : " + map.get(key) + "\n";
+	        }
         }
 //        System.out.printf(str);
         return str;
