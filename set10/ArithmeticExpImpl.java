@@ -47,11 +47,10 @@ public class ArithmeticExpImpl extends BaseExp implements ArithmeticExp {
     // Example: (new Asts.arithmeticExp(Asts.constantExp (Asts.expVal (1)),
     //								    "PLUS",
     //									Asts.constantExp (Asts.expVal (2))))
-    //			.value(TODO)
+    //			.value(new HashMap<String, ExpVal>())
     //			=> Asts.expVal(3)  
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-//        System.out.println("[ArithmeticExpImpl] value " + prettyPrintMap(env));
         // multiplication
         if (operator.equals("TIMES")) {
             long result  = this.lhs.value(env).asInteger() * this.rhs.value(env).asInteger();
@@ -78,8 +77,7 @@ public class ArithmeticExpImpl extends BaseExp implements ArithmeticExp {
             return Asts.expVal(result);
         }
 
-        System.out.println("Something bad happened. " + this.toString()); //TODO:remove this before we turn it in
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     // Returns: the lhs of this ArithmeticExp
@@ -128,18 +126,5 @@ public class ArithmeticExpImpl extends BaseExp implements ArithmeticExp {
                 ", operator='" + operator + '\'' +
                 ", rhs=" + rhs +
                 '}';
-    }
-    private String prettyPrintMap(Map map) {
-    	String str = "\n========ENV========== \t\t\n";
-        if (map == null) {
-            System.out.println(this.getClass().getSimpleName() + " Env is null ");
-        }
-        else{
-	        for (Object key : map.keySet()) {
-	            str += key + " : " + map.get(key) + "\n";
-	        }
-        }
-//        System.out.printf(str);
-        return str;
     }
 }
