@@ -43,7 +43,9 @@ public class ArithmeticExpImpl extends BaseExp implements ArithmeticExp {
         return this;
     }
 
+    // Given: env representing the current environment of this call
     // Returns: the result of the operation on the lhs and rhs of this object
+    // Strategy: Case on operator of this
     // Example: (new Asts.arithmeticExp(Asts.constantExp (Asts.expVal (1)),
     //								    "PLUS",
     //									Asts.constantExp (Asts.expVal (2))))
@@ -124,6 +126,7 @@ public class ArithmeticExpImpl extends BaseExp implements ArithmeticExp {
     }
 
     // Returns: a string representation of this object
+    // Strategy: use simpler functions
     // Example: (new Asts.arithmeticExp(Asts.constantExp (Asts.expVal (1)),
     //								    "PLUS",
     //									Asts.constantExp (Asts.expVal (2))))

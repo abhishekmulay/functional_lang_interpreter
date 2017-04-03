@@ -15,34 +15,41 @@ public class IfExpImpl extends BaseExp implements IfExp {
         this.elsePart = elsePart;
     }
 
+    // Returns: the condition(test) part of this IfExp
     @Override
     public Exp testPart() {
         return this.testPart;
     }
 
+    // Returns: the then part of this IfExp
     @Override
     public Exp thenPart() {
         return this.thenPart;
     }
 
+    // Returns: the else part of this IfExp
     @Override
     public Exp elsePart() {
         return this.elsePart;
     }
 
+    // Returns: true because this is an IfExp
     @Override
     public boolean isIf() {
         return true;
     }
 
+    // Returns: this as this is already an IfExp
     @Override
     public IfExp asIf() {
         return this;
     }
 
+    // Given: env representing the current environment of this call
+    // Returns: the result of this call as an ExpVal within the provided environment
+    // Given: env representing the current environment of this call
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-//        System.out.println("[IfExpImpl] value " + prettyPrintMap(env));
         if (testPart.value(env).asBoolean()) {
             return thenPart.value(env);
         } else {
@@ -50,6 +57,7 @@ public class IfExpImpl extends BaseExp implements IfExp {
         }
     }
 
+    // Returns: the representation of this object as a string
     @Override
     public String toString() {
         return "IfExpImpl{" +
@@ -57,17 +65,5 @@ public class IfExpImpl extends BaseExp implements IfExp {
                 ", thenPart=" + thenPart +
                 ", elsePart=" + elsePart +
                 '}';
-    }
-
-    private String prettyPrintMap(Map map) {
-        if (map == null) {
-            System.out.println(this.getClass().getSimpleName() + " Env is null ");
-        }
-        String str = "\n========ENV========== \t\t\n";
-        for (Object key : map.keySet()) {
-            str += key + " : " + map.get(key) + "\n";
-        }
-//        System.out.printf(str);
-        return str;
     }
 }

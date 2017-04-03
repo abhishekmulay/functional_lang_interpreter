@@ -42,6 +42,7 @@ import java.util.Map;
 
     // Given: env representing the current environment of this call
     // Returns: the result of this call as an ExpVal within the provided environment
+    // Strategy: use simpler functions
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
         if (env == null) {

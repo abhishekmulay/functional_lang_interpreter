@@ -37,7 +37,7 @@ public class FunValImpl implements FunVal {
     	throw new UnsupportedOperationException();
     }
 
- // Returns: throws an exception as this does not represent an Integer
+    // Returns: throws an exception as this does not represent an Integer
     @Override
     public long asInteger() {
     	throw new UnsupportedOperationException();

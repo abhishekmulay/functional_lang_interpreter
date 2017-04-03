@@ -11,49 +11,40 @@ public class IdentifierExpImpl extends BaseExp implements IdentifierExp {
         this.identifier = id;
     }
 
+    // Returns: the name of this IdentifierExp
     @Override
     public String name() {
         return this.identifier;
     }
 
+    // Returns: true because this is an IdentifierExp
     @Override
     public boolean isIdentifier() {
         return true;
     }
 
+    // Returns: this as this is already an IdentifierExp
     @Override
     public IdentifierExp asIdentifier() {
         return this;
     }
 
+    // Given: env representing the current environment of this call
+    // Returns: the result of this call as an ExpVal within the provided environment
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-//        System.out.println("[IdentifierExpImpl] value " + prettyPrintMap(env));
         if (env!=null && env.containsKey(this.identifier)) {
             return env.get(this.identifier);
         } else{
-            System.out.println("Identifier not found in environment. identifier: "
-                    + this.identifier + " environment: "+ env);
-            return null;
+            throw new IllegalArgumentException();
         }
     }
 
+    // Returns: the representation of this object as a string
     @Override
     public String toString() {
         return "IdentifierExpImpl{" +
                 "identifier='" + identifier + '\'' +
                 '}';
-    }
-
-    private String prettyPrintMap(Map map) {
-        if (map == null) {
-            System.out.println(this.getClass().getSimpleName() + " Env is null ");
-        }
-        String str = "\n========ENV========== \t\t\n";
-        for (Object key : map.keySet()) {
-            str += key + " : " + map.get(key) + "\n";
-        }
-//        System.out.printf(str);
-        return str;
     }
 }

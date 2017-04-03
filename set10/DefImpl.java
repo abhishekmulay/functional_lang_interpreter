@@ -38,6 +38,7 @@ public class DefImpl extends BaseExp implements Def {
         return this;
     }
 
+    // Given: env representing the current environment of this call
     // Returns runtime exception as def evaluation is handled outside of object
     @Override
 	public ExpVal value(Map<String, ExpVal> env) {
