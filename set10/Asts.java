@@ -56,13 +56,13 @@ public class Asts {
 
     // Returns a value encapsulating the given boolean.
     public static ExpVal expVal(boolean b) {
-        return new ExpValImpl(b);
+        return new ExpValBoolean(b);
     }
     //-----------------------------------------------------------------------------------------------------------
 
     // Returns a value encapsulating the given (long) integer.
     public static ExpVal expVal(long n) {
-        return new ExpValImpl(n);
+        return new ExpValInteger(n);
     }
     //-----------------------------------------------------------------------------------------------------------
 

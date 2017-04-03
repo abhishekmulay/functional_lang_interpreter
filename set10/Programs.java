@@ -32,8 +32,7 @@ public class Programs {
     // Returns: the environment with the inputs mapped to the variable names
     //   requested by the entry point
     // Pattern: Functional visitor pattern
-    public static void addInputsToEnvironment(Map<String, ExpVal> env,
-                                              Def entryPoint, List<ExpVal> inputs) {
+    public static void addInputsToEnvironment(Map<String, ExpVal> env, Def entryPoint, List<ExpVal> inputs) {
         if (entryPoint.rhs().isLambda()) {
             List<String> formals = entryPoint.rhs().asLambda().formals();
 
@@ -50,8 +49,8 @@ public class Programs {
     //   of definitions to be added to the environment
     // Returns: the environment with the definitions added
     // Strategy: use simpler functions
-    public static void addDefinitionsToEnvironment(Map<String, ExpVal> env,
-                                                   List<Def> defs) {
+    // Pattern: Functional visitor pattern
+    public static void addDefinitionsToEnvironment(Map<String, ExpVal> env, List<Def> defs) {
 
         for (int index = 0; index < defs.size(); index++) {
             Def definition = defs.get(index);
@@ -69,7 +68,7 @@ public class Programs {
     }
 
     //-----------------------------------------------------------------------------------------------------------
-    //Runs tests
+    //Runs all tests
     public static void main(String[] args) {
         Tests.testArithmeticOperations();
         Tests.testIfOperations();
