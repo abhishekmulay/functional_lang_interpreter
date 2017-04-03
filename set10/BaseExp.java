@@ -4,10 +4,18 @@ import java.util.Map;
 /**
  * Created by Abhishek Mulay on 4/2/17.
  */
+
+// Abstract base class for classes that implement Exp.
+//
+// To define a class that implements Exp:
+//     make that class a subclass of BaseExp
+//     within that class, define the following abstract method:
+//     public abstract ExpVal value(Map<String, ExpVal> env)
 abstract public class BaseExp implements Exp {
 
-	
-	// Returns false unless overridden by the implementing class
+    public abstract ExpVal value(Map<String, ExpVal> env);
+
+    // Returns false unless overridden by the implementing class
     @Override
     public boolean isConstant() {
         return false;
@@ -16,31 +24,31 @@ abstract public class BaseExp implements Exp {
     // Returns false unless overridden by the implementing class
     @Override
     public boolean isIdentifier() {
-    	return false;
+        return false;
     }
 
     // Returns false unless overridden by the implementing class
     @Override
     public boolean isLambda() {
-    	return false;
+        return false;
     }
 
     // Returns false unless overridden by the implementing class
     @Override
     public boolean isArithmetic() {
-    	return false;
+        return false;
     }
 
     // Returns false unless overridden by the implementing class
     @Override
     public boolean isCall() {
-    	return false;
+        return false;
     }
 
     // Returns false unless overridden by the implementing class
     @Override
     public boolean isIf() {
-    	return false;
+        return false;
     }
 
     // Returns runtime exception unless overridden by the implementing class
