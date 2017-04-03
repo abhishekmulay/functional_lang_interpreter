@@ -5,6 +5,17 @@ import java.util.Map;
 /**
  * Created by Abhishek Mulay on 3/30/17.
  */
+
+//////////////////////////////////////////////////////////////////////////
+//                             DATA DEFINITION                         //
+////////////////////////////////////////////////////////////////////////
+
+//Constructor template for Programs:
+//    new Programs()
+
+//Interpretation:
+//    This class is the entry point to start program execution.
+
 public class Programs {
 
     // Given: pgm representing a number of definitions in a program, the first

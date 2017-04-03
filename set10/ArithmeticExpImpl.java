@@ -18,6 +18,14 @@ import java.util.Map;
 
 public class ArithmeticExpImpl extends BaseExp implements ArithmeticExp {
 
+    // constants
+    public static final String TIMES = "TIMES";
+    public static final String PLUS = "PLUS";
+    public static final String MINUS = "MINUS";
+    public static final String EQ = "EQ";
+    public static final String GT = "GT";
+    public static final String LT = "LT";
+
     // Represents left hand side expression in this arithmetic expression
     private Exp lhs;
     // Represents the operator that operates on
@@ -72,20 +80,20 @@ public class ArithmeticExpImpl extends BaseExp implements ArithmeticExp {
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
         // multiplication
-        if (operator.equals("TIMES")) {
+        if (operator.equals(TIMES)) {
             long result = this.lhs.value(env).asInteger() * this.rhs.value(env).asInteger();
             return Asts.expVal(result);
 
-        } else if (operator.equals("PLUS")) {
+        } else if (operator.equals(PLUS)) {
             long result = this.lhs.value(env).asInteger() + this.rhs.value(env).asInteger();
             return Asts.expVal(result);
 
-        } else if (operator.equals("MINUS")) {
+        } else if (operator.equals(MINUS)) {
             long result = this.lhs.value(env).asInteger() - this.rhs.value(env).asInteger();
             return Asts.expVal(result);
 
-//            EQ operator works on both boolean and integer
-        } else if (operator.equals("EQ")) {
+            // EQ operator works on both boolean and integer
+        } else if (operator.equals(EQ)) {
             ExpVal compLeft = this.lhs.value(env);
             ExpVal compRight = this.rhs.value(env);
             boolean result = false;
@@ -101,11 +109,11 @@ public class ArithmeticExpImpl extends BaseExp implements ArithmeticExp {
 
             return Asts.expVal(result);
 
-        } else if (operator.equals("GT")) {
+        } else if (operator.equals(GT)) {
             boolean result = this.lhs.value(env).asInteger() > this.rhs.value(env).asInteger();
             return Asts.expVal(result);
 
-        } else if (operator.equals("LT")) {
+        } else if (operator.equals(LT)) {
             boolean result = this.lhs.value(env).asInteger() < this.rhs.value(env).asInteger();
             return Asts.expVal(result);
         }

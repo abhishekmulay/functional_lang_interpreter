@@ -1,6 +1,16 @@
 import java.util.HashMap;
 import java.util.Map;
 
+//////////////////////////////////////////////////////////////////////////
+//                             DATA DEFINITION                         //
+////////////////////////////////////////////////////////////////////////
+
+//Constructor template for Tests:
+//      new Tests()
+//
+//Interpretation:
+//      This class provides static methods that test various parts of the application.
+
 public class Tests {
 
     //-----------------------------------------------------------------------------------------------------------
@@ -8,14 +18,15 @@ public class Tests {
     public static void testIfOperations() {
         Exp two = Asts.constantExp(Asts.expVal(2));
         Exp three = Asts.constantExp(Asts.expVal(3));
-        Exp testPart1 = Asts.arithmeticExp(two, "EQ", three);
+        Exp testPart1 = Asts.arithmeticExp(two, ArithmeticExpImpl.EQ, three);
         Exp thenPart1 = Asts.constantExp(Asts.expVal(false));
         Exp elsePart1 = Asts.constantExp(Asts.expVal(true));
         IfExp result1 = Asts.ifExp(testPart1, thenPart1, elsePart1);
         assert result1.isIf() == true : "result should be an IF expression.";
-        assert result1.thenPart().value(null).asBoolean() == false : " then part should be false, because 2 != 3";
+        assert result1.thenPart().value(null).asBoolean() == false :
+                " then part should be false, because 2 != 3";
 
-        Exp testPart2 = Asts.arithmeticExp(two, "LT", three);
+        Exp testPart2 = Asts.arithmeticExp(two, ArithmeticExpImpl.LT, three);
         Exp thenPart2 = Asts.constantExp(Asts.expVal(true));
         Exp elsePart2 = Asts.constantExp(Asts.expVal(false));
         IfExp result2 = Asts.ifExp(testPart2, thenPart2, elsePart2);
@@ -32,16 +43,16 @@ public class Tests {
         Exp trueExp = Asts.constantExp(Asts.expVal(true));
         Exp falseExp = Asts.constantExp(Asts.expVal(false));
 
-        Exp twoTimesThree = Asts.arithmeticExp(two, "TIMES", three);
-        Exp twoPlusThree = Asts.arithmeticExp(two, "PLUS", three);
-        Exp twoMinusThree = Asts.arithmeticExp(two, "MINUS", three);
-        Exp threeMinusTwo = Asts.arithmeticExp(three, "MINUS", two);
-        Exp threeGreaterThanTwo = Asts.arithmeticExp(three, "GT", two);
-        Exp twoLesserThanThree = Asts.arithmeticExp(two, "LT", three);
-        Exp twoEqualsTwo = Asts.arithmeticExp(two, "EQ", two);
-        Exp twoEqualsThree = Asts.arithmeticExp(two, "EQ", three);
-        Exp trueEqualsTrue = Asts.arithmeticExp(trueExp, "EQ", trueExp);
-        Exp trueEqualsFalse = Asts.arithmeticExp(trueExp, "EQ", falseExp);
+        Exp twoTimesThree = Asts.arithmeticExp(two, ArithmeticExpImpl.TIMES, three);
+        Exp twoPlusThree = Asts.arithmeticExp(two, ArithmeticExpImpl.PLUS, three);
+        Exp twoMinusThree = Asts.arithmeticExp(two, ArithmeticExpImpl.MINUS, three);
+        Exp threeMinusTwo = Asts.arithmeticExp(three, ArithmeticExpImpl.MINUS, two);
+        Exp threeGreaterThanTwo = Asts.arithmeticExp(three, ArithmeticExpImpl.GT, two);
+        Exp twoLesserThanThree = Asts.arithmeticExp(two, ArithmeticExpImpl.LT, three);
+        Exp twoEqualsTwo = Asts.arithmeticExp(two, ArithmeticExpImpl.EQ, two);
+        Exp twoEqualsThree = Asts.arithmeticExp(two, ArithmeticExpImpl.EQ, three);
+        Exp trueEqualsTrue = Asts.arithmeticExp(trueExp, ArithmeticExpImpl.EQ, trueExp);
+        Exp trueEqualsFalse = Asts.arithmeticExp(trueExp, ArithmeticExpImpl.EQ, falseExp);
         Map<String, ExpVal> DEFAULT_ENV = new HashMap<>();
 
         assert twoTimesThree.value(DEFAULT_ENV).asInteger() == 6 : " TIMES does not work.";
@@ -60,7 +71,8 @@ public class Tests {
     //-----------------------------------------------------------------------------------------------------------
     //Def tests (also coverage for Calls/Identifier)
     public static void testDef() {
-        Def main = Asts.def("main", Asts.arithmeticExp(Asts.identifierExp("a"), "PLUS", Asts.identifierExp("b")));
+        Def main = Asts.def("main", Asts.arithmeticExp(Asts.identifierExp("a"),
+                ArithmeticExpImpl.PLUS, Asts.identifierExp("b")));
         Def defa = Asts.def("a", Asts.constantExp(Asts.expVal(1)));
         Def defb = Asts.def("b", Asts.constantExp(Asts.expVal(2)));
         ExpVal result = Programs.run(Asts.list(main, defa, defb), Asts.list(Asts.expVal(2)));
@@ -71,13 +83,18 @@ public class Tests {
     //-----------------------------------------------------------------------------------------------------------
     //Program tests (also coverage for Calls/Lambda/Identifier)
     public static void testProgram() {
-        Exp exp1 = Asts.arithmeticExp(Asts.identifierExp("n"), "MINUS", Asts.constantExp(Asts.expVal(1)));
+        Exp exp1 = Asts.arithmeticExp(Asts.identifierExp("n"), ArithmeticExpImpl.MINUS,
+                Asts.constantExp(Asts.expVal(1)));
         Exp call1 = Asts.callExp(Asts.identifierExp("fact"), Asts.list(exp1));
-        Exp testPart = Asts.arithmeticExp(Asts.identifierExp("n"), "EQ", Asts.constantExp(Asts.expVal(0)));
+
+        Exp testPart = Asts.arithmeticExp(Asts.identifierExp("n"), ArithmeticExpImpl.EQ,
+                Asts.constantExp(Asts.expVal(0)));
         Exp thenPart = Asts.constantExp(Asts.expVal(1));
-        Exp elsePart = Asts.arithmeticExp(Asts.identifierExp("n"), "TIMES", call1);
+        Exp elsePart = Asts.arithmeticExp(Asts.identifierExp("n"), ArithmeticExpImpl.TIMES, call1);
+
         Def def1 = Asts.def("fact", Asts.lambdaExp(Asts.list("n"), Asts.ifExp(testPart, thenPart, elsePart)));
         ExpVal result = Programs.run(Asts.list(def1), Asts.list(Asts.expVal(5)));
+
         assert result.asInteger() == 120 : "should be 120";
         System.out.println("All Program operation tests passed.");
     }

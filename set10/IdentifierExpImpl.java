@@ -4,6 +4,19 @@ import java.util.Map;
 /**
  * Created by Abhishek Mulay on 3/31/17.
  */
+
+//////////////////////////////////////////////////////////////////////////
+//                             DATA DEFINITION                         //
+////////////////////////////////////////////////////////////////////////
+
+//Constructor template for IdentifierExpImpl:
+//    new IdentifierExpImpl(String)
+//
+//Interpretation:
+//    This class represents an expression which is an identifier.
+//    The identifier expression has a corresponding String name
+//    which can be used to extract this identifier from runtime env
+
 public class IdentifierExpImpl extends BaseExp implements IdentifierExp {
     private String identifier;
 
@@ -40,7 +53,7 @@ public class IdentifierExpImpl extends BaseExp implements IdentifierExp {
         if (env != null && env.containsKey(this.identifier)) {
             return env.get(this.identifier);
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Identifier " + identifier + " not found.");
         }
     }
 

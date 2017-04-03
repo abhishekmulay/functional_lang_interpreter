@@ -4,6 +4,18 @@ import java.util.Map;
 /**
  * Created by Abhishek Mulay on 3/30/17.
  */
+
+//////////////////////////////////////////////////////////////////////////
+//                             DATA DEFINITION                         //
+////////////////////////////////////////////////////////////////////////
+
+//Constructor templates for ConstantExpImpl:
+//      new ConstantExpImpl(ExpVal)
+//
+//Interpretation:
+//    This class represents an expression which has a constant value,
+//    i.e. the value of this class does not change.
+
 public class ConstantExpImpl extends BaseExp implements ConstantExp {
 
     private ExpVal value;

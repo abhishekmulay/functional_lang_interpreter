@@ -5,6 +5,18 @@ import java.util.Map;
 /**
  * Created by Abhishek Mulay on 3/30/17.
  */
+
+//////////////////////////////////////////////////////////////////////////
+//                             DATA DEFINITION                         //
+////////////////////////////////////////////////////////////////////////
+
+// Constructor template for Asts:
+//      new Asts()
+//
+// Interpretation:
+//    This class has static methods that are used to create different kinds of
+//    expressions.
+
 public class Asts {
     // Static factory methods for Def
 

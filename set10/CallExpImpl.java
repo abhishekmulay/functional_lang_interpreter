@@ -5,6 +5,18 @@ import java.util.Map;
 /**
  * Created by Abhishek Mulay on 3/31/17.
  */
+
+//////////////////////////////////////////////////////////////////////////
+//                             DATA DEFINITION                         //
+////////////////////////////////////////////////////////////////////////
+
+//Constructor template for CallExpImpl:
+//    new CallExpImpl(Exp, List<Exp>)
+//
+//Interpretation:
+//    This class represents a call expression that applies the given operator
+//    on given list of parameters
+
 public class CallExpImpl extends BaseExp implements CallExp {
 
     private Exp operator;
@@ -23,8 +35,7 @@ public class CallExpImpl extends BaseExp implements CallExp {
     }
 
     //-----------------------------------------------------------------------------------------------------------
-    // Returns: the list of Expressions representing the arguments
-    //   of this call
+    // Returns: the list of Expressions representing the arguments of this call
     @Override
     public List<Exp> arguments() {
         return this.arguments;
@@ -51,13 +62,14 @@ public class CallExpImpl extends BaseExp implements CallExp {
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
         if (env == null) {
-            System.out.println("[CallExpImpl] .value() Environment is null." + this.toString());
-            return null;
+            throw new UnsupportedOperationException();
+
         } else {
 
             // arguments of lambda function
             List<String> formals = this.operator.value(env).asFunction().code().formals();
 
+            // create a new environment for this lambda expression so that scope is different
             Map<String, ExpVal> envCopy = new HashMap<>();
             envCopy.putAll(env);
 
