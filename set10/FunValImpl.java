@@ -13,46 +13,41 @@ public class FunValImpl implements FunVal {
         this.env = env;
     }
 
-    // Returns: true if this function returns a Boolean in its
-    //    environment
+    // Returns: false as this represents a function
     @Override
     public boolean isBoolean() {
-    	return this.exp.value(this.env).isBoolean();
+    	return false;
     }
 
-    // Returns: true if this function returns an Integer in its
-    //    environment
+ // Returns: false as this represents a function
     @Override
     public boolean isInteger() {
-    	return this.exp.value(this.env).isInteger();
+    	return false;
     }
 
-    // Returns: true if this function returns an Integer in its
-    //    environment
+    // Returns: true as this represents a function 
     @Override
     public boolean isFunction() {
-        return this.exp.value(this.env).isFunction();
+        return true;
     }
 
-    // Returns: the value of this function in its environment 
-    //    cast to a Boolean if the value is a Boolean
+    // Returns: throws an exception as this does not represent a Boolean
     @Override
     public boolean asBoolean() {
-        return this.exp.value(this.env).asBoolean();
+    	throw new UnsupportedOperationException();
     }
 
-    // Returns: the value of this function in its environment 
-    //    cast to an Integer if the value is an Integer
+ // Returns: throws an exception as this does not represent an Integer
     @Override
     public long asInteger() {
-        return this.exp.value(this.env).asInteger();
+    	throw new UnsupportedOperationException();
     }
 
     // Returns: the value of this function in its environment 
     //    cast to a Function if the value is a Function
     @Override
     public FunVal asFunction() {
-    	return this.exp.value(this.env).asFunction();
+    	return this;
     }
 
     // Returns: the LambdaExp of this FunVal

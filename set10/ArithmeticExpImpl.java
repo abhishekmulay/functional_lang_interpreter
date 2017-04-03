@@ -65,7 +65,17 @@ public class ArithmeticExpImpl extends BaseExp implements ArithmeticExp {
             return Asts.expVal(result);
 
         } else if (operator.equals("EQ")) {
-            boolean result = this.lhs.value(env).asInteger() == this.rhs.value(env).asInteger();
+        	ExpVal compLeft = this.lhs.value(env);
+        	ExpVal compRight = this.rhs.value(env);
+        	boolean result = false;
+        	
+        	if(compLeft.isBoolean() && compRight.isBoolean()){
+        		result = compLeft.asBoolean() == compRight.asBoolean();
+        	}
+        	else if(compLeft.isInteger() && compRight.isInteger()){
+        		result = compLeft.asInteger() == compRight.asInteger();
+        	}
+        	
             return Asts.expVal(result);
 
         } else if (operator.equals("GT")) {

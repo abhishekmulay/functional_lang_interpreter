@@ -35,7 +35,7 @@ public class Programs {
             else if(definition.rhs().isConstant()){
     			env.put(definition.lhs(), definition.rhs().asConstant().value());
     		}
-    		else if(definition.rhs().isArithmetic()){		
+    		else{		
     			env.put(definition.lhs(), Asts.expVal(Asts.lambdaExp(null, definition.rhs()), env));
     		}
         }
@@ -88,8 +88,8 @@ public class Programs {
         assert twoLesserThanThree.value(DEFAULT_ENV).asBoolean() == true : " LT does not work.";
         assert twoEqualsTwo.value(DEFAULT_ENV).asBoolean() == true : " EQ does not work.";
         assert twoEqualsThree.value(DEFAULT_ENV).asBoolean() == false : " EQ does not work.";
-//        assert trueEqualsTrue.value(DEFAULT_ENV).asBoolean() == true : "EQ does not work for boolean";
-//        assert trueEqualsFalse.value(DEFAULT_ENV).asBoolean() == false : "EQ does not work for boolean";
+        assert trueEqualsTrue.value(DEFAULT_ENV).asBoolean() == true : "EQ does not work for boolean";
+        assert trueEqualsFalse.value(DEFAULT_ENV).asBoolean() == false : "EQ does not work for boolean";
         System.out.println("All arithmetic operations tests passed.");
     }
     
