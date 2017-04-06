@@ -166,10 +166,13 @@ public class PdpExpTests {
                 () -> Asts.arithmeticExp(constant(3), "GT", constant(2))
                 .value(empty).asBoolean(),
                 true);
-        tests.addTestCase("3 + 2 => 5",
+
+        tests.addTestCase(
+                "3 + 2 => 5",
                 () -> Asts.arithmeticExp(constant(3), "PLUS", constant(2))
                 .value(empty).asInteger(),
                 5L);
+
         tests.addTestCase("3 - 2 => 1",
                 () -> Asts.arithmeticExp(constant(3), "MINUS", constant(2))
                 .value(empty).asInteger(),

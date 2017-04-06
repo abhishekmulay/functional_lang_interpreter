@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 //////////////////////////////////////////////////////////////////////////
 //                             DATA DEFINITION                         //
@@ -11,21 +12,6 @@ import java.util.*;
 //      This class provides static methods that test various parts of the application.
 
 public class Tests {
-
-
-
-    public static Exp constant(long n) {
-        return Asts.constantExp(Asts.expVal(n));
-    }
-
-    public static Exp id(String s) {
-        return Asts.identifierExp(s);
-    }
-
-    @SafeVarargs
-    public static <T> List<T> list(T... vs) {
-        return Arrays.asList(vs);
-    }
 
     //-----------------------------------------------------------------------------------------------------------
     //IfOperations tests
@@ -113,19 +99,4 @@ public class Tests {
         System.out.println("All Program operation tests passed.");
     }
     //-----------------------------------------------------------------------------------------------------------
-
-
-    public static void testFailuresFromCorrectnessTest10() {
-        final Map<String, ExpVal> empty = Collections.emptyMap();
-        System.out.println("Asts.lambdaExp(list(\"x\"), id(\"x\")).value(empty).asFunction().environment(): "+
-                Asts.lambdaExp(list("x"), id("x")).value(empty));
-
-        assert Asts.lambdaExp(list("x"), id("x")).value(empty).asFunction().environment().containsKey("x") == false:
-                "(λ(x) x) => function with empty env... should be false";
-    }
-
-
-    public static void main(String[] args) {
-        Tests.testFailuresFromCorrectnessTest10();
-    }
 }

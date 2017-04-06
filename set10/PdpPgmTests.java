@@ -3,7 +3,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PdpPgmTests {
-    
+
+    public static final String CHURCH_PATH = "/Users/abhishek/NEU/spring-17/PDP/pdp-abhishekmulay-nbreuer/set10/church" +
+            ".ps11";
+    public static final String VECTORS_PATH =
+            "/Users/abhishek/NEU/spring-17/PDP/pdp-abhishekmulay-nbreuer/set10/vectors.ps11";
+    public static final String SIEVE_PATH = "/Users/abhishek/NEU/spring-17/PDP/pdp-abhishekmulay-nbreuer/set10/sieve.ps11";
+    public static final String BST_PATH = "/Users/abhishek/NEU/spring-17/PDP/pdp-abhishekmulay-nbreuer/set10/bst.ps11";
+
     public static Exp constant(boolean b) {
         return Asts.constantExp(Asts.expVal(b));
     }
@@ -92,23 +99,23 @@ public class PdpPgmTests {
 
         // Inner product
 
-        addTest(tests, readPgm ("vectors.ps11"), 10, 285);
-        addTest(tests, readPgm ("vectors.ps11"), 200, 2646700);
+        addTest(tests, readPgm (VECTORS_PATH), 10, 285);
+        addTest(tests, readPgm (VECTORS_PATH), 200, 2646700);
 
         // Church numerals
 
-        addTest(tests, readPgm ("church.ps11"), 4, 24);
-        addTest(tests, readPgm ("church.ps11"), 6, 720);
+        addTest(tests, readPgm (CHURCH_PATH), 4, 24);
+        addTest(tests, readPgm (CHURCH_PATH), 6, 720);
 
         // Sieve of Eratosthenes
 
-        addTest(tests, readPgm ("sieve.ps11"), 2, 100, 25);
-        addTest(tests, readPgm ("sieve.ps11"), 100, 200, 21);
+        addTest(tests, readPgm (SIEVE_PATH), 2, 100, 25);
+        addTest(tests, readPgm (SIEVE_PATH), 100, 200, 21);
 
         // Binary search trees
 
-        addTest(tests, readPgm ("bst.ps11"), 5, 3, 1, 9);
-        addTest(tests, readPgm ("bst.ps11"), 50, 17, 10, 289);
+        addTest(tests, readPgm (BST_PATH), 5, 3, 1, 9);
+        addTest(tests, readPgm (BST_PATH), 50, 17, 10, 289);
 
         tests.runTests();
     }
