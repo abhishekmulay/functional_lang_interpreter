@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Abhishek Mulay on 4/3/17.
  */
@@ -38,4 +41,8 @@ public class ExpValBoolean extends BaseExpVal implements ExpVal {
         return this.value;
     }
     //------------------------------------------------------------------
+
+    public FunVal asFunction() {
+        return null;
+    }
 }

@@ -75,15 +75,15 @@ class Actions {
     //     a PartialCall
 
     Ast mkCall2(Ast xexpr_1, Ast xexpr_2) {
-        if (xexpr_2.isExp())
-            return xexpr_1;
-        else {
-            Exp expr1 = xexpr_1.asExp();
-            PartialCall pcall = (PartialCall) xexpr_2;
-            List<Exp> args = pcall.args();
-            Ast moreargs = pcall.moreargs();
-            return mkCall2 (Asts.callExp (expr1, args), moreargs);
-        }
+	if (xexpr_2.isExp())
+	    return xexpr_1;
+	else {
+	    Exp expr1 = xexpr_1.asExp();
+	    PartialCall pcall = (PartialCall) xexpr_2;
+	    List<Exp> args = pcall.args();
+	    Ast moreargs = pcall.moreargs();
+	    return mkCall2 (Asts.callExp (expr1, args), moreargs);
+	}
     }
 
     // The first argument is a List<Exp> giving the arguments for a call.
@@ -92,7 +92,7 @@ class Actions {
     //     a PartialCall
 
     Ast mkCalls(Ast args, Ast moreargs) {
-        return new PartialCall (args, moreargs);
+	return new PartialCall (args, moreargs);
     }
 
     // The following rather strange invariants avoid introducing
@@ -180,8 +180,8 @@ class PartialCall implements Ast {
 
     @SuppressWarnings("unchecked")
     PartialCall (Ast args, Ast moreargs) {
-        this.args = (List<Exp>) args;
-        this.moreargs = moreargs;
+	this.args = (List<Exp>) args;
+	this.moreargs = moreargs;
     }
 
     List<Exp> args () { return args; }
@@ -226,8 +226,8 @@ class MyList<E> extends ArrayList<E> implements Ast {
     }
 
     MyList (String isWhat) {
-        super();
-        this.isWhat = isWhat;
+	super();
+	this.isWhat = isWhat;
     }
 
     // Changes this to an immutable List<E>.

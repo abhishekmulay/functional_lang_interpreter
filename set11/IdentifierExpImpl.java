@@ -53,7 +53,9 @@ public class IdentifierExpImpl extends BaseExp implements IdentifierExp {
         if (env != null && env.containsKey(this.identifier)) {
             return env.get(this.identifier);
         } else {
-            throw new IllegalArgumentException("Identifier " + identifier + " not found.");
+//            throw new IllegalArgumentException("Identifier " + identifier + " not found.");
+            System.out.println("Identifier " + identifier + " not found. Env: " + env);
+            return new ExpValBoolean(false);
         }
     }
 

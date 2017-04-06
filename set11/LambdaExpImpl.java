@@ -62,7 +62,7 @@ public class LambdaExpImpl extends BaseExp implements LambdaExp {
     // Returns: the result of this call as an ExpVal within the provided environment
     @Override
     public ExpVal value(Map<String, ExpVal> env) {
-        return body.value(env);
+        return Asts.expVal(this, env);
     }
 
     //----------------------------------------------------------------------------------
