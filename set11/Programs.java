@@ -1,6 +1,4 @@
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Abhishek Mulay on 3/30/17.
@@ -47,8 +45,8 @@ public class Programs {
     //          terms of the definitions
     public static ExpVal handleLambda(List<Def> pgm, Exp entryPoint, Map<String, ExpVal> env, List<ExpVal> inputs) {
 
-        for (int index=0; index < pgm.size(); index++){
-            if(pgm.get(index).rhs().isLambda()) {
+        for (int index = 0; index < pgm.size(); index++) {
+            if (pgm.get(index).rhs().isLambda()) {
                 FunVal funVal = Asts.expVal(pgm.get(index).rhs().asLambda(), env);
                 env.put(pgm.get(index).lhs(), funVal);
             } else {
@@ -57,20 +55,75 @@ public class Programs {
         }
 
         List<String> formals = entryPoint.asLambda().formals();
-        for (int index=0; index < formals.size(); index++) {
+        for (int index = 0; index < formals.size(); index++) {
             env.put(formals.get(index), inputs.get(index));
         }
 
         return entryPoint.asLambda().body().value(env);
     }
 
+
+    //////////////////////////////////////////////////////////////////////////
+    //                             Added for Set11                         //
+    ////////////////////////////////////////////////////////////////////////
+
+    // Reads the ps11 program found in the file named by the given string
+    // and returns the set of all variable names that occur free within
+    // the program.
+    //
+    // Examples:
+    //     Programs.undefined ("church.ps11")    // returns an empty set
+    //     Programs.undefined ("bad.ps11")       // returns { "x", "z" }
+    //
+    //   where bad.ps11 is a file containing:
+    //
+    //     f (x, y) g (x, y) (y, z);
+    //     g (z, y) if 3 > 4 then x else f
+
+    public static Set<String> undefined(String filename) {
+        System.out.println("[undefined]");
+        return null;
+    }
+
     //-----------------------------------------------------------------------------------------------------------
     //Runs all tests
+    // Runs the ps11 program found in the file named on the command line
+    // on the integer inputs that follow its name on the command line,
+    // printing the result computed by the program.
+    //
+    // Example:
+    //
+    //     % java Programs sieve.ps11 2 100
+    //     25
     public static void main(String[] args) {
-        Tests.testArithmeticOperations();
-        Tests.testIfOperations();
-        Tests.testProgram();
-        Tests.testDef();
+        if (args.length >= 2) {
+            String filename = args[0];
+            String pgm = Scanner.readPgm(filename);
+            List<ExpVal> inputs = new ArrayList<ExpVal>();
+            for (int i = 1; i < args.length; i = i + 1) {
+                long input = Long.parseLong(args[i]);
+                inputs.add(Asts.expVal(input));
+            }
+            ExpVal result = Scanner.runPgm(pgm, inputs);
+
+            Object val = null;
+            if (result.isBoolean()) {
+                val = result.asBoolean();
+            } else if (result.isInteger()) {
+                val = result.asInteger();
+
+            } else if (result.isFunction()) {
+                val = result.asFunction();
+            }
+            System.out.println(val);
+
+        } else {
+            System.out.println(usageMsg);
+        }
     }
+
+
+    public static final String usageMsg = "Usage: java Programs <filename> <input> ...";
     //-----------------------------------------------------------------------------------------------------------
+
 }

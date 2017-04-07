@@ -255,9 +255,12 @@ public class Scanner {
             pgm = defs.asPgm();
         }
         catch (Exception e) {
+	    System.err.println ("Exception thrown during parsing: ");
+	    e.printStackTrace();
             // return a program that should throw an exception
             // when interpreted
-            return parsePgm ("f (a,b,c,d,e,f,g,h,i,j,k,l,m) z");
+	    pgm.add (Asts.def ("SYNTAXERROR",
+			       Asts.constantExp (Asts.expVal (false))));
         }
         return pgm;
     }
@@ -302,6 +305,8 @@ public class Scanner {
         else
             System.out.println (usageMsg);
     }
+
+
 
     public static final String usageMsg
         = "Usage: java Programs <filename> <input> ...";

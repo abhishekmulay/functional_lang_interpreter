@@ -115,17 +115,16 @@ public class Tests {
     //-----------------------------------------------------------------------------------------------------------
 
 
-    public static void testFailuresFromCorrectnessTest10() {
-        final Map<String, ExpVal> empty = Collections.emptyMap();
-        System.out.println("Asts.lambdaExp(list(\"x\"), id(\"x\")).value(empty).asFunction().environment(): "+
-                Asts.lambdaExp(list("x"), id("x")).value(empty));
-
-        assert Asts.lambdaExp(list("x"), id("x")).value(empty).asFunction().environment().containsKey("x") == false:
-                "(λ(x) x) => function with empty env... should be false";
-    }
-
-
     public static void main(String[] args) {
-        Tests.testFailuresFromCorrectnessTest10();
+        Tests.testArithmeticOperations();
+        Tests.testIfOperations();
+        Tests.testProgram();
+//        Tests.testDef();
+
+        // correctness tests for set 10
+        PdpExpTests.main(args);
+        PdpPgmTests.main(args);
+
+        System.out.println("\n\n[Tests] All application tests and correctness tests passed!");
     }
 }

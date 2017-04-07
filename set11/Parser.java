@@ -124,6 +124,9 @@ public class Parser {
     private final Ast mkMINUS() {
         return actions.mkMINUS ();
     }
+    private final Ast mkNoArgs() {
+        return actions.mkNoArgs ();
+    }
     private final Ast mkNone() {
         return actions.mkNone ();
     }
@@ -491,7 +494,7 @@ public class Parser {
             case zcomma:
             case zminus:
             case zplus:
-                return mkNone ();
+                return mkNoArgs ();
             default:
                 return parseError (yfactor2, new Tokens (zcomma, 
                         new Tokens (zelse, new Tokens (zeof, 

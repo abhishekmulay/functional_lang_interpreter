@@ -41,4 +41,10 @@ public class ExpValInteger extends BaseExpVal implements ExpVal {
     }
     //-----------------------------------------------------------------
 
+    @Override
+    public String toString() {
+        return "ExpValInteger{" +
+                "value=" + value +
+                '}';
+    }
 }
