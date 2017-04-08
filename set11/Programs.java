@@ -80,6 +80,7 @@ public class Programs {
     ////////////////////////////////////////////////////////////////////////
 
     private static Set<String> freeVariables = new HashSet<>();
+    private static int MAXDEPTH = 100;
     // Reads the ps11 program found in the file named by the given string
     // and returns the set of all variable names that occur free within
     // the program.
@@ -114,7 +115,7 @@ public class Programs {
     private static void findFreeVariables(List<Def> defs, HashSet<String> variables) {
         for (Def definition: defs) {
             variables.add(definition.lhs());
-            expAllDefined(definition.rhs(), variables);
+            expAllDefined(definition.rhs(), variables, 0);
         }
     }
 
@@ -142,43 +143,49 @@ public class Programs {
 //        }
         // variables.add(singleDef.rhs().asConstant().value(null));
         // is it already present in variables?
-        return expAllDefined(singleDef.rhs(), variables);
+        return expAllDefined(singleDef.rhs(), variables, 0);
     }
 
-    private static Set<String> expAllDefined(Exp exp, HashSet<String> variables) {
+    private static Set<String> expAllDefined(Exp exp, HashSet<String> variables, int level) {
+    	HashSet<String> currentVariables = new HashSet<String>(variables);
         Set<String> encounteredVariables = new HashSet<>();
-
+        //we have expanded expressions MAXDEPTH times, there is most likely an infinite loop
+        if (level > MAXDEPTH){
+        	return new HashSet<String>();
+        }
+        
         if (exp.isLambda()) {
+        	currentVariables.addAll(expAllDefined(exp.asLambda().body(), currentVariables, level + 1));
             List<String> formals = exp.asLambda().formals();
-            variables.addAll(formals);
+            currentVariables.addAll(formals);
 
         } else if (exp.isIdentifier()) {
-            variables.add(exp.asIdentifier().name());
+        	currentVariables.add(exp.asIdentifier().name());
 
         } else if (exp.isConstant()) {
-            encounteredVariables.addAll(expAllDefined(exp.asConstant(), variables));
+            encounteredVariables.addAll(expAllDefined(exp.asConstant(), currentVariables, level + 1));
 
         } else if (exp.isCall()) {
-            expAllDefined(exp.asCall().operator(), variables);
+            expAllDefined(exp.asCall().operator(), currentVariables, level + 1);
 
             for (Exp argument : exp.asCall().arguments()) {
-                encounteredVariables.addAll(expAllDefined(argument, variables));
+                encounteredVariables.addAll(expAllDefined(argument, currentVariables, level + 1));
             }
 
         } else if (exp.isArithmetic()) {
-            freeVariables.addAll(expAllDefined(exp.asArithmetic().leftOperand(), variables));
+            freeVariables.addAll(expAllDefined(exp.asArithmetic().leftOperand(), currentVariables, level + 1));
 
         } else if (exp.isIf()) {
-            encounteredVariables.addAll(expAllDefined(exp.asIf().testPart(), variables));
-            encounteredVariables.addAll(expAllDefined(exp.asIf().thenPart(), variables));
-            encounteredVariables.addAll(expAllDefined(exp.asIf().elsePart(), variables));
+            encounteredVariables.addAll(expAllDefined(exp.asIf().testPart(), currentVariables, level + 1));
+            encounteredVariables.addAll(expAllDefined(exp.asIf().thenPart(), currentVariables, level + 1));
+            encounteredVariables.addAll(expAllDefined(exp.asIf().elsePart(), currentVariables, level + 1));
         }
 
         // remove all elements that are valid
-        variables.removeAll(encounteredVariables);
+        currentVariables.removeAll(encounteredVariables);
 
         // this now contains undefined variables.
-        freeVariables.addAll(variables);
+        freeVariables.addAll(currentVariables);
         return freeVariables;
     }
 
@@ -196,10 +203,10 @@ public class Programs {
     public static void main(String[] args) {
 
         final String CHURCH_PATH =
-                "/Users/abhishek/NEU/spring-17/PDP/pdp-abhishekmulay-nbreuer/set11/church.ps11";
+                "church.ps11";
 //        Programs.undefined (CHURCH_PATH);
 
-        final String BAD_PATH = "/Users/abhishek/NEU/spring-17/PDP/pdp-abhishekmulay-nbreuer/set11/bad.ps11";
+        final String BAD_PATH = "bad.ps11";
         Programs.undefined(BAD_PATH);
 //        if (args.length >= 2) {
 //            String filename = args[0];
