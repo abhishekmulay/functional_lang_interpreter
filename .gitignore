@@ -69,10 +69,4 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
 pdp-abhishekmulay-nbreuer.iml
