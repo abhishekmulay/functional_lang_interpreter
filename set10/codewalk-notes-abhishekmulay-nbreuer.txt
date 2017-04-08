@@ -1,0 +1,92 @@
+TA-1 Name:- Wenjun
+TA-2 Name:- Sankar
+
+
+Student1 CCIS ID:- abhishekmulay
+
+Question 1:
+
+Design Grade:- B
+TA Comments on Design:-
+> had defined all 6 isX() function in abstract class and had used inheritance and overriding method to implement correctly.
+> good use of whitespace.
+> had included brief discription for different parts of the program.
+
+> had made CallExp.value handle immutable env.
+> Is not type checking inside value function and was able to answer why its not a good practise.
+
+> lambda function is not taking care of the environment passed to it.
+  Need to follow the rule given by the professor in class for evaluating lambda exp value.
+
+> not checking if its boolean before calling asBoolean() inside ifvalue fn. Add exception handling if its not boolean.
+
+> how are you making a copy of environment inside call exp value function?
+> is not checking if formal size equal to argument size inside value function.
+
+> please follow the semantics explained by the professor in class for evaluating value functions.
+
+Student1:- abhishekmulay
+Presentation Grade:-  A
+TA Comments on Presentation:-
+> was able to explain how value function works.
+> Good understanding of the submission.
+
+
+Question 2:
+
+Design Grade:- B
+TA Comments on Design:-
+> formals size and argument size is not checked inside addInputsToEnvironment.
+> what if entry point is not a function? Add an exception handling for this case.
+> copy of old environment is not maintained.
+
+Student1:-abhishekmulay
+Presentation Grade:- A
+TA Comments on Presentation:-
+
+
+
+
+Student2 CCIS ID:--nbreuer
+
+Question 1:
+
+Design Grade:- B
+TA Comments on Design:-
+> had defined all 6 isX() function in abstract class and had used inheritance and overriding method to implement correctly.
+> good use of whitespace.
+> had included brief discription for different parts of the program.
+
+> had made CallExp.value handle immutable env.
+> Is not type checking inside value function and was able to answer why its not a good practise.
+
+> lambda function is not taking care of the environment passed to it.
+  Need to follow the rule given by the professor in class for evaluating lambda exp value.
+
+> not checking if its boolean before calling asBoolean() inside ifvalue fn. Add exception handling if its not boolean.
+
+> how are you making a copy of environment inside call exp value function?
+> is not checking if formal size equal to argument size inside value function.
+
+> please follow the semantics explained by the professor in class for evaluating value functions.
+
+
+Student2:--nbreuer
+Presentation Grade:- A
+TA Comments on Presentation:-
+> was able to answer why base class is defined as abstract class.
+> was able to explain the isX() correctly.
+> Good understanding of the submission.
+
+Question 2:
+
+Design Grade:- B
+TA Comments on Design:-
+> formals size and argument size is not checked inside addInputsToEnvironment.
+> what if entry point is not a function? Add an exception handling for this case.
+> copy of old environment is not maintained.
+
+
+Student2:--nbreuer
+Presentation Grade:- A
+TA Comments on Presentation:-
