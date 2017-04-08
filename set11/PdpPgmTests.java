@@ -4,12 +4,12 @@ import java.util.List;
 
 public class PdpPgmTests {
 
-    public static final String CHURCH_PATH = "/Users/abhishek/NEU/spring-17/PDP/pdp-abhishekmulay-nbreuer/set10/church" +
-            ".ps11";
-    public static final String VECTORS_PATH =
-            "/Users/abhishek/NEU/spring-17/PDP/pdp-abhishekmulay-nbreuer/set10/vectors.ps11";
-    public static final String SIEVE_PATH = "/Users/abhishek/NEU/spring-17/PDP/pdp-abhishekmulay-nbreuer/set10/sieve.ps11";
-    public static final String BST_PATH = "/Users/abhishek/NEU/spring-17/PDP/pdp-abhishekmulay-nbreuer/set10/bst.ps11";
+	//relative paths. If absolute path is required for testing update 
+	//these to: <folder of test ps11 files>/<existing file>"
+    public static final String CHURCH_PATH = "church.ps11";
+    public static final String VECTORS_PATH = "vectors.ps11";
+    public static final String SIEVE_PATH = "sieve.ps11";
+    public static final String BST_PATH = "bst.ps11";
 
     public static Exp constant(boolean b) {
         return Asts.constantExp(Asts.expVal(b));
