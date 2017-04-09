@@ -81,11 +81,6 @@ public class Programs {
     //     g (z, y) if 3 > 4 then x else f
 
     public static Set<String> undefined(String filename) {
-        return getAllUndefined(filename);
-    }
-    //-----------------------------------------------------------------------------------------------------------
-
-    private static Set<String> getAllUndefined(String filename) {
         String pgm = Scanner.readPgm(filename);
         List<Def> defs = Scanner.parsePgm(pgm);
         HashSet<String> variables = new HashSet<>();
@@ -105,6 +100,14 @@ public class Programs {
     }
     //-----------------------------------------------------------------------------------------------------------
 
+    // Given: An Exp and a set of variable names
+    // Returns: a set of free variables inside this expression.
+    // Example:
+    //    ExpValInteger expValInteger = new ExpValInteger(2);
+    //    ConstantExpImpl exp = new ConstantExpImpl(expValInteger);
+    //    HashSet<String> variables = new HashSet<>();
+    //    getUndefinedInExp(exp, variables) => []
+    //
     private static Set<String> getUndefinedInExp(Exp exp, Set<String> variables) {
         Set<String> undefinedVariables = new HashSet<>();
         //definedVariables are copied as we are in a new scope and need to be immutable
@@ -157,8 +160,7 @@ public class Programs {
     //////////////////////////////////////////////////////////////////////////
     //                             Set11  Question 1                       //
     ////////////////////////////////////////////////////////////////////////
-
-    //-----------------------------------------------------------------------------------------------------------
+    
     // Runs the ps11 program found in the file named on the command line
     // on the integer inputs that follow its name on the command line,
     // printing the result computed by the program.
