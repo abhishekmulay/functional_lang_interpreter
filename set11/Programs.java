@@ -14,19 +14,7 @@ import java.util.*;
 //Interpretation:
 //    This class is the entry point to start program execution.
 
-
-// program-all-defined:     Program->                       Boolean
-// lod-all-defined?:        ListOfDefinition SetOfVariable->Boolean
-// def-all-defined?:        Definition SetOfVariable->      Boolean
-// exp-all-defined?:        Exp SetOfVariable->             Boolean
-
-// (define-struct def (name args body))       definition
-// (define-struct varexp (name))              identifier
-// (define-struct appexp (fn args))           lambda
-
-
 public class Programs {
-
 
     // Given: pgm representing a number of definitions in a program, the first
     //        being the entryPoint, and inputs representing Expressions to be
@@ -73,10 +61,10 @@ public class Programs {
 
         return entryPoint.asLambda().body().value(env);
     }
-
+    //-----------------------------------------------------------------------------------------------------------
 
     //////////////////////////////////////////////////////////////////////////
-    //                             Added for Set11                         //
+    //                             Set11  Question 2                       //
     ////////////////////////////////////////////////////////////////////////
 
     // Reads the ps11 program found in the file named by the given string
@@ -93,84 +81,84 @@ public class Programs {
     //     g (z, y) if 3 > 4 then x else f
 
     public static Set<String> undefined(String filename) {
-        //System.out.println("[undefined] reading file: "+ filename);
-        Set<String> undefinedVars = programAllUndefined(filename);
-        System.out.println("undefinedVars: "+ undefinedVars);
-        return undefinedVars;
+        return getAllUndefined(filename);
     }
+    //-----------------------------------------------------------------------------------------------------------
 
-    private static Set<String> programAllUndefined(String filename) {
+    private static Set<String> getAllUndefined(String filename) {
         String pgm = Scanner.readPgm(filename);
         List<Def> defs = Scanner.parsePgm(pgm);
-        HashSet<String> globalVariables = new HashSet<>();
+        HashSet<String> variables = new HashSet<>();
         HashSet<String> undefinedVariables = new HashSet<>();
-        
+
         //build global variable definitions
-        for (Def definition: defs) {
-            globalVariables.add(definition.lhs());
+        for (Def definition : defs) {
+            variables.add(definition.lhs());
         }
-        
+
         //evaluate individual definition variables
-        for (Def definition: defs) {
-            undefinedVariables.addAll(
-            		expAllUndefined(definition.rhs(), globalVariables, 0));
+        for (Def definition : defs) {
+            undefinedVariables.addAll(getUndefinedInExp(definition.rhs(), variables));
         }
-        
+
         return undefinedVariables;
     }
+    //-----------------------------------------------------------------------------------------------------------
 
-    private static Set<String> expAllUndefined(Exp exp, Set<String> variables, int level) {
-    	Set<String> undefinedVariables = new HashSet<>();
-    	//definedVariables are copied as we are in a new scope and need to be immutable
-    	Set<String> definedVariables = new HashSet<>(variables);
+    private static Set<String> getUndefinedInExp(Exp exp, Set<String> variables) {
+        Set<String> undefinedVariables = new HashSet<>();
+        //definedVariables are copied as we are in a new scope and need to be immutable
+        Set<String> definedVariables = new HashSet<>(variables);
         Set<String> encounteredVariables = new HashSet<>();
-        
+
         if (exp.isLambda()) {
             List<String> formals = exp.asLambda().formals();
             //lambda only adds to env
             definedVariables.addAll(formals);
             //recurse on the body of the lambda
-            undefinedVariables.addAll(expAllUndefined(exp.asLambda().body(), definedVariables, level + 1));
+            undefinedVariables.addAll(getUndefinedInExp(exp.asLambda().body(), definedVariables));
 
         } else if (exp.isIdentifier()) {
-        	//identifier represents an encountered variable
-        	encounteredVariables.add(exp.asIdentifier().name());
+            //identifier represents an encountered variable
+            encounteredVariables.add(exp.asIdentifier().name());
+
         } else if (exp.isConstant()) {
-        	//env has no effect on Constants
+            //env has no effect on Constants
+
         } else if (exp.isCall()) {
-        	//recurse on the operator
-            undefinedVariables.addAll(expAllUndefined(exp.asCall().operator(), definedVariables, level + 1));
+            //recurse on the operator
+            undefinedVariables.addAll(getUndefinedInExp(exp.asCall().operator(), definedVariables));
 
             //recurse on each argument
             for (Exp argument : exp.asCall().arguments()) {
-            	undefinedVariables.addAll(expAllUndefined(argument, definedVariables, level + 1));
+                undefinedVariables.addAll(getUndefinedInExp(argument, definedVariables));
             }
 
         } else if (exp.isArithmetic()) {
-        	//recurse on left and right side of exp
-            undefinedVariables.addAll(expAllUndefined(exp.asArithmetic().leftOperand(), definedVariables, level +1));
-            undefinedVariables.addAll(expAllUndefined(exp.asArithmetic().rightOperand(), definedVariables, level +1));
+            //recurse on left and right side of exp
+            undefinedVariables.addAll(getUndefinedInExp(exp.asArithmetic().leftOperand(), definedVariables));
+            undefinedVariables.addAll(getUndefinedInExp(exp.asArithmetic().rightOperand(), definedVariables));
 
         } else if (exp.isIf()) {
-        	//recurse on test, then, and else of exp
-        	undefinedVariables.addAll(expAllUndefined(exp.asIf().testPart(), definedVariables, level + 1));
-            undefinedVariables.addAll(expAllUndefined(exp.asIf().thenPart(), definedVariables, level + 1));
-            undefinedVariables.addAll(expAllUndefined(exp.asIf().elsePart(), definedVariables, level + 1));
+            //recurse on test, then, and else of exp
+            undefinedVariables.addAll(getUndefinedInExp(exp.asIf().testPart(), definedVariables));
+            undefinedVariables.addAll(getUndefinedInExp(exp.asIf().thenPart(), definedVariables));
+            undefinedVariables.addAll(getUndefinedInExp(exp.asIf().elsePart(), definedVariables));
         }
 
-        System.out.print("defined: " + definedVariables);
-        System.out.println("used: " + encounteredVariables);
-        
         // remove all elements that are valid
         encounteredVariables.removeAll(definedVariables);
-        
+
         undefinedVariables.addAll(encounteredVariables);
         return undefinedVariables;
     }
+    //-----------------------------------------------------------------------------------------------------------
 
+    //////////////////////////////////////////////////////////////////////////
+    //                             Set11  Question 1                       //
+    ////////////////////////////////////////////////////////////////////////
 
     //-----------------------------------------------------------------------------------------------------------
-    //Runs all tests
     // Runs the ps11 program found in the file named on the command line
     // on the integer inputs that follow its name on the command line,
     // printing the result computed by the program.
@@ -180,41 +168,44 @@ public class Programs {
     //     % java Programs sieve.ps11 2 100
     //     25
     public static void main(String[] args) {
+        if (args.length >= 2) {
+            String filename = args[0];
+            Object val = evaluateProgram(filename, args);
+            System.out.println(val);
+        } else {
+            System.out.println("Usage: java Programs <filename> <input> ...");
+        }
+    }
+    //-----------------------------------------------------------------------------------------------------------
 
-        final String CHURCH_PATH =
-                "church.ps11";
-        Programs.undefined (CHURCH_PATH);
+    // Runs the ps11 program found in the given filename
+    // on the integer inputs that follow its name in the args array.
+    // Example:
+    //         String filename = "sieve.ps11";
+    //         String args[] = new String[]{filename, "2", "100"};
+    //         Programs.evaluateProgram(filename, args) => 25
+    public static Object evaluateProgram(String filename, String[] args) {
+        String pgm = Scanner.readPgm(filename);
+        List<ExpVal> inputs = new ArrayList<ExpVal>();
+        for (int i = 1; i < args.length; i = i + 1) {
+            long input = Long.parseLong(args[i]);
+            inputs.add(Asts.expVal(input));
+        }
+        ExpVal result = Scanner.runPgm(pgm, inputs);
 
-        final String BAD_PATH = "bad.ps11";
-        Programs.undefined(BAD_PATH);
-//        if (args.length >= 2) {
-//            String filename = args[0];
-//            String pgm = Scanner.readPgm(filename);
-//            List<ExpVal> inputs = new ArrayList<ExpVal>();
-//            for (int i = 1; i < args.length; i = i + 1) {
-//                long input = Long.parseLong(args[i]);
-//                inputs.add(Asts.expVal(input));
-//            }
-//            ExpVal result = Scanner.runPgm(pgm, inputs);
-//
-//            Object val = null;
-//            if (result.isBoolean()) {
-//                val = result.asBoolean();
-//            } else if (result.isInteger()) {
-//                val = result.asInteger();
-//
-//            } else if (result.isFunction()) {
-//                val = result.asFunction();
-//            }
-//            System.out.println(val);
-//
-//        } else {
-//            System.out.println(usageMsg);
-//        }
+        Object val = null;
+        if (result.isBoolean()) {
+            val = result.asBoolean();
+
+        } else if (result.isInteger()) {
+            val = result.asInteger();
+
+        } else if (result.isFunction()) {
+            val = result.asFunction();
+        }
+        return val;
     }
 
-
-    public static final String usageMsg = "Usage: java Programs <filename> <input> ...";
     //-----------------------------------------------------------------------------------------------------------
 
 }

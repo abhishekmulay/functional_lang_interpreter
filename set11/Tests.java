@@ -12,8 +12,6 @@ import java.util.*;
 
 public class Tests {
 
-
-
     public static Exp constant(long n) {
         return Asts.constantExp(Asts.expVal(n));
     }
@@ -83,18 +81,6 @@ public class Tests {
     }
 
     //-----------------------------------------------------------------------------------------------------------
-    //Def tests (also coverage for Calls/Identifier)
-    public static void testDef() {
-        Def main = Asts.def("main", Asts.arithmeticExp(Asts.identifierExp("a"),
-                ArithmeticExpImpl.PLUS, Asts.identifierExp("b")));
-        Def defa = Asts.def("a", Asts.constantExp(Asts.expVal(1)));
-        Def defb = Asts.def("b", Asts.constantExp(Asts.expVal(2)));
-        ExpVal result = Programs.run(Asts.list(main, defa, defb), Asts.list(Asts.expVal(2)));
-        assert result.asInteger() == 3;
-        System.out.println("All Def operations tests passed.");
-    }
-
-    //-----------------------------------------------------------------------------------------------------------
     //Program tests (also coverage for Calls/Lambda/Identifier)
     public static void testProgram() {
         Exp exp1 = Asts.arithmeticExp(Asts.identifierExp("n"), ArithmeticExpImpl.MINUS,
@@ -113,13 +99,37 @@ public class Tests {
         System.out.println("All Program operation tests passed.");
     }
     //-----------------------------------------------------------------------------------------------------------
+    // test undefined variables
+    public static void testUndefined() {
+        Set<String> emptySet = new HashSet<>();
+        Set<String> undefinedInBad = new HashSet<>();
+        undefinedInBad.add("x");
+        undefinedInBad.add("z");
 
+        assert Programs.undefined ("church.ps11").equals(emptySet) : "Church has no undefined variables.";
+        assert Programs.undefined ("sieve.ps11").equals(emptySet) : "Church has no undefined variables.";
+        assert Programs.undefined ("vectors.ps11").equals(emptySet) : "Church has no undefined variables.";
+        assert Programs.undefined ("bad.ps11").equals(undefinedInBad) : "x and z should be undefined in bad.ps11";
+        System.out.println("All undefined() tests passed.");
+    }
+    //-----------------------------------------------------------------------------------------------------------
+    // test set11 q1
+    public static void testProgramMain() {
+        String filename = "sieve.ps11";
+        String args[] = new String[]{filename, "2", "100"};
 
+        assert (Long)Programs.evaluateProgram(filename, args) == 25 : "should evaluate to 25";
+        System.out.println("All Programs.main() tests passed.");
+    }
+
+    //-----------------------------------------------------------------------------------------------------------
+    // initiate tests
     public static void main(String[] args) {
         Tests.testArithmeticOperations();
         Tests.testIfOperations();
         Tests.testProgram();
-//        Tests.testDef();
+        Tests.testUndefined();
+        Tests.testProgramMain();
 
         // correctness tests for set 10
         PdpExpTests.main(args);
@@ -127,4 +137,5 @@ public class Tests {
 
         System.out.println("\n\n[Tests] All application tests and correctness tests passed!");
     }
+    //-----------------------------------------------------------------------------------------------------------
 }
