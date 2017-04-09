@@ -79,8 +79,6 @@ public class Programs {
     //                             Added for Set11                         //
     ////////////////////////////////////////////////////////////////////////
 
-    private static Set<String> freeVariables = new HashSet<>();
-    private static int MAXDEPTH = 100;
     // Reads the ps11 program found in the file named by the given string
     // and returns the set of all variable names that occur free within
     // the program.
@@ -95,98 +93,79 @@ public class Programs {
     //     g (z, y) if 3 > 4 then x else f
 
     public static Set<String> undefined(String filename) {
-        System.out.println("[undefined] reading file: "+ filename);
-        Set<String> undefinedVars = programAllDefined(filename);
+        //System.out.println("[undefined] reading file: "+ filename);
+        Set<String> undefinedVars = programAllUndefined(filename);
         System.out.println("undefinedVars: "+ undefinedVars);
         return undefinedVars;
     }
 
-    private static Set<String> programAllDefined(String filename) {
+    private static Set<String> programAllUndefined(String filename) {
         String pgm = Scanner.readPgm(filename);
         List<Def> defs = Scanner.parsePgm(pgm);
-
-
-
-        HashSet<String> empty = new HashSet<>();
-        findFreeVariables(defs, empty);
-        return lodAllDefined(defs, empty);
-    }
-
-    private static void findFreeVariables(List<Def> defs, HashSet<String> variables) {
+        HashSet<String> globalVariables = new HashSet<>();
+        HashSet<String> undefinedVariables = new HashSet<>();
+        
+        //build global variable definitions
         for (Def definition: defs) {
-            variables.add(definition.lhs());
-            expAllDefined(definition.rhs(), variables, 0);
-        }
-    }
-
-    private static Set<String> lodAllDefined(List<Def> defs, HashSet<String> variables) {
-        if (defs.size() == 0) {
-            return freeVariables;
-        } else {
-            // take first
-            Def firstDef = defs.get(0);
-            // make rest
-            defs.remove(0);
-            variables.add(firstDef.lhs());
-            Set<String> strings = defAllDefined(firstDef, variables);
-            Set<String> stringSet = lodAllDefined(defs, variables);
-            stringSet.addAll(strings);
-            return stringSet;
-        }
-    }
-
-    private static Set<String> defAllDefined(Def singleDef, HashSet<String> variables) {
-        List<String> formals = new ArrayList<>();
-//        if (singleDef.rhs().isLambda()) {
-//            formals = singleDef.asExp().asLambda().formals();
-//            variables.addAll(formals);
-//        }
-        // variables.add(singleDef.rhs().asConstant().value(null));
-        // is it already present in variables?
-        return expAllDefined(singleDef.rhs(), variables, 0);
-    }
-
-    private static Set<String> expAllDefined(Exp exp, HashSet<String> variables, int level) {
-    	HashSet<String> currentVariables = new HashSet<String>(variables);
-        Set<String> encounteredVariables = new HashSet<>();
-        //we have expanded expressions MAXDEPTH times, there is most likely an infinite loop
-        if (level > MAXDEPTH){
-        	return new HashSet<String>();
+            globalVariables.add(definition.lhs());
         }
         
+        //evaluate individual definition variables
+        for (Def definition: defs) {
+            undefinedVariables.addAll(
+            		expAllUndefined(definition.rhs(), globalVariables, 0));
+        }
+        
+        return undefinedVariables;
+    }
+
+    private static Set<String> expAllUndefined(Exp exp, Set<String> variables, int level) {
+    	Set<String> undefinedVariables = new HashSet<>();
+    	//definedVariables are copied as we are in a new scope and need to be immutable
+    	Set<String> definedVariables = new HashSet<>(variables);
+        Set<String> encounteredVariables = new HashSet<>();
+        
         if (exp.isLambda()) {
-        	currentVariables.addAll(expAllDefined(exp.asLambda().body(), currentVariables, level + 1));
             List<String> formals = exp.asLambda().formals();
-            currentVariables.addAll(formals);
+            //lambda only adds to env
+            definedVariables.addAll(formals);
+            //recurse on the body of the lambda
+            undefinedVariables.addAll(expAllUndefined(exp.asLambda().body(), definedVariables, level + 1));
 
         } else if (exp.isIdentifier()) {
-        	currentVariables.add(exp.asIdentifier().name());
-
+        	//identifier represents an encountered variable
+        	encounteredVariables.add(exp.asIdentifier().name());
         } else if (exp.isConstant()) {
-            encounteredVariables.addAll(expAllDefined(exp.asConstant(), currentVariables, level + 1));
-
+        	//env has no effect on Constants
         } else if (exp.isCall()) {
-            expAllDefined(exp.asCall().operator(), currentVariables, level + 1);
+        	//recurse on the operator
+            undefinedVariables.addAll(expAllUndefined(exp.asCall().operator(), definedVariables, level + 1));
 
+            //recurse on each argument
             for (Exp argument : exp.asCall().arguments()) {
-                encounteredVariables.addAll(expAllDefined(argument, currentVariables, level + 1));
+            	undefinedVariables.addAll(expAllUndefined(argument, definedVariables, level + 1));
             }
 
         } else if (exp.isArithmetic()) {
-            freeVariables.addAll(expAllDefined(exp.asArithmetic().leftOperand(), currentVariables, level + 1));
+        	//recurse on left and right side of exp
+            undefinedVariables.addAll(expAllUndefined(exp.asArithmetic().leftOperand(), definedVariables, level +1));
+            undefinedVariables.addAll(expAllUndefined(exp.asArithmetic().rightOperand(), definedVariables, level +1));
 
         } else if (exp.isIf()) {
-            encounteredVariables.addAll(expAllDefined(exp.asIf().testPart(), currentVariables, level + 1));
-            encounteredVariables.addAll(expAllDefined(exp.asIf().thenPart(), currentVariables, level + 1));
-            encounteredVariables.addAll(expAllDefined(exp.asIf().elsePart(), currentVariables, level + 1));
+        	//recurse on test, then, and else of exp
+        	undefinedVariables.addAll(expAllUndefined(exp.asIf().testPart(), definedVariables, level + 1));
+            undefinedVariables.addAll(expAllUndefined(exp.asIf().thenPart(), definedVariables, level + 1));
+            undefinedVariables.addAll(expAllUndefined(exp.asIf().elsePart(), definedVariables, level + 1));
         }
 
+        System.out.print("defined: " + definedVariables);
+        System.out.println("used: " + encounteredVariables);
+        
         // remove all elements that are valid
-        currentVariables.removeAll(encounteredVariables);
-
-        // this now contains undefined variables.
-        freeVariables.addAll(currentVariables);
-        return freeVariables;
+        encounteredVariables.removeAll(definedVariables);
+        
+        undefinedVariables.addAll(encounteredVariables);
+        return undefinedVariables;
     }
 
 
@@ -204,7 +183,7 @@ public class Programs {
 
         final String CHURCH_PATH =
                 "church.ps11";
-//        Programs.undefined (CHURCH_PATH);
+        Programs.undefined (CHURCH_PATH);
 
         final String BAD_PATH = "bad.ps11";
         Programs.undefined(BAD_PATH);
