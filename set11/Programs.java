@@ -72,8 +72,8 @@ public class Programs {
     //                             Set11  Question 2                       //
     ////////////////////////////////////////////////////////////////////////
 
-    // Reads the ps11 program found in the file named by the given string
-    // and returns the set of all variable names that occur free within
+    // Given: a filename of a ps11 program 
+    // Returns: the set of all variable names that occur free within
     // the program.
     //
     // Examples:
