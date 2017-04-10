@@ -53,7 +53,8 @@ public class PdpTestSuite {
             }
         }
         executor.shutdownNow();
-        System.out.format("%d success(es) %d failure(s) %d error(s) %d test(s) run",
+        System.out.println("____________________________________________________________");
+        System.out.format("\n%d success(es) %d failure(s) %d error(s) %d test(s) run",
                 passes, failures, errors, testCases.size());
     }
 

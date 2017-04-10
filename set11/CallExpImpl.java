@@ -70,12 +70,11 @@ public class CallExpImpl extends BaseExp implements CallExp {
 
             // Number of arguments required by function and actual number of arguments does not match.
             if(formals.size() != this.arguments.size()) {
-                throw new RuntimeException("Formals size does not match with size of arguments.");
+                throw new RuntimeException("Number of formals does not match with number of arguments.");
             }
 
             // create new runtime environment
             Map<String, ExpVal> envCopy = new HashMap<>();
-            envCopy.putAll(env);
             envCopy.putAll(funVal.environment());
 
             // add all arguments to environment

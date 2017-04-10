@@ -19,47 +19,52 @@ public class Programs {
     // Given: pgm representing a number of definitions in a program, the first
     //        being the entryPoint, and inputs representing Expressions to be
     //        passed into the first definition's right hand side
-    // Returns: the final ExpressionVal of the program evaluated in
-    //          terms of the definitions
+    // Where: The first definition in defs list is a LambdaExp.
+    // Returns: the final ExpressionVal of the program evaluated in terms of the definitions
     // Strategy: Combine simpler functions
     public static ExpVal run(List<Def> pgm, List<ExpVal> inputs) {
         Map<String, ExpVal> env = new HashMap<>();
 
         Exp entryPoint = pgm.get(0).rhs();
-        if (entryPoint.isConstant()) {
-            return entryPoint.value(env);
-        }
-
         if (entryPoint.isLambda()) {
-            return handleLambda(pgm, entryPoint, env, inputs);
+            // number of inputs passed to run should be equal to arguments required by entry point lambda expression
+            if (entryPoint.asLambda().formals().size() == inputs.size()) {
+                return handleLambda(pgm, entryPoint, env, inputs);
+            }
         }
 
+        // if it gets here then entryPoint is not a valid input to run.
         throw new RuntimeException("Invalid parameters passed to run. pgm:" + pgm + " inputs:" + inputs);
     }
     //-----------------------------------------------------------------------------------------------------------
 
     // Given: pgm representing a number of definitions in a program, first
-    //        entryPoint definition which is a LambdaExp, runtime environment env, and inputs representing Expressions
+    //        entryPoint definition which is a LambdaExp, runtime environment env, and inputs representing expressions
     //        to be passed into the first definition's right hand side.
-    // Returns: the final ExpressionVal of the program evaluated in
-    //          terms of the definitions
+    // Returns: the final ExpressionVal of the program evaluated in terms of the definitions
     public static ExpVal handleLambda(List<Def> pgm, Exp entryPoint, Map<String, ExpVal> env, List<ExpVal> inputs) {
 
         for (int index = 0; index < pgm.size(); index++) {
+            String lhs = pgm.get(index).lhs();
+            Exp rhs = pgm.get(index).rhs();
+
             if (pgm.get(index).rhs().isLambda()) {
-                FunVal funVal = Asts.expVal(pgm.get(index).rhs().asLambda(), env);
-                env.put(pgm.get(index).lhs(), funVal);
+                FunVal funVal = Asts.expVal(rhs.asLambda(), env);
+                env.put(lhs, funVal);
+
             } else {
-                env.put(pgm.get(index).lhs(), pgm.get(index).rhs().value(env));
+                env.put(lhs, rhs.value(env));
             }
         }
 
+        Map<String, ExpVal> newEnv = new HashMap<>();
+        newEnv.putAll(env);
         List<String> formals = entryPoint.asLambda().formals();
         for (int index = 0; index < formals.size(); index++) {
-            env.put(formals.get(index), inputs.get(index));
+            newEnv.put(formals.get(index), inputs.get(index));
         }
 
-        return entryPoint.asLambda().body().value(env);
+        return entryPoint.asLambda().body().value(newEnv);
     }
     //-----------------------------------------------------------------------------------------------------------
 
@@ -79,7 +84,7 @@ public class Programs {
     //
     //     f (x, y) g (x, y) (y, z);
     //     g (z, y) if 3 > 4 then x else f
-
+    //
     public static Set<String> undefined(String filename) {
         String pgm = Scanner.readPgm(filename);
         List<Def> defs = Scanner.parsePgm(pgm);
@@ -160,7 +165,7 @@ public class Programs {
     //////////////////////////////////////////////////////////////////////////
     //                             Set11  Question 1                       //
     ////////////////////////////////////////////////////////////////////////
-    
+
     // Runs the ps11 program found in the file named on the command line
     // on the integer inputs that follow its name on the command line,
     // printing the result computed by the program.
@@ -186,13 +191,16 @@ public class Programs {
     //         String filename = "sieve.ps11";
     //         String args[] = new String[]{filename, "2", "100"};
     //         Programs.evaluateProgram(filename, args) => 25
+    //
     public static Object evaluateProgram(String filename, String[] args) {
+        // read the file into a string
         String pgm = Scanner.readPgm(filename);
         List<ExpVal> inputs = new ArrayList<ExpVal>();
         for (int i = 1; i < args.length; i = i + 1) {
             long input = Long.parseLong(args[i]);
             inputs.add(Asts.expVal(input));
         }
+        // Use parser to evaluate this program
         ExpVal result = Scanner.runPgm(pgm, inputs);
 
         Object val = null;
@@ -207,7 +215,6 @@ public class Programs {
         }
         return val;
     }
-
     //-----------------------------------------------------------------------------------------------------------
 
 }

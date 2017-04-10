@@ -69,10 +69,7 @@ public class LambdaExpImpl extends BaseExp implements LambdaExp {
     // return value of this lambda expression.
     @Override
     public String toString() {
-        return "LambdaExpImpl{" +
-                "formals=" + formals +
-                ", body=" + body +
-                '}';
+        return "LambdaExpImpl{ formals=" + formals + ", body=" + body + '}';
     }
     //----------------------------------------------------------------------------------
 }
