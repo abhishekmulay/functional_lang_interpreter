@@ -21,7 +21,6 @@ public class Programs {
     //        passed into the first definition's right hand side
     // Where: The first definition in defs list is a LambdaExp.
     // Returns: the final ExpressionVal of the program evaluated in terms of the definitions
-    // Strategy: Combine simpler functions
     public static ExpVal run(List<Def> pgm, List<ExpVal> inputs) {
         Map<String, ExpVal> env = new HashMap<>();
 
@@ -57,6 +56,7 @@ public class Programs {
             }
         }
 
+        // create new runtime environment.
         Map<String, ExpVal> newEnv = new HashMap<>();
         newEnv.putAll(env);
         List<String> formals = entryPoint.asLambda().formals();
@@ -98,7 +98,13 @@ public class Programs {
 
         //evaluate individual definition variables
         for (Def definition : defs) {
-            undefinedVariables.addAll(getUndefinedInExp(definition.rhs(), variables));
+            Exp rhs = definition.rhs();
+            if (rhs.isLambda() || rhs.isConstant()) {
+                undefinedVariables.addAll(getUndefinedInExp(rhs, variables));
+            } else {
+                throw new IllegalArgumentException("Illegal expression as rhs of definition. Expected a LambdaExp or " +
+                        "ConstantExp.");
+            }
         }
 
         return undefinedVariables;
@@ -113,6 +119,7 @@ public class Programs {
     //    HashSet<String> variables = new HashSet<>();
     //    getUndefinedInExp(exp, variables) => []
     //
+    // Halting measure: length of (defs + number of expressions inside each individual def)
     private static Set<String> getUndefinedInExp(Exp exp, Set<String> variables) {
         Set<String> undefinedVariables = new HashSet<>();
         //definedVariables are copied as we are in a new scope and need to be immutable
@@ -180,7 +187,8 @@ public class Programs {
             Object val = evaluateProgram(filename, args);
             System.out.println(val);
         } else {
-            System.out.println("Usage: java Programs <filename> <input> ...");
+            throw new IllegalArgumentException("No or invalid arguments passed. " +
+                    "\nUsage: java Programs <filename> <input> ...");
         }
     }
     //-----------------------------------------------------------------------------------------------------------
