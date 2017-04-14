@@ -1,0 +1,74 @@
+TA-1 Name:- Wenjun
+TA-2 Name:- Sankar
+
+
+Student1 CCIS ID:- abhishekmulay
+
+Question 1:
+
+Design Grade:- A
+TA Comments on Design:-
+
+> Had changed the errors in the value functions and the errors in run function.
+> had included the size checking conditions in all places.
+
+> well documented.
+> had made the evaluateProgram return a lambda function. Was able to give satisfactory explanation why its included.
+> but havent tested it.
+
+
+Student1:- abhishekmulay
+Presentation Grade:- A
+TA Comments on Presentation:-
+> Good understanding of the problem set and submission.
+
+Question 2:
+
+Design Grade:- A
+TA Comments on Design:-
+> Had included one line explanation for different part of the program.
+> Kept a copy of the environment in the function undefined.
+> Both student was able to walk through the code properly.
+
+
+Student1:- abhishekmulay
+Presentation Grade:- A
+TA Comments on Presentation:-
+> Good understanding of the problem set and submission.
+
+
+
+Student2 CCIS ID:- nbreuer
+
+Question 1:
+
+Design Grade:- A
+TA Comments on Design:-
+
+> Had changed the errors in the value functions and the errors in run function.
+> had included the size checking conditions in all places.
+
+> well documented.
+> had made the evaluateProgram return a lambda function. Was able to give satisfactory explanation why its included.
+> but havent tested it.
+
+
+Student2:- nbreuer
+Presentation Grade:- A
+TA Comments on Presentation:-
+> Good understanding of the problem set and submission.
+
+Question 2:
+
+Design Grade:- A
+TA Comments on Design:-
+> Had included one line explanation for different part of the program.
+> Kept a copy of the environment in the function undefined.
+> Both student was able to walk through the code properly.
+
+
+Student2:- nbreuer
+Presentation Grade:- A
+TA Comments on Presentation:-
+> was able to identify the free variable in the example given.
+> Good understanding of the problem set and submission.
