@@ -12,7 +12,5 @@ Running test: tail... PASS
 Running test: bad1... PASS
 Running test: bad2... PASS
 Running test: bad3... PASS
-Running test: bad4... FAIL
-  actual:   [i, z]
-  expected: [z]
-14 success(es) 1 failure(s) 0 error(s) 15 test(s) run
+Running test: bad4... PASS
+15 success(es) 0 failure(s) 0 error(s) 15 test(s) run
