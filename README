@@ -11,7 +11,8 @@ Files:
 
 #### The concrete syntax is:
 
-```<pgm>     ::=  <defn>
+```
+<pgm>     ::=  <defn>
               ::=  <defn> ; <pgm>
     <defn>    ::=  <id> = <const>
               ::=  <id> (<formals>) <expr>
@@ -42,5 +43,4 @@ Files:
         digit digit*
     
         letter (letter | digit)*
-
 ```
