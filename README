@@ -11,7 +11,7 @@ Files:
 
 #### The concrete syntax is:
 
-```
+```racket
 <pgm>     ::=  <defn>
               ::=  <defn> ; <pgm>
     <defn>    ::=  <id> = <const>
